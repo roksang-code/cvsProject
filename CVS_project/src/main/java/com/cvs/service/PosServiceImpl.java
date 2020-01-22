@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.cvs.mapper.PosMapper;
 import com.cvs.model.Auto_incrementVO;
 import com.cvs.model.Md_infoVO;
+import com.cvs.model.Member_infoVO;
 import com.cvs.model.Pos_boardVO;
 
 
@@ -54,6 +55,13 @@ public class PosServiceImpl implements PosService{
 		return DetailPaymentList;
 		
 
+	}
+
+	@Override
+	public void posMemberjoin(Member_infoVO mivo)throws Exception  {
+		System.out.println("service");
+	 	pm.posMemberjoin(mivo);
+		
 	}
 
 }

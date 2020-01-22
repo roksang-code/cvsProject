@@ -1,6 +1,4 @@
-$(document).ready(
-		function() {
-//a
+$(document).ready(function() {
 			
 			$("#paymentdate").val(
 					$.datepicker.formatDate('yy-mm-dd', new Date()));
@@ -60,7 +58,7 @@ $(document).ready(
 			
 				
 				
-				}); 
+				});//매출 확인 날짜 선택 
 				
 				
 				$(".mainlisttable tr").on("click",function() {

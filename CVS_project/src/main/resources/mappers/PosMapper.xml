@@ -5,7 +5,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cvs.mapper.PosMapper">
 
-	<!-- -->
+	<!-- 회원가입 -->
+	<insert id="posMemberjoin">
+			 insert into  member_info(member_name , id, pw, email,gender,age )
+			   values(#{member_name}, #{id}, #{pw}, #{email}, #{gender}, #{age} )
+		 
+	</insert>
+	
 	<!-- 상품 바코드 등록 -->
 	<select id="inputMdlist" resultType="com.cvs.model.Md_infoVO">
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cvs.model.Auto_incrementVO;
 import com.cvs.model.Md_infoVO;
+import com.cvs.model.Member_infoVO;
 import com.cvs.model.Pos_boardVO;
 
 @Repository
@@ -52,6 +53,13 @@ public class PosMapperImpl implements PosMapper {
 		List<Pos_boardVO> DetailPaymentList = session.selectList(namespace + ".DetailPaymentList",list_no);
 
 		return DetailPaymentList;
+	}
+
+	@Override
+	public void posMemberjoin(Member_infoVO mivo) throws Exception {
+		 System.out.println("mapper");
+		 session.insert(namespace + ".posMemberjoin", mivo);
+		
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cvs.model.Auto_incrementVO;
 import com.cvs.model.Md_infoVO;
+import com.cvs.model.Member_infoVO;
 import com.cvs.model.Pos_boardVO;
 
 public interface PosMapper {
@@ -17,6 +18,8 @@ public interface PosMapper {
 	public List<Pos_boardVO> PaymentList(String sale_date) throws Exception;
 	
 	public List<Pos_boardVO> DetailPaymentList(int list_no) throws Exception;
+
+	public void posMemberjoin(Member_infoVO mivo)throws Exception ;
 
 
 }

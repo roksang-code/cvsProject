@@ -3,16 +3,21 @@ $(document).ready(function() {
 
 	
 	
-	var cnt=1;
-	var ea=1;
-	var sale=0;
-	var list = Array();
-	var bar =0;
-	var price=0;
-	var ead=0;
-	var totalpr = 0;
-	 var classname ="";
-	 var eaid = "";
+	var cnt=1;				//리스트 등록 카운트
+	var ea=1;				//첫 등록제품 수
+	var sale=0;				//할인
+	var bar =0;				//바코드번호 초기화
+	var price=0;			//가격 초기화
+	var ead=0;				//같은 상품 1개 증가
+	var totalpr = 0; 		//가격 *수량
+	var classname ="";
+	
+	var eaid = "";			//수량 id
+	var tpid = "";			//합계 id
+	var eav = "";			//수량 값
+	var tpv ="";			//합계 값
+	
+	
 	$("#md_update").on("click", function() {
 		
 		var barcode_no = $("#barcode_no").val();
@@ -43,14 +48,14 @@ $(document).ready(function() {
 
 						}else{
 						
-							str += "<tr class='no"+cnt+"'>";
-							str +=		"<td> "+cnt+"</td>";
+							str += "<tr id='no"+cnt+"'>";
+							str +=		"<td id=cnt"+cnt+" class = cnt> "+cnt+"</td>";
 							str +=		"<td> <a id=bar"+cnt+" class="+this.barcode_no+">"+this.barcode_no+"</a></td>";
 							str +=		"<td> <a class="+this.md_name+">"+this.md_name+"</a></td>";
 							str +=		"<td> <a class="+this.barcode_no+"pr>"+this.price+"</a></td>";
-							str +=		"<td class=md_ea> <a id=ea"+cnt+" class="+this.barcode_no+"ea>"+ea+"</a></td>";
+							str +=		"<td class=md_ea id=tdea"+cnt+"> <a id=ea"+cnt+" class="+this.barcode_no+"ea>"+ea+"</a></td>";
 							str +=		"<td> <a class="+sale+">"+sale+"</a></td>";
-							str +=		"<td> <a class="+this.barcode_no+"total>"+(this.price)*ea+"</a></td>";
+							str +=		"<td  id=ea"+cnt+"xPrice> <a class="+this.barcode_no+"total>"+(this.price)*ea+"</a></td>";
 							str +=	"</tr>";
 							
 							
@@ -107,11 +112,23 @@ $(document).ready(function() {
 	
 
 	
-	 $(document).on("click", ".listtable tr td a", function(){
-		eaid =  $(this).attr("id");
-		console.log(eaid);	
-
-								idname = "";
+	 $(document).on("click", ".listtable tr", function(){
+	
+		eaid =  $(".md_ea a").attr("id");
+		trid =  $(this).attr("id");
+		trlength = parseInt($(".listtable tr").length);
+		
+		
+		
+		tpid = $("#"+eaid+"xPrice").attr("id");
+	 	eav = parseInt($("#"+eaid).text());
+	 	tpv = parseInt($("#"+tpid).text());
+	 	pr = tpv/eav;
+		console.log(eaid);
+		console.log(eav);
+		
+	 	
+		idname = "";
 		$(".numkey tr td").on("click",function(){
 
 			 var inputKey = "";
@@ -126,21 +143,54 @@ $(document).ready(function() {
 						
 
 					 	$("#"+eaid).text(inputKey);
-						
+					 	$("#"+tpid).text(inputKey*pr);
 					 });
 				}
 		
 		});//수량변경
+		$(".eaplus").off("click").on("click",function(){
+			
+		 	eav = parseInt($("#"+eaid).text());
+			$("#"+eaid).text(eav+1);
+		 	
+			$("#"+tpid).text((eav+1)*pr);
+			 
+		});//수량 증가 버튼
+		$(".deletemd").off("click").on("click",function(){
+
+			startnum = parseInt($("#"+trid).text())
+			
+			$("#"+trid).remove();
+			
+			alert(startnum);
+			for(i=startnum; i<cnt;i++){
+					$("#cnt"+i).text(parseInt($("#cnt"+i).text())-1);
+					
+					$("#cnt"+i).attr("id","cnt"+(i-1)); 
+					$("#no"+i).attr("id","no"+(i-1)); 
+					$("#bar"+i).attr("id","bar"+(i-1)); 
+					$("#ea"+i).attr("id","ea"+(i-1)); 
+					$("#tdea"+i).attr("id","tdea"+(i-1)); 
+					$("#ea"+i+"xPrice").attr("id","ea"+(i-1)+"xPrice"); 
+
 		
+			}
+			cnt--;
+
+			 
+		});//삭제 버튼
 		
-		
-		
-		
+			
 		
 		
 		
 	});// 리스트상품 선택 함수
 	
+	
+				
+	 
+	 
+	 
 	$(".paymentList").on("click",function(){
 			var now = new Date();
 			var year = now.getFullYear();

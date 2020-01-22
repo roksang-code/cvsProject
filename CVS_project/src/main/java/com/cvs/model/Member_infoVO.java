@@ -6,7 +6,26 @@ public class Member_infoVO {
 	private String id;
 	private String pw;
  	private String email;
+ 	private String gender;
+ 	private String age;
  	private String join_date;
+ 	
+ 	
+ 	
+ 	
+
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getAge() {
+		return age;
+	}
+	public void setAge(String age) {
+		this.age = age;
+	}
 	public int getMember_no() {
 		return member_no;
 	}
@@ -45,4 +64,9 @@ public class Member_infoVO {
 	}
  	
  	
+	@Override
+	public String toString() {
+		return "Member_infoVO [member_no=" + member_no + ", member_name=" + member_name + ", id=" + id + ", pw=" + pw
+				+ ", email=" + email + ", gender=" + gender + ", age=" + age + ", join_date=" + join_date + "]";
+	}
 }
