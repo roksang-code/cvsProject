@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cvs.mapper.PosMapper">
+
+	<!-- -->
+	<!-- 상품 바코드 등록 -->
+	<select id="inputMdlist" resultType="com.cvs.model.Md_infoVO">
+
+		select barcode_no,md_name,
+		price from
+		md_info join md_price on md_info.md_no = md_price.md_no
+		where barcode_no=#{barcode_no};
+
+	</select>
+
+	<!-- 결제 -->
+	<insert id="Payment">
+ 		 	<![CDATA[
+ 		 insert into  pos_board( store_no, list_no , barcode_no, md_ea, sale_date,sale_time)
+			   values(		
+		
+			   (select count(*) as cnt from auto_increment_info 
+			   list_no where store_no = 1),
+			   
+		
+			   (select count(*) as cnt from auto_increment_info 
+			   list_no where list_no = 1),
+			   
+		
+			   #{barcode_no},#{md_ea}, sysdate(),curtime());
+                              
+ 			]]>
+	</insert>
+
+	<!-- Auto increment -->
+	<insert id="increment">
+ 	<![CDATA[
+		  insert into auto_increment_info(list_no,store_no,trade_no,member_no,emp_no)
+		  values(#{list_no},#{store_no},#{trade_no},#{member_no},#{emp_no});
+                              
+ 	]]>
+
+	</insert>
+
+	<!-- 판매 리스트 top -->
+	
+	<select id="PaymentList" resultType="com.cvs.model.Pos_boardVO">
+	<![CDATA[
+	SELECT pos_board.list_no, pos_board.barcode_no,md_name , md_ea, (price*md_ea) price,
+	list_md_ea  , total_price, sale_date, sale_time
+        
+		FROM md_info
+		JOIN md_price ON
+		md_info.md_no = md_price.md_no 
+		JOIN pos_board ON
+		md_info.barcode_no = pos_board.barcode_no
+        
+        join  (SELECT list_no, sum(price*md_ea) total_price, sum(md_ea) list_md_ea
+		FROM md_info
+		JOIN md_price ON 
+		md_info.md_no = md_price.md_no
+		JOIN pos_board ON
+		md_info.barcode_no = pos_board.barcode_no group by list_no) total on 
+        total.list_no = pos_board.list_no where sale_date=#{sale_date}
+        group by pos_board.list_no order by pos_board.list_no desc;
+         
+    ]]>
+	</select>
+
+		<!-- 판매 리스트 detail -->
+	
+	<select id="DetailPaymentList" resultType="com.cvs.model.Pos_boardVO">
+	<![CDATA[
+	SELECT pos_board.list_no, pos_board.barcode_no,md_name , md_ea, (price*md_ea) price,
+	list_md_ea  , total_price, sale_date, sale_time
+        
+		FROM md_info
+		JOIN md_price ON
+		md_info.md_no = md_price.md_no 
+		JOIN pos_board ON
+		md_info.barcode_no = pos_board.barcode_no
+        
+        join  (SELECT list_no, sum(price*md_ea) total_price, sum(md_ea) list_md_ea
+		FROM md_info
+		JOIN md_price ON 
+		md_info.md_no = md_price.md_no
+		JOIN pos_board ON
+		md_info.barcode_no = pos_board.barcode_no group by list_no) total on 
+        total.list_no = pos_board.list_no  where pos_board.list_no = #{list_no};
+         
+    ]]>
+	</select>
+	
+
+
+
+
+
+</mapper>

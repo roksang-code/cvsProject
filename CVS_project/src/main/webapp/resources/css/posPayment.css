@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+.middle{
+	border: solid 1px black; 
+	width: 800px;
+	height: 200px;
+}
+.mdlist{	
+	margin-right : 0px;
+	float: left; 
+	display: inline-block;
+	
+}
+.listbutton{
+	float: right;	
+}
+
+
+
+
+.bottom{
+		border: solid 1px black; 
+	width: 800px;
+	height: 200px;
+}
+
+.functionkey{
+	float: left;
+	padding-right: 30px;
+}
+
+.printprice{
+	float: left;
+	padding-right: 30px;
+}
+.numbotton{
+	float: right;
+}
+

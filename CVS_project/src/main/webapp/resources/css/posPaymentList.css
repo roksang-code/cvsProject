@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+
+.totaltable{
+	border: solid 1px black; 
+	width: 1000px;
+	height: 600px;
+}
+
+.mainlisttable{
+	width: 400px;
+	height: 500px;	
+	float: left;
+	padding-right: 30px;
+}
+
+.detaillisttable{
+	
+	width: 400px;
+	height: 500px;
+	float: left;
+	padding-right: 30px;
+}
+.datepicker{
+	float: left;
+	
+}
+.pospage{
+	
+}
