@@ -23,6 +23,17 @@
 	
 	
 	
+	<beans:bean id="loginInterceptor" class="com.cvs.interceptor.LoginInterceptor"></beans:bean>
+	<beans:bean id="authInterceptor" class="com.cvs.interceptor.AuthInterceptor"></beans:bean>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/login/LoginpagePost"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+		
+	
+	</interceptors>
 	
 	
 	

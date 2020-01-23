@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cvs.model.Auto_incrementVO;
 import com.cvs.model.Md_infoVO;
-import com.cvs.model.Member_infoVO;
 import com.cvs.model.Pos_boardVO;
 import com.cvs.service.PosService;
 
@@ -27,45 +26,11 @@ public class PosController {
 	
 	@Autowired
 	private PosService pservice;
+
 	private static final Logger logger = LoggerFactory.getLogger(PosController.class);
 
 	
 	
-	
-	@RequestMapping(value = "/posLoginpage", method = RequestMethod.GET)//로그인 화면
-	public void posLoginpageGet() throws Exception {
-
-		logger.info("login get...");
-
-	}
-	@RequestMapping(value = "/posLoginpage", method = RequestMethod.POST)//로그인 화면
-	public void posLoginpagePost(Member_infoVO mivo) throws Exception {
-
-		logger.info("login post...");
-		logger.info("mivo = " + mivo);
-
-		pservice.posMemberjoin(mivo);
-		
-		
-	}
-	
-	
-	@RequestMapping(value = "/posMemberjoin", method = RequestMethod.GET)//회원가입 화면
-	public void posMemberjoinGet() throws Exception {
-
-		logger.info("mj get...");
-
-	}
-	@RequestMapping(value = "/posMemberjoin", method = RequestMethod.POST)//회원가입 화면
-	public void posMemberjoinPost(Member_infoVO mivo) throws Exception {
-
-		logger.info("mj post...");
-		logger.info("mivo = " + mivo);
-
-		pservice.posMemberjoin(mivo);
-		
-		
-	}
 	
 	
 	@RequestMapping(value = "/posPayment", method = RequestMethod.GET)//pos화면

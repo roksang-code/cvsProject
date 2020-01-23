@@ -13,10 +13,12 @@
 
 </head>
 <body>
-<form action="posLoginpage" method="post">
+<form action="LoginpagePost" method="post">
 	ID : <input type="text" name="id"></br>
 	PW : <input type="text" name="pw"></br>
-	<input type="submit" value="로그인"></form><button id="join">회원가입</button>
+	<input type="submit" value="로그인">
+	</form>
+	<button id="join">회원가입</button>
 	
 	
 	

@@ -10,13 +10,14 @@ $(document).ready(function() {
 	var price=0;			//가격 초기화
 	var ead=0;				//같은 상품 1개 증가
 	var totalpr = 0; 		//가격 *수량
-	var classname ="";
 	
 	var eaid = "";			//수량 id
 	var tpid = "";			//합계 id
 	var eav = "";			//수량 값
 	var tpv ="";			//합계 값
-	
+	$(".logout").on("click", function() {
+		$(location).attr('href', "../login/Logout");//로그아웃 컨트롤러
+	});
 	
 	$("#md_update").on("click", function() {
 		
@@ -114,9 +115,29 @@ $(document).ready(function() {
 	
 	 $(document).on("click", ".listtable tr", function(){
 	
-		eaid =  $(".md_ea a").attr("id");
 		trid =  $(this).attr("id");
+		
+		eaid =  $("#"+trid+" .md_ea a").attr("id");
 		trlength = parseInt($(".listtable tr").length);
+		var ignore = parseInt($("#"+trid).text())
+		
+
+		console.log("eaid ="+eaid);
+		
+		if($("#"+trid).css( "backgroundColor" ) == "rgb(135, 206, 235)"){
+			
+			$("#"+trid).css( "backgroundColor", "white" );
+			
+		}else{	
+			$("#"+trid).css( "backgroundColor", "skyblue" );
+		
+		}
+		for(i=1; i<cnt;i++){
+			if(i!=ignore){
+				$("#no"+i).css( "backgroundColor", "white" );	
+			}
+		}
+		
 		
 		
 		
@@ -124,11 +145,11 @@ $(document).ready(function() {
 	 	eav = parseInt($("#"+eaid).text());
 	 	tpv = parseInt($("#"+tpid).text());
 	 	pr = tpv/eav;
-		console.log(eaid);
-		console.log(eav);
-		
+	
 	 	
 		idname = "";
+	  if($("#"+trid).css( "backgroundColor" ) == "rgb(135, 206, 235)"){
+				
 		$(".numkey tr td").on("click",function(){
 
 			 var inputKey = "";
@@ -138,24 +159,29 @@ $(document).ready(function() {
 					 inputKey = $(this).text();
 				
 
-					 console.log(inputKey);
-					$(".changeEA").on("click",function(){
+					 	$(".changeEA").on("click",function(){
 						
 
 					 	$("#"+eaid).text(inputKey);
 					 	$("#"+tpid).text(inputKey*pr);
 					 });
 				}
-		
+
 		});//수량변경
+	
+		
 		$(".eaplus").off("click").on("click",function(){
 			
 		 	eav = parseInt($("#"+eaid).text());
 			$("#"+eaid).text(eav+1);
 		 	
 			$("#"+tpid).text((eav+1)*pr);
-			 
+	
+			 console.log("trid = "+$("#"+trid).css( "backgroundColor"));
+
 		});//수량 증가 버튼
+		
+		
 		$(".deletemd").off("click").on("click",function(){
 
 			startnum = parseInt($("#"+trid).text())
@@ -179,7 +205,11 @@ $(document).ready(function() {
 
 			 
 		});//삭제 버튼
-		
+	  
+	  }else{
+		  $(".eaplus").off("click");
+		  $(".numkey tr td").off("click");
+	  }//tr선택에만 이벤트 발생
 			
 		
 		

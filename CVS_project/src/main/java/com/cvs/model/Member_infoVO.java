@@ -2,6 +2,7 @@ package com.cvs.model;
 
 public class Member_infoVO {
 	private int member_no;
+	private int store_no;
 	private String member_name;
 	private String id;
 	private String pw;
@@ -62,11 +63,20 @@ public class Member_infoVO {
 	public void setJoin_date(String join_date) {
 		this.join_date = join_date;
 	}
- 	
- 	
+	public int getStore_no() {
+		return store_no;
+	}
+	public void setStore_no(int store_no) {
+		this.store_no = store_no;
+	}
+	
 	@Override
 	public String toString() {
-		return "Member_infoVO [member_no=" + member_no + ", member_name=" + member_name + ", id=" + id + ", pw=" + pw
-				+ ", email=" + email + ", gender=" + gender + ", age=" + age + ", join_date=" + join_date + "]";
+		return "Member_infoVO [member_no=" + member_no + ", store_no=" + store_no + ", member_name=" + member_name
+				+ ", id=" + id + ", pw=" + pw + ", email=" + email + ", gender=" + gender + ", age=" + age
+				+ ", join_date=" + join_date + "]";
 	}
+ 	
+	
+
 }

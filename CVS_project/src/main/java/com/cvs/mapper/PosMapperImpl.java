@@ -55,11 +55,7 @@ public class PosMapperImpl implements PosMapper {
 		return DetailPaymentList;
 	}
 
-	@Override
-	public void posMemberjoin(Member_infoVO mivo) throws Exception {
-		 System.out.println("mapper");
-		 session.insert(namespace + ".posMemberjoin", mivo);
-		
-	}
-
+	
+	
+	
 }

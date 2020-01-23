@@ -56,12 +56,7 @@ public class PosServiceImpl implements PosService{
 		
 
 	}
-
-	@Override
-	public void posMemberjoin(Member_infoVO mivo)throws Exception  {
-		System.out.println("service");
-	 	pm.posMemberjoin(mivo);
-		
-	}
-
+	
+	
+	
 }

@@ -19,8 +19,6 @@ public interface PosService {
 	
 	public List<Pos_boardVO> DetailPaymentList(int list_no) throws Exception;
 
-	public void posMemberjoin(Member_infoVO mivo)throws Exception ;
-
 
 
 

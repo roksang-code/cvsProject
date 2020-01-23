@@ -4,6 +4,7 @@
 	border: solid 1px black; 
 	width: 800px;
 	height: 200px;
+	position:relative;
 }
 .mdlist{	
 	margin-right : 0px;
@@ -16,7 +17,21 @@
 }
 
 
+.listtable {
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
 
+.listbutton{
+	float: right;
+}
+#addlist{
+	position: absolute; float: left; bottom: 0px;
+	vertical-align: bottom;
+	
+}
 
 .bottom{
 		border: solid 1px black; 
