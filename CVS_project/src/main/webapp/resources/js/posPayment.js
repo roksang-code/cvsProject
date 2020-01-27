@@ -129,7 +129,7 @@ $(document).ready(function() {
 			$("#"+trid).css( "backgroundColor", "white" );
 			  $(".eaplus").off("click");
 			  $(".numkey tr td").off("click");
-
+				
 			
 		}else{	
 			$("#"+trid).css( "backgroundColor", "skyblue" );
@@ -195,7 +195,6 @@ $(document).ready(function() {
 			
 			$("#"+trid).remove();
 			
-			alert(startnum);
 			for(i=startnum; i<cnt;i++){
 					$("#cnt"+i).text(parseInt($("#cnt"+i).text())-1);
 					
@@ -214,8 +213,7 @@ $(document).ready(function() {
 		});//삭제 버튼
 	  
 	  }//tr선택에만 이벤트 발생
-			
-		
+	 	
 		
 		
 	});// 리스트상품 선택 함수
@@ -224,8 +222,8 @@ $(document).ready(function() {
 				
 	 
 	 
-	 
-	$(".paymentList").on("click",function(){
+	 $(document).on("click", ".paymentList", function(){
+
 			var now = new Date();
 			var year = now.getFullYear();
 		    var month = now.getMonth() + 1; 
@@ -281,8 +279,8 @@ $(document).on("click", ".numkey tr td", function(){
 
  });//가상키 입력
 
-	
-	$(".payment td").on("click",function(){
+
+	$(document).on("click", ".payment td", function(){
 		var paymentType = $(this).text();
 		if(cnt>1){
 
