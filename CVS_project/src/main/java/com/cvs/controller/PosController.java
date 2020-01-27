@@ -45,6 +45,16 @@ public class PosController {
 		
 		logger.info("posPaymentList get...");
 		logger.info("sale_date = "+sale_date);
+
+		model.addAttribute("PaymentList", pservice.PaymentList(sale_date)); 
+		model.addAttribute("selectdate", pservice.PaymentList(sale_date)); 
+		
+		
+	}@RequestMapping(value = "/posPaymentList", method = RequestMethod.POST)//전체 매출 리스트 화면
+	public void posPaymentListPost(@RequestParam String sale_date, Pos_boardVO pvo, Model model) throws Exception {
+		
+		logger.info("posPaymentList Post...");
+		logger.info("sale_date = "+sale_date);
 		
 		model.addAttribute("PaymentList", pservice.PaymentList(sale_date)); 
 		model.addAttribute("selectdate", pservice.PaymentList(sale_date)); 

@@ -127,6 +127,9 @@ $(document).ready(function() {
 		if($("#"+trid).css( "backgroundColor" ) == "rgb(135, 206, 235)"){
 			
 			$("#"+trid).css( "backgroundColor", "white" );
+			  $(".eaplus").off("click");
+			  $(".numkey tr td").off("click");
+
 			
 		}else{	
 			$("#"+trid).css( "backgroundColor", "skyblue" );
@@ -164,8 +167,11 @@ $(document).ready(function() {
 
 					 	$("#"+eaid).text(inputKey);
 					 	$("#"+tpid).text(inputKey*pr);
+
+						//$(".numkey tr td").off("click");
 					 });
 				}
+				
 
 		});//수량변경
 	
@@ -179,10 +185,11 @@ $(document).ready(function() {
 	
 			 console.log("trid = "+$("#"+trid).css( "backgroundColor"));
 
+			  
 		});//수량 증가 버튼
 		
 		
-		$(".deletemd").off("click").on("click",function(){
+		$(".deletemd").on("click",function(){
 
 			startnum = parseInt($("#"+trid).text())
 			
@@ -206,9 +213,6 @@ $(document).ready(function() {
 			 
 		});//삭제 버튼
 	  
-	  }else{
-		  $(".eaplus").off("click");
-		  $(".numkey tr td").off("click");
 	  }//tr선택에만 이벤트 발생
 			
 		
@@ -242,7 +246,7 @@ $(document).ready(function() {
 	});//포커스 값 받아오기
 
 
-$(".numkey tr td").on("click",function(){
+$(document).on("click", ".numkey tr td", function(){
 	 var inputKey = "";
 	 
 	if(isNaN( $(this).text())==false){
@@ -273,7 +277,8 @@ $(".numkey tr td").on("click",function(){
 	 txtArea.selectionStart = selectPos; // 커서 시작점을 추가 삽입된 텍스트 이후로 지정
 	 txtArea.selectionEnd = selectPos; // 커서 끝지점을 추가 삽입된 텍스트 이후로 지정
 	}
-	
+	//$(".numkey tr td").off("click");
+
  });//가상키 입력
 
 	
@@ -287,7 +292,6 @@ $(".numkey tr td").on("click",function(){
 			
 			var md_ea = $("#ea"+i+"").text();
 			
-
 			$.ajax({
 
 				type : "post",
@@ -306,7 +310,8 @@ $(".numkey tr td").on("click",function(){
 				}),
 
 				success : function(data) {
-					
+				
+
 				},
 				error : function(err) {
 

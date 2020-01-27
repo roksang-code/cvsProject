@@ -7,11 +7,13 @@
 
 	<!-- 회원가입 -->
 	<insert id="posMemberjoin">
-			 insert into  member_info(member_name , id, pw, email,gender,age )
-			   values(#{member_name}, #{id}, #{pw}, #{email}, #{gender}, #{age} )
-		 
+		insert into member_info(member_name , id, pw,
+		email,gender,age )
+		values(#{member_name}, #{id}, #{pw}, #{email},
+		#{gender}, #{age} )
+
 	</insert>
-	
+
 	<!-- 상품 바코드 등록 -->
 	<select id="inputMdlist" resultType="com.cvs.model.Md_infoVO">
 
@@ -52,33 +54,47 @@
 	</insert>
 
 	<!-- 판매 리스트 top -->
-	
+
 	<select id="PaymentList" resultType="com.cvs.model.Pos_boardVO">
 	<![CDATA[
-	SELECT pos_board.list_no, pos_board.barcode_no,md_name , md_ea, (price*md_ea) price,
-	list_md_ea  , total_price, sale_date, sale_time
+	SELECT pos_board.list_no
+    		,list_md_ea
+      		,total_price
+     		,pos_board.sale_date
+      		,pos_board.sale_time
+ 					FROM md_info
+  					JOIN md_price
+  					ON md_info.md_no = md_price.md_no 
+ 					JOIN pos_board 
+    				ON md_info.barcode_no = pos_board.barcode_no
+  join (SELECT list_no, sum(price*md_ea) total_price, sum(md_ea) list_md_ea
+		  FROM md_info
+		  JOIN md_price 
+            ON md_info.md_no = md_price.md_no
+		  JOIN pos_board 
+            ON md_info.barcode_no = pos_board.barcode_no 
+	     group by list_no
+	   ) total 
+	on total.list_no = pos_board.list_no
+ where sale_date = #{sale_date}
+ group by pos_board.list_no
+         ,pos_board.sale_date
+		 ,list_md_ea
+		 ,total_price
+		 ,sale_date
+		 ,sale_time
+  	
+order by pos_board.list_no desc;
         
-		FROM md_info
-		JOIN md_price ON
-		md_info.md_no = md_price.md_no 
-		JOIN pos_board ON
-		md_info.barcode_no = pos_board.barcode_no
-        
-        join  (SELECT list_no, sum(price*md_ea) total_price, sum(md_ea) list_md_ea
-		FROM md_info
-		JOIN md_price ON 
-		md_info.md_no = md_price.md_no
-		JOIN pos_board ON
-		md_info.barcode_no = pos_board.barcode_no group by list_no) total on 
-        total.list_no = pos_board.list_no where sale_date=#{sale_date}
-        group by pos_board.list_no order by pos_board.list_no desc;
+      
          
     ]]>
 	</select>
 
-		<!-- 판매 리스트 detail -->
-	
-	<select id="DetailPaymentList" resultType="com.cvs.model.Pos_boardVO">
+	<!-- 판매 리스트 detail -->
+
+	<select id="DetailPaymentList"
+		resultType="com.cvs.model.Pos_boardVO">
 	<![CDATA[
 	SELECT pos_board.list_no, pos_board.barcode_no,md_name , md_ea, (price*md_ea) price,
 	list_md_ea  , total_price, sale_date, sale_time
@@ -99,7 +115,7 @@
          
     ]]>
 	</select>
-	
+
 
 
 
