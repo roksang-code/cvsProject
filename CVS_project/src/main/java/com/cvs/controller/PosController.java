@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -112,6 +113,7 @@ public class PosController {
 	}
 	
 	
+	
 	@ResponseBody
 	@RequestMapping(value = "/Payment", method = RequestMethod.POST)//결제
 	public void Payment(@RequestBody Pos_boardVO pvo) throws Exception {
@@ -151,4 +153,17 @@ public class PosController {
 
 	}
 	
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/refund/{list_no}", method = RequestMethod.DELETE)//환불
+	public void refund(@PathVariable("list_no") int list_no, Pos_boardVO pvo) throws Exception{
+		
+		logger.info("refund ....");
+
+		pservice.refund(list_no);
+		logger.info("pvo="+pvo);
+		logger.info("list_no = "+list_no);
+	
+	}
 }

@@ -7,13 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="../resources/css/posPayment.css?v=<%=System.currentTimeMillis()%>">
+<link rel="stylesheet" href="../resources/css/posPayment.css?v=<%=System.currentTimeMillis()%>">
+<script type="text/javascript" src="../resources/plugins/jQuery/jquery-3.4.1.min.js"></script>
+<script	src="../resources/js/posPayment.js?v=<%=System.currentTimeMillis()%>"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-<script type="text/javascript"
-	src="../resources/plugins/jQuery/jquery-3.4.1.min.js"></script>
-<script
-	src="../resources/js/posPayment.js?v=<%=System.currentTimeMillis()%>"></script>
 </head>
 <body>
 	<header>
@@ -24,7 +25,8 @@
 			<div class="mdlist">
 				<table class="listtable" border="1" width=750px>
 					<!-- 상품리스트 -->
-					<tr>
+					<thead>
+					<tr class="thead-dark">
 						<td width=2%>NO</td>
 						<!-- 번호 -->
 						<td width=20%>바코드</td>
@@ -33,26 +35,29 @@
 						<!-- 상품명 -->
 						<td width=5%>판매가</td>
 						<!-- 가격 -->
-						<td width=2%>수량</td>
+						<td width=3%>수량</td>
 						<!-- 수량 -->
 						<td width=10%>할인</td>
 						<!-- 할인 -->
 						<td width=10%>합계</td>
 						<!-- 합계 -->
 					</tr>
-
-
+					</thead>
+					<tbody>
+					
+					
+					</tbody>
 				</table>
+				<div class="listbutton">
+					<button class="eaplus">수량</button>
+					</br>
+					<button class="deletemd">삭제</button>
+					</br>
+				</div>
 			</div>
 
-			<div class="listbutton">
-				<button class="eaplus">수량</button>
-				</br>
-				<button class="deletemd">삭제</button>
-				</br>
-
-			</div>
-			<div>
+			
+			<div class = "input">
 				<input type="text" name="barcode_no" id="barcode_no"
 					class="barcode_no">
 				<button id=md_update>상품등록</button>
@@ -61,7 +66,7 @@
 		<div class="bottom">
 			<div class="functionkey">
 				<!-- 간편키 -->
-				<table border="1" width=250px>
+				<table class="functiontable" border="1" width=250px>
 					<tr>
 						<td width=25%>종량제</td>
 						<td width=25%>비닐</td>
@@ -98,54 +103,56 @@
 
 			<div class="printprice">
 				<!-- 가격출력창 -->
-				<table border="1" width=200px>
-					<tr>
-						<td>합계</td>
-						<td><a class="listTotalPr">0</a></td>
+				<table border="1">
+					<tr >
+						<td width = 30%>합계</td>
+						<td width = 70% class="prnum"><a class="listTotalPr">0</a></td>
 					</tr>
 					<tr>
 						<td>할인금액</td>
-						<td><a class="listSalePr">0</a></td>
+						<td class="prnum"><a class="listSalePr">0</a></td>
 					</tr>
 					<tr>
 						<td>받을금액</td>
-						<td><a class="listPaymentPr">0</a></td>
+						<td class="prnum"><a class="listPaymentPr">0</a></td>
 					</tr>
 					<tr>
 						<td>받은금액</td>
-						<td><input type="text" class="listInputPr" id="listInputPr"
-							size="8px"></td>
+						<td class="prnum"><input type="text" class="listInputPr" id="listInputPr"
+							size="20px"></td>
 					</tr>
 					<tr>
 						<td>거스름돈</td>
-						<td><a class="listOutputPr">0</a></td>
+						<td class="prnum"><a class="listOutputPr">0</a></td>
 					</tr>
 				</table>
 			</div>
+			
+			
 			<div class="numbotton">
 				<!-- 숫자 및 결제버튼 -->
 				<table border="1" class="numkey">
 					<tr>
-						<td width=25%>7</td>
-						<td width=25%>8</td>
-						<td width=25%>9</td>
-						<td width=25%>전체선택</td>
+						<td class = "num">7</td>
+						<td class = "num">8</td>
+						<td class = "num">9</td>
+						<td class="numright">전체선택</td>
 					</tr>
 					<tr>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
-						<td>금액할인</td>
+						<td class = "num">4</td>
+						<td class = "num">5</td>
+						<td class = "num">6</td>
+						<td class="numright">금액할인</td>
 					</tr>
 					<tr>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>(%)할인</td>
+						<td class = "num">1</td>
+						<td class = "num">2</td>
+						<td class = "num">3</td>
+						<td class="numright">(%)할인</td>
 					</tr>
 					<tr>
-						<td>0</td>
-						<td>00</td>
+						<td class = "num">0</td>
+						<td class = "num">00</td>
 						<td>취소</td>
 						<td class="changeEA">수량변경</td>
 					</tr>

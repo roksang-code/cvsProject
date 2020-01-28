@@ -27,7 +27,7 @@
 	<!-- 결제 -->
 	<insert id="Payment">
  		 	<![CDATA[
- 		 insert into  pos_board( store_no, list_no , barcode_no, md_ea, sale_date,sale_time)
+ 		 insert into  pos_board( store_no, list_no , barcode_no, md_ea, type, sale_date,sale_time)
 			   values(		
 		
 			   (select count(*) as cnt from auto_increment_info 
@@ -38,7 +38,7 @@
 			   list_no where list_no = 1),
 			   
 		
-			   #{barcode_no},#{md_ea}, sysdate(),curtime());
+			   #{barcode_no},#{md_ea}, #{type}, sysdate(),curtime());
                               
  			]]>
 	</insert>
@@ -60,6 +60,7 @@
 	SELECT pos_board.list_no
     		,list_md_ea
       		,total_price
+     		,pos_board.type
      		,pos_board.sale_date
       		,pos_board.sale_time
  					FROM md_info
@@ -67,24 +68,25 @@
   					ON md_info.md_no = md_price.md_no 
  					JOIN pos_board 
     				ON md_info.barcode_no = pos_board.barcode_no
-  join (SELECT list_no, sum(price*md_ea) total_price, sum(md_ea) list_md_ea
-		  FROM md_info
-		  JOIN md_price 
-            ON md_info.md_no = md_price.md_no
-		  JOIN pos_board 
-            ON md_info.barcode_no = pos_board.barcode_no 
-	     group by list_no
-	   ) total 
-	on total.list_no = pos_board.list_no
- where sale_date = #{sale_date}
- group by pos_board.list_no
-         ,pos_board.sale_date
-		 ,list_md_ea
-		 ,total_price
-		 ,sale_date
-		 ,sale_time
+  			join (SELECT list_no, sum(price*md_ea) total_price, sum(md_ea) list_md_ea
+		 			FROM md_info
+		  			JOIN md_price 
+            		ON md_info.md_no = md_price.md_no
+		  			JOIN pos_board 
+            		ON md_info.barcode_no = pos_board.barcode_no 
+	     			group by list_no
+	   				) total 
+					on total.list_no = pos_board.list_no
+ 						where sale_date = #{sale_date}
+					 	group by pos_board.list_no
+         				,pos_board.sale_date
+						,list_md_ea
+		 				,pos_board.type
+		 				,total_price
+		 				,sale_date
+		 				,sale_time
   	
-order by pos_board.list_no desc;
+						order by pos_board.list_no desc;
         
       
          
@@ -115,7 +117,13 @@ order by pos_board.list_no desc;
          
     ]]>
 	</select>
-
+	<!-- 환불 -->
+<delete id="refund">
+	
+	delete from pos_board where list_no = #{list_no};
+	
+	
+</delete>
 
 
 

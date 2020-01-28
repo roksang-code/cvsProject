@@ -113,31 +113,36 @@ $(document).ready(function() {
 	
 
 	
-	 $(document).on("click", ".listtable tr", function(){
+	 $(document).on("click", ".listtable tbody tr", function(){
 	
 		trid =  $(this).attr("id");
 		
 		eaid =  $("#"+trid+" .md_ea a").attr("id");
-		trlength = parseInt($(".listtable tr").length);
+		trlength = parseInt($(".listtable tbody tr").length);
 		var ignore = parseInt($("#"+trid).text())
 		
 
 		console.log("eaid ="+eaid);
 		
-		if($("#"+trid).css( "backgroundColor" ) == "rgb(135, 206, 235)"){
+		if($("#"+trid).css( "backgroundColor" ) == "rgb(46, 154, 254)"){
 			
 			$("#"+trid).css( "backgroundColor", "white" );
+			$("#"+trid).css( "color", "black" );
+
 			  $(".eaplus").off("click");
 			  $(".numkey tr td").off("click");
 				
 			
 		}else{	
-			$("#"+trid).css( "backgroundColor", "skyblue" );
-		
+			$("#"+trid).css( "backgroundColor", "rgb(46, 154, 254)" );
+			$("#"+trid).css( "color", "white" );
+			
 		}
 		for(i=1; i<cnt;i++){
 			if(i!=ignore){
 				$("#no"+i).css( "backgroundColor", "white" );	
+				$("#no"+i).css( "color", "black" );
+
 			}
 		}
 		
@@ -151,7 +156,7 @@ $(document).ready(function() {
 	
 	 	
 		idname = "";
-	  if($("#"+trid).css( "backgroundColor" ) == "rgb(135, 206, 235)"){
+	  if($("#"+trid).css( "backgroundColor" ) == "rgb(46, 154, 254)"){
 				
 		$(".numkey tr td").on("click",function(){
 
@@ -255,8 +260,9 @@ $(document).on("click", ".numkey tr td", function(){
 		inputKey = 5000;
 	}else if( $(this).text()=="만원"){
 		inputKey = 10000;
+	}else if( $(this).text()=="취소"){
+		inputKey = "취소";
 	}
-	
 	
 	if(idname != ""){
 	 var txtArea = document.getElementById(""+idname+"");
@@ -265,18 +271,24 @@ $(document).on("click", ".numkey tr td", function(){
 	 
 	 var txtValue = txtArea.value;
 	 var selectPos = txtArea.selectionStart; // 커서 위치 지정
+	 if( inputKey=="취소"){
+			selectPos=selectPos-1;
+			inputKey="";
+	 }
 	 var beforeTxt = txtValue.substring(0, selectPos);  // 기존텍스트 ~ 커서시작점 까지의 문자
 	 var afterTxt = txtValue.substring(txtArea.selectionEnd, txtValue.length);   // 커서끝지점 ~ 기존텍스트 까지의 문자
 	 var addTxt = inputKey; // 추가 입력 할 텍스트
-
+	
+	 
+	 
 	 txtArea.value = beforeTxt + addTxt + afterTxt;
 
 	 selectPos = selectPos + addTxt.length;
 	 txtArea.selectionStart = selectPos; // 커서 시작점을 추가 삽입된 텍스트 이후로 지정
 	 txtArea.selectionEnd = selectPos; // 커서 끝지점을 추가 삽입된 텍스트 이후로 지정
 	}
-	//$(".numkey tr td").off("click");
 
+	
  });//가상키 입력
 
 
@@ -303,6 +315,7 @@ $(document).on("click", ".numkey tr td", function(){
 				data : JSON.stringify({
 					barcode_no : barcode_no,
 					md_ea : md_ea,
+					type : paymentType
 				
 				
 				}),
@@ -353,7 +366,7 @@ $(document).on("click", ".numkey tr td", function(){
 		
 	  }
 		
-	 });//현금결제
+	 });//결제
 	
 	
 	

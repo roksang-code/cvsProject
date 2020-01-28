@@ -19,6 +19,8 @@ public interface PosService {
 	
 	public List<Pos_boardVO> DetailPaymentList(int list_no) throws Exception;
 
+	public void refund(int list_no) throws Exception;
+
 
 
 

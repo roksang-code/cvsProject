@@ -55,6 +55,13 @@ public class PosMapperImpl implements PosMapper {
 		return DetailPaymentList;
 	}
 
+	@Override
+	public void refund(int list_no) throws Exception {
+		
+		int refund = session.delete(namespace + ".refund", list_no);
+		
+	}
+
 	
 	
 	
