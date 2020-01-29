@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cvs.model.Auto_incrementVO;
+import com.cvs.model.Functionkey_infoVO;
 import com.cvs.model.Md_infoVO;
 import com.cvs.model.Pos_boardVO;
 import com.cvs.service.PosService;
@@ -152,8 +153,7 @@ public class PosController {
 		return "pos/posPayment";
 
 	}
-	
-	
+
 	
 	@ResponseBody
 	@RequestMapping(value = "/refund/{list_no}", method = RequestMethod.DELETE)//환불
@@ -166,4 +166,42 @@ public class PosController {
 		logger.info("list_no = "+list_no);
 	
 	}
+	
+
+	@ResponseBody
+	@RequestMapping(value = "/searchMD", method = RequestMethod.GET)//단축키 상품검색
+	public ResponseEntity<List<Md_infoVO>>  searchMD(@RequestParam String md_name, Md_infoVO mdvo) throws Exception{
+		
+
+		ResponseEntity<List<Md_infoVO>> entity = null;
+		logger.info("searchMD GET...");
+		List<Md_infoVO> searchMD = pservice.searchMD(md_name);
+
+		
+		
+		entity = new ResponseEntity<List<Md_infoVO>>(searchMD, HttpStatus.OK);
+
+		logger.info("md_name = "+md_name);
+		logger.info("md_name entity = "+entity.toString());
+		
+		return entity;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/SelectsearchMD", method = RequestMethod.POST)//결제
+	public void SelectsearchMD(@RequestBody Functionkey_infoVO fivo) throws Exception {
+
+		pservice.SelectsearchMD(fivo);
+		logger.info("SelectsearchMD post...");
+		logger.info("fivo"+fivo);
+		
+		
+		
+	}
+	
+	
+	
+	
+	
 }

@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cvs.model.Auto_incrementVO;
+import com.cvs.model.Functionkey_infoVO;
 import com.cvs.model.Md_infoVO;
-import com.cvs.model.Member_infoVO;
 import com.cvs.model.Pos_boardVO;
 
 @Repository
@@ -59,6 +59,21 @@ public class PosMapperImpl implements PosMapper {
 	public void refund(int list_no) throws Exception {
 		
 		int refund = session.delete(namespace + ".refund", list_no);
+		
+	}
+
+	@Override
+	public List<Md_infoVO> searchMD(String md_name) throws Exception {
+
+		List<Md_infoVO> searchMD = session.selectList(namespace + ".searchMD", md_name);
+
+		return searchMD;
+	}
+
+	@Override
+	public void SelectsearchMD(Functionkey_infoVO fivo) throws Exception {
+
+		session.update(namespace + ".SelectsearchMD", fivo);
 		
 	}
 

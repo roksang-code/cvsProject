@@ -125,7 +125,22 @@
 	
 </delete>
 
+	
+	<!--  단축키 검색 -->
+<select id="searchMD" resultType="com.cvs.model.Md_infoVO">
 
+	select * from md_info where md_name like concat('%',#{md_name},'%') or barcode_no = #{md_name};        
+	
+</select>
+
+
+
+	<!-- 단축키 등록 -->
+<update id="SelectsearchMD">
+
+	update functionkey_info set md_name = #{md_name}, barcode_no = #{barcode_no} where key_no = #{key_no};
+	
+</update>	
 
 
 

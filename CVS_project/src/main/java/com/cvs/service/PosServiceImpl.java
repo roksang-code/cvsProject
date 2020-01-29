@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.cvs.mapper.PosMapper;
 import com.cvs.model.Auto_incrementVO;
+import com.cvs.model.Functionkey_infoVO;
 import com.cvs.model.Md_infoVO;
-import com.cvs.model.Member_infoVO;
 import com.cvs.model.Pos_boardVO;
 
 
@@ -63,6 +63,19 @@ public class PosServiceImpl implements PosService{
 		 pm.refund(list_no);
 	
 		
+	}
+
+	@Override
+	public List<Md_infoVO> searchMD(String md_name) throws Exception {
+		List<Md_infoVO> searchMD = pm.searchMD(md_name);
+
+		return searchMD;
+	}
+
+	@Override
+	public void SelectsearchMD(Functionkey_infoVO fivo) throws Exception {
+		
+		pm.SelectsearchMD(fivo);
 	}
 	
 	

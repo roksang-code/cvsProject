@@ -3,84 +3,15 @@ $(document).ready(function() {
 
 	
 	
-	var cnt=1;				//리스트 등록 카운트
-	var ea=1;				//첫 등록제품 수
-	var sale=0;				//할인
-	var bar =0;				//바코드번호 초기화
-	var price=0;			//가격 초기화
-	var ead=0;				//같은 상품 1개 증가
-	var totalpr = 0; 		//가격 *수량
-	
-	var eaid = "";			//수량 id
-	var tpid = "";			//합계 id
-	var eav = "";			//수량 값
-	var tpv ="";			//합계 값
 	$(".logout").on("click", function() {
 		$(location).attr('href', "../login/Logout");//로그아웃 컨트롤러
 	});
 	
 	$("#md_update").on("click", function() {
-		
-		var barcode_no = $("#barcode_no").val();
+	  barcode_no = $("#barcode_no").val();
 
-		var str ="";
-		$.getJSON("posList?barcode_no="+barcode_no,function(data){
-			console.log(data);
-			$(data).each(
-					
-				
-					function(){
-						bar = $("."+barcode_no+"").html();
-						
-						
-						console.log(bar);
-						console.log(barcode_no);
-						
-						if(bar == barcode_no){
-							 ead = parseInt($("."+barcode_no+"ea").html())+1;
-							 pricet = parseInt($("."+barcode_no+"pr").html())*ead;
-
-							console.log(ead);
-							console.log(pricet);
-							
-							$("."+barcode_no+"ea").html(ead);
-							$("."+barcode_no+"total").html(pricet);
-							totalpr += parseInt($("."+barcode_no+"pr").html());
-
-						}else{
-						
-							str += "<tr id='no"+cnt+"'>";
-							str +=		"<td id=cnt"+cnt+" class = cnt> "+cnt+"</td>";
-							str +=		"<td> <a id=bar"+cnt+" class="+this.barcode_no+">"+this.barcode_no+"</a></td>";
-							str +=		"<td> <a class="+this.md_name+">"+this.md_name+"</a></td>";
-							str +=		"<td> <a class="+this.barcode_no+"pr>"+this.price+"</a></td>";
-							str +=		"<td class=md_ea id=tdea"+cnt+"> <a id=ea"+cnt+" class="+this.barcode_no+"ea>"+ea+"</a></td>";
-							str +=		"<td> <a class="+sale+">"+sale+"</a></td>";
-							str +=		"<td  id=ea"+cnt+"xPrice> <a class="+this.barcode_no+"total>"+(this.price)*ea+"</a></td>";
-							str +=	"</tr>";
-							
-							
-							cnt++;
-							totalpr += parseInt(this.price);
-						}
-						
-						$(".listTotalPr").html(totalpr);	//리스트 총합계
-						$(".listSalePr").html(sale);		//할인금액
-						$(".listPaymentPr").html(totalpr-sale);	//합계-할인금액
-						
-						var inputPr = parseInt($(".listInputPr").val());	
-						var totalPr = parseInt($(".listTotalPr").html());
-					
-						if(inputPr<totalPr){
-								$(".listOutputPr").html(0);	//받은돈 - 합계
-
-						}
-						
-								
-					});
-			$(".listtable").append(str);
-		});
-		
+	  
+	  appendMD(barcode_no);
 	});
 	$(".listInputPr").on("keyup", function() {
 		
@@ -109,7 +40,144 @@ $(document).ready(function() {
 		
 	});
 
+	$(document).off("click").on("click", ".functiontable tr td", function(){
+		var click_key = $(this).text();
+		
+		if(click_key == "키설정" && $(".functiontable tr td").css("backgroundColor") == "rgba(0, 0, 0, 0)"){
+
+
+			$(".functiontable tr td").css( "backgroundColor", "rgb(135, 206, 235)" );
+			$(".igkey td").css( "backgroundColor", "rgba(0, 0, 0, 0)" );
+			
+			
+			$(".functiontable tr td").on("click", function(){
+				if($(this).text() != "키설정"){
+						  
+						  keyno = $(this).attr("id");
+						  var modalLayer = $("#modalLayer");
+						  var modalLink = $(".modalLink");
+						  var modalCont = $(".modalContent");
+						  var marginLeft = modalCont.outerWidth()/2;
+						  var marginTop = modalCont.outerHeight()/2; 
+
+						    modalLayer.fadeIn("fast");
+						    modalCont.css({"margin-top" : -marginTop, "margin-left" : -marginLeft});
+						    $(this).blur();
+						    $(".modalContent .md_search_data").focus(); 
+
+						    
+						  $(".close").on("click",function(){
+						
+						    modalLayer.fadeOut("fast");
+						    modalLink.focus();
+							return false;
+
+						  });//키설정 모달창
+				
+				}
+
+				$(".functiontable tr td").off("click");
+				
+			});	
+					
+
+		}else if(click_key == "키설정" && $(".functiontable tr td").css("backgroundColor") == "rgb(135, 206, 235)"){
+			$(".functiontable tr td").css( "backgroundColor", "rgba(0, 0, 0, 0)" );
+
+		}
+		
+		
+		else if($(".functiontable tr td").css("backgroundColor") == "rgba(0, 0, 0, 0)"){
+		barcode_no =  ($(this).attr("class")).substr(2,($(this).attr("class")).length);
+		
+		console.log("bar = "+barcode_no);
+
+		appendMD(barcode_no);
+
+
+		}
 	
+	});//단축키
+	
+
+	$(".md_search").on("click",function(){
+
+		
+		str ="";
+		var md_name = $(".md_search_data").val();
+
+		console.log("key_no="+keyno);
+
+		$.getJSON("searchMD?md_name=" + md_name,
+		
+				function(data) {
+			
+			console.log(data);
+			$(data).each(function() {
+				str += "<a class ="+this.barcode_no+">" + this.md_name + "</a>";
+			});
+
+			$(".search_info").html(str);
+
+		});//단축키 상품 검색 
+		
+
+		$(document).on("click", ".search_info a", function(){
+			
+			str ="";
+			var md_name = $(this).text();
+			var barcode_no = $(this).attr("class");
+			var key_no =keyno;
+			console.log(md_name);
+			console.log(barcode_no);
+
+				$.ajax({
+
+					type : "post",
+					url : "SelectsearchMD",
+					contentType : "application/json;charset=utf-8",
+					headers : {
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "POST"
+					},
+					dataType : "text",
+					data : JSON.stringify({
+						barcode_no : barcode_no,
+						md_name : md_name,
+						key_no : keyno
+				
+				
+					}),
+
+					success : function(data) {
+					 
+						$("#modalLayer").fadeOut("fast");
+						$(".modalLink").focus();
+						alert(key_no);
+
+						$("#"+key_no).text(md_name);
+						$("#"+key_no).attr("class","fk"+barcode_no); 
+					    
+
+
+					},
+					error : function(err) {
+
+						alert("등록에 실패했습니다.");
+					}
+
+
+				});
+
+				
+				keyno="";
+		 });//검색 후 출력된 상품 클릭 
+
+	});
+	
+	
+	
+		
 	
 
 	

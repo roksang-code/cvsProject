@@ -3,8 +3,8 @@ package com.cvs.service;
 import java.util.List;
 
 import com.cvs.model.Auto_incrementVO;
+import com.cvs.model.Functionkey_infoVO;
 import com.cvs.model.Md_infoVO;
-import com.cvs.model.Member_infoVO;
 import com.cvs.model.Pos_boardVO;
 
 public interface PosService {
@@ -20,6 +20,10 @@ public interface PosService {
 	public List<Pos_boardVO> DetailPaymentList(int list_no) throws Exception;
 
 	public void refund(int list_no) throws Exception;
+
+	public List<Md_infoVO> searchMD(String md_name) throws Exception;
+
+	public void SelectsearchMD(Functionkey_infoVO fivo) throws Exception;
 
 
 

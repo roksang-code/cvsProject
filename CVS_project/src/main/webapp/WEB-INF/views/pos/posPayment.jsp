@@ -63,39 +63,58 @@
 				<button id=md_update>상품등록</button>
 			</div>
 		</div>
+
+<div id="modalLayer">
+  <div class="modalContent">
+	<div><input type="text" class="md_search_data"><input type="submit" value="검색" class="md_search"></div>
+   	<div class="search_info"></div>
+    <button type="button" class="close">X</button>
+  </div>
+</div>
 		<div class="bottom">
 			<div class="functionkey">
 				<!-- 간편키 -->
 				<table class="functiontable" border="1" width=250px>
+				<%int i =1; %>
+				<c:forEach var="Pos_boardVO" items="${PaymentList}">
+					
 					<tr>
-						<td width=25%>종량제</td>
-						<td width=25%>비닐</td>
-						<td width=25%>라이터</td>
-						<td width=25%>복권</td>
+						<td class = "fk"+${Functionkey_infoVO.barcode_no} >${Functionkey_infoVO.md_name}</td>
+					</tr>
+					<%i++;%>
+				</c:forEach>
+				
+				
+				
+					<tr>
+						<td width=25% id = "key_no1">종량제</td>
+						<td width=25% id = "key_no2">비닐</td>
+						<td width=25% id = "key_no3">라이터</td>
+						<td width=25% id = "key_no4">복권</td>
 					</tr>
 					<tr>
-						<td>비닐</td>
-						<td>88010430</td>
-						<td></td>
-						<td></td>
+						<td id = "key_no5">비닐</td>
+						<td id = "key_no6" class = "fk88010430">쌀새우깡</td>
+						<td id = "key_no7"></td>
+						<td id = "key_no8"></td>
 					</tr>
 					<tr>
-						<td>라이터</td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td id = "key_no9">라이터</td>
+						<td id = "key_no10"></td>
+						<td id = "key_no11"></td>
+						<td id = "key_no12"></td>
 					</tr>
 					<tr>
-						<td>복권</td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td id = "key_no13">복권</td>
+						<td id = "key_no14"></td>
+						<td id = "key_no15"></td>
+						<td id = "key_no16"></td>
 					</tr>
-					<tr>
-						<td>신문</td>
-						<td></td>
-						<td></td>
-						<td></td>
+					<tr class="igkey">
+						<td>〈</td>
+						<td>〉</td>
+						<td colspan="2" >키설정</td>
+						
 					</tr>
 				</table>
 
@@ -173,6 +192,92 @@
 			</div>
 		</div>
 	</div>
+
+<script type="text/javascript">
+var cnt=1;				//리스트 등록 카운트
+var ea=1;				//첫 등록제품 수
+var sale=0;				//할인
+var bar =0;				//바코드번호 초기화
+var price=0;			//가격 초기화
+var ead=0;				//같은 상품 1개 증가
+var totalpr = 0; 		//가격 *수량
+
+var eaid = "";			//수량 id
+var tpid = "";			//합계 id
+var eav = "";			//수량 값
+var tpv ="";			//합계 값
+var barcode_no ="";
+var key_no ="";
+
+function appendMD(barcode_no){	
+
+
+	var str ="";
+	$.getJSON("posList?barcode_no="+barcode_no,function(data){
+		console.log(data);
+		$(data).each(
+				
+
+				function(){
+					
+
+					bar = $("."+barcode_no+"").html();
+					
+					
+					console.log(bar);
+					console.log(barcode_no);
+					
+					if(bar == barcode_no){
+						 ead = parseInt($("."+barcode_no+"ea").html())+1;
+						 pricet = parseInt($("."+barcode_no+"pr").html())*ead;
+
+						console.log(ead);
+						console.log(pricet);
+						
+						$("."+barcode_no+"ea").html(ead);
+						$("."+barcode_no+"total").html(pricet);
+						totalpr += parseInt($("."+barcode_no+"pr").html());
+
+					}else{
+					
+						str += "<tr id='no"+cnt+"'>";
+						str +=		"<td id=cnt"+cnt+" class = cnt> "+cnt+"</td>";
+						str +=		"<td> <a id=bar"+cnt+" class="+this.barcode_no+">"+this.barcode_no+"</a></td>";
+						str +=		"<td> <a class="+this.md_name+">"+this.md_name+"</a></td>";
+						str +=		"<td> <a class="+this.barcode_no+"pr>"+this.price+"</a></td>";
+						str +=		"<td class=md_ea id=tdea"+cnt+"> <a id=ea"+cnt+" class="+this.barcode_no+"ea>"+ea+"</a></td>";
+						str +=		"<td> <a class="+sale+">"+sale+"</a></td>";
+						str +=		"<td  id=ea"+cnt+"xPrice> <a class="+this.barcode_no+"total>"+(this.price)*ea+"</a></td>";
+						str +=	"</tr>";
+						
+						
+						cnt++;
+						totalpr += parseInt(this.price);
+					}
+					
+					$(".listTotalPr").html(totalpr);	//리스트 총합계
+					$(".listSalePr").html(sale);		//할인금액
+					$(".listPaymentPr").html(totalpr-sale);	//합계-할인금액
+					
+					var inputPr = parseInt($(".listInputPr").val());	
+					var totalPr = parseInt($(".listTotalPr").html());
+				
+					if(inputPr<totalPr){
+							$(".listOutputPr").html(0);	//받은돈 - 합계
+
+					}
+					
+							
+				});
+		$(".listtable").append(str);
+	});
+	
+  }	
+
+
+</script>
+
+
 
 
 </body>
