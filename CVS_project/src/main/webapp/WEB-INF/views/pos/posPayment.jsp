@@ -320,30 +320,24 @@
 		function functionkey(pageNum) {
 			
 			
-			//var str = "";
 		
 			$.getJSON("functionButton?pageNum="+pageNum,function(data) {
 				
-				console.log("pageNum1111 = "+pageNum);  // 1
-			console.log(data.length);
 
 				 var str = "<table class='functiontable' border='1' width=250px>";
 			
-				$(data).each(function(index,data) {	//3
+				$(data).each(function(index,data) {
 					//index는 객체 키, data는 객체 값
-					console.log("key_no = "+data.key_no);
 
-					console.log("1"+str);
 				if(index%4 == 0 && index!=0){
 					str+="</tr>";
 				}if(index%4 == 0 && index==0){
 					str+="<tr>";
 				}
-					str += "<td width=25% id="+data.key_no+" class='fk$"+data.barcode_no+"'>"+data.md_name+"</td>";
+					str += "<td width=25% id="+data.key_no+" class='fk"+data.barcode_no+"'>"+data.md_name+"</td>";
 				if(index==15){
 						str+="</tr>";
 				}
-					console.log("2"+str);
 				});
 				str += "<tr class='igkey'>";
 				str += "<td class='leftbutton'>〈</td>";
