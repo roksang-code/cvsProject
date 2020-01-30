@@ -3,12 +3,14 @@ package com.cvs.service;
 import java.util.List;
 
 import com.cvs.model.Auto_incrementVO;
+import com.cvs.model.Buttonpage;
 import com.cvs.model.Functionkey_infoVO;
 import com.cvs.model.Md_infoVO;
 import com.cvs.model.Pos_boardVO;
 
 public interface PosService {
 	
+
 	public Md_infoVO inputMdlist(int barcode_no) throws Exception;
 
 	public void Payment(Pos_boardVO pvo) throws Exception;
@@ -25,6 +27,7 @@ public interface PosService {
 
 	public void SelectsearchMD(Functionkey_infoVO fivo) throws Exception;
 
+	public List<Functionkey_infoVO> functionButton(Buttonpage bp) throws Exception;
 
 
 

@@ -141,6 +141,20 @@
 	update functionkey_info set md_name = #{md_name}, barcode_no = #{barcode_no} where key_no = #{key_no};
 	
 </update>	
+	
+	<!--  단축키 버튼 -->
+<select id="functionButton" resultType="com.cvs.model.Functionkey_infoVO">
+
+		select key_no, md_name, barcode_no from
+			( select @rownum:=@rownum+1 as rownum, key_no, md_name, barcode_no from
+       	 	(select @rownum:=0) as rownum, functionkey_info)
+			functionkey_info        
+		<![CDATA[
+			where rownum > (#{pageNum}-1)*16
+ 			and rownum <= #{pageNum}*16
+ 		]]>
+	
+</select>
 
 
 

@@ -42,7 +42,8 @@ $(document).ready(function() {
 
 	$(document).off("click").on("click", ".functiontable tr td", function(){
 		var click_key = $(this).text();
-		
+			console.log(click_key);
+
 		if(click_key == "키설정" && $(".functiontable tr td").css("backgroundColor") == "rgba(0, 0, 0, 0)"){
 
 
@@ -84,6 +85,14 @@ $(document).ready(function() {
 		}else if(click_key == "키설정" && $(".functiontable tr td").css("backgroundColor") == "rgb(135, 206, 235)"){
 			$(".functiontable tr td").css( "backgroundColor", "rgba(0, 0, 0, 0)" );
 
+		}else if(click_key == "〈"){
+			pageNum = 1;
+
+			functionkey(pageNum);
+		}else if(click_key == "〉"){
+			pageNum = 2;
+
+			functionkey(pageNum);
 		}
 		
 		
@@ -93,9 +102,12 @@ $(document).ready(function() {
 		console.log("bar = "+barcode_no);
 
 		appendMD(barcode_no);
-
+		
 
 		}
+		
+		
+		
 	
 	});//단축키
 	
@@ -153,7 +165,6 @@ $(document).ready(function() {
 					 
 						$("#modalLayer").fadeOut("fast");
 						$(".modalLink").focus();
-						alert(key_no);
 
 						$("#"+key_no).text(md_name);
 						$("#"+key_no).attr("class","fk"+barcode_no); 

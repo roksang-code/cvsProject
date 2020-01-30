@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cvs.model.Auto_incrementVO;
+import com.cvs.model.Buttonpage;
 import com.cvs.model.Functionkey_infoVO;
 import com.cvs.model.Md_infoVO;
 import com.cvs.model.Pos_boardVO;
@@ -75,6 +76,14 @@ public class PosMapperImpl implements PosMapper {
 
 		session.update(namespace + ".SelectsearchMD", fivo);
 		
+	}
+
+	@Override
+	public List<Functionkey_infoVO> functionButton(Buttonpage bp) throws Exception {
+		
+		List<Functionkey_infoVO> functionButton = session.selectList(namespace + ".functionButton", bp);
+
+		return functionButton;
 	}
 
 	

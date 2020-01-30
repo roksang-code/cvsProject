@@ -38,7 +38,7 @@
 				</tr>
 				<% int i = 1; %>
 					
-				<c:forEach var="Pos_boardVO" items="${PaymentList}">
+				<c:forEach  var="Pos_boardVO" items="${PaymentList}">
 					
 					<tr class="mainlist" id = "no<%=i %>">
 						<td class="list_no">${Pos_boardVO.list_no}</td>

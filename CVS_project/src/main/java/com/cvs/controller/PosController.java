@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cvs.model.Auto_incrementVO;
+import com.cvs.model.Buttonpage;
 import com.cvs.model.Functionkey_infoVO;
 import com.cvs.model.Md_infoVO;
 import com.cvs.model.Pos_boardVO;
@@ -36,9 +37,13 @@ public class PosController {
 	
 	
 	@RequestMapping(value = "/posPayment", method = RequestMethod.GET)//pos화면
-	public void posGet() throws Exception {
+	public void posGet(Functionkey_infoVO fivo,Buttonpage bp, Model model) throws Exception {
 
 		logger.info("pos get...");
+		
+		
+
+		model.addAttribute("functionkeyList", pservice.functionButton(bp));  
 
 	}
 	
@@ -199,6 +204,15 @@ public class PosController {
 		
 		
 	}
+	@ResponseBody
+	@RequestMapping(value = "/functionButton", method = RequestMethod.GET)//단축키 출력
+	public List<Functionkey_infoVO> functionButton(Functionkey_infoVO fivo,Buttonpage bp, Model model) throws Exception {
+
+		logger.info("str = "+pservice.functionButton(bp));
+
+		return pservice.functionButton(bp);
+	}
+	
 	
 	
 	
