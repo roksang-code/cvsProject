@@ -211,121 +211,61 @@
 		
 		function appendMD(barcode_no) {
 
-			var str = "";
-			$
-					.getJSON(
-							"posList?barcode_no=" + barcode_no,
-							function(data) {
+				var str = "";
+				$.getJSON("posList?barcode_no=" + barcode_no, function(data) {
 								console.log(data);
-								$(data)
-										.each(
+						$(data).each(function() {
+									bar = $("." + barcode_no+ "").html();
 
-												function() {
+								if (bar == barcode_no) {
+									ead = parseInt($("."+ barcode_no+ "ea").html()) + 1;
+									pricet = parseInt($("."+ barcode_no + "pr").html()) * ead;
+										$("."+ barcode_no + "ea").html(ead);
+										$("."+ barcode_no + "total").html(pricet);
+										totalpr += parseInt($("."+ barcode_no+ "pr").html());
 
-													bar = $(
-															"." + barcode_no
-																	+ "")
-															.html();
+								}else {
+											str += "<tr id='no"+cnt+"'>";
+											str += "<td id=cnt"+cnt+" class = cnt> "+ cnt + "</td>";
+											str += "<td> <a id=bar"+cnt+" class="+this.barcode_no+">"+ this.barcode_no+ "</a></td>";
+											str += "<td> <a class="+this.md_name+">"+ this.md_name+ "</a></td>";
+											str += "<td> <a class="+this.barcode_no+"pr>"+ this.price+ "</a></td>";
+											str += "<td class=md_ea id=tdea"+cnt+"> <a id=ea"+cnt+" class="+this.barcode_no+"ea>"+ ea+ "</a></td>";
+											str += "<td> <a class="+sale+">"+ sale+ "</a></td>";
+											str += "<td  id=ea"+cnt+"xPrice> <a class="+this.barcode_no+"total>"+ (this.price)* ea+ "</a></td>";
+											str += "</tr>";
 
-													console.log(bar);
-													console.log(barcode_no);
+												cnt++;
+												totalpr += parseInt(this.price);
+								}
 
-													if (bar == barcode_no) {
-														ead = parseInt($(
-																"."
-																		+ barcode_no
-																		+ "ea")
-																.html()) + 1;
-														pricet = parseInt($(
-																"."
-																		+ barcode_no
-																		+ "pr")
-																.html())
-																* ead;
+									$(".listTotalPr").html(totalpr); //리스트 총합계
+									$(".listSalePr").html(sale); //할인금액
+									$(".listPaymentPr").html(totalpr - sale); //합계-할인금액
 
-														console.log(ead);
-														console.log(pricet);
+									var inputPr = parseInt($(".listInputPr").val());
+									var totalPr = parseInt($(".listTotalPr").html());
 
-														$(
-																"."
-																		+ barcode_no
-																		+ "ea")
-																.html(ead);
-														$(
-																"."
-																		+ barcode_no
-																		+ "total")
-																.html(pricet);
-														totalpr += parseInt($(
-																"."
-																		+ barcode_no
-																		+ "pr")
-																.html());
+									if (inputPr < totalPr) {
+											$(".listOutputPr").html(0); //받은돈 - 합계
+									}
 
-													} else {
-
-														str += "<tr id='no"+cnt+"'>";
-														str += "<td id=cnt"+cnt+" class = cnt> "
-																+ cnt + "</td>";
-														str += "<td> <a id=bar"+cnt+" class="+this.barcode_no+">"
-																+ this.barcode_no
-																+ "</a></td>";
-														str += "<td> <a class="+this.md_name+">"
-																+ this.md_name
-																+ "</a></td>";
-														str += "<td> <a class="+this.barcode_no+"pr>"
-																+ this.price
-																+ "</a></td>";
-														str += "<td class=md_ea id=tdea"+cnt+"> <a id=ea"+cnt+" class="+this.barcode_no+"ea>"
-																+ ea
-																+ "</a></td>";
-														str += "<td> <a class="+sale+">"
-																+ sale
-																+ "</a></td>";
-														str += "<td  id=ea"+cnt+"xPrice> <a class="+this.barcode_no+"total>"
-																+ (this.price)
-																* ea
-																+ "</a></td>";
-														str += "</tr>";
-
-														cnt++;
-														totalpr += parseInt(this.price);
-													}
-
-													$(".listTotalPr").html(
-															totalpr); //리스트 총합계
-													$(".listSalePr").html(sale); //할인금액
-													$(".listPaymentPr").html(
-															totalpr - sale); //합계-할인금액
-
-													var inputPr = parseInt($(
-															".listInputPr")
-															.val());
-													var totalPr = parseInt($(
-															".listTotalPr")
-															.html());
-
-													if (inputPr < totalPr) {
-														$(".listOutputPr")
-																.html(0); //받은돈 - 합계
-
-													}
-
-												});
-								$(".listtable").append(str);
-							});
+						});
+						$(".listtable").append(str);
+				});
 
 		}
 		
-		function functionkey(pageNum) {
-			
+		function functionkey(pageNum, color) {
 			
 		
 			$.getJSON("functionButton?pageNum="+pageNum,function(data) {
 				
 
 				 var str = "<table class='functiontable' border='1' width=250px>";
-			
+				if(color==null){
+					color="rgba(0, 0, 0, 0)";
+				}
 				$(data).each(function(index,data) {
 					//index는 객체 키, data는 객체 값
 
@@ -334,7 +274,7 @@
 				}if(index%4 == 0 && index==0){
 					str+="<tr>";
 				}
-					str += "<td width=25% id="+data.key_no+" class='fk"+data.barcode_no+"'>"+data.md_name+"</td>";
+					str += "<td width=25% style='background-color: "+color+"' id="+data.key_no+" class='fk"+data.barcode_no+"'>"+data.md_name+"</td>";
 				if(index==15){
 						str+="</tr>";
 				}

@@ -2,17 +2,31 @@ package com.cvs.model;
 
 public class PromotionVO {
 	
-	private int md_no;
+	private int promotion_md_ea;
+	private int promotion_no;
+	private int barcode_no;
 	private String pr_type;
 	private String pr_subject;
 	private String pr_content;
 	private String start_pr_date;
 	private String end_pr_date;
-	public int getMd_no() {
-		return md_no;
+	public int getPromotion_md_ea() {
+		return promotion_md_ea;
 	}
-	public void setMd_no(int md_no) {
-		this.md_no = md_no;
+	public void setPromotion_md_ea(int promotion_md_ea) {
+		this.promotion_md_ea = promotion_md_ea;
+	}
+	public int getPromotion_no() {
+		return promotion_no;
+	}
+	public void setPromotion_no(int promotion_no) {
+		this.promotion_no = promotion_no;
+	}
+	public int getBarcode_no() {
+		return barcode_no;
+	}
+	public void setBarcode_no(int barcode_no) {
+		this.barcode_no = barcode_no;
 	}
 	public String getPr_type() {
 		return pr_type;
@@ -44,8 +58,10 @@ public class PromotionVO {
 	public void setEnd_pr_date(String end_pr_date) {
 		this.end_pr_date = end_pr_date;
 	}
-
-
 	
+	
+
+
+		
 
 }

@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 	  
 	  appendMD(barcode_no);
-	});
+	});//바코드 입력으로 상품 등록
 	$(".listInputPr").on("keyup", function() {
 		
 		var inputPr = parseInt($(".listInputPr").val());
@@ -39,60 +39,82 @@ $(document).ready(function() {
 		}
 		
 	});
+			
+		$(document).off("click").on("click", ".functiontable tr td", function(){
+			if($(this).text() != "키설정" && $(this).text() != "〈" && $(this).text() != "〉" && $(".functiontable tr td").css("backgroundColor") == "rgb(135, 206, 235)"){
+		
+					  keyno = $(this).attr("id");
+					  var modalLayer = $("#modalLayer");
+					  var modalLink = $(".modalLink");
+					  var modalCont = $(".modalContent");
+					  var marginLeft = modalCont.outerWidth()/2;
+					  var marginTop = modalCont.outerHeight()/2; 
 
-	$(document).off("click").on("click", ".functiontable tr td", function(){
+					    modalLayer.fadeIn("fast");
+					    modalCont.css({"margin-top" : -marginTop, "margin-left" : -marginLeft});
+					    $(this).blur();
+					    $(".modalContent .md_search_data").focus(); 
+
+					    
+					  $(".close").on("click",function(){
+					
+					    modalLayer.fadeOut("fast");
+					    modalLink.focus();
+						$(".search_info").html("");
+						$(".md_search_data").val("");
+						return false;
+
+					  });//키설정 모달창
+			
+			}
+
+			
+		});	
+	
+	$(document).on("click", ".functiontable tr td", function(){
 		var click_key = $(this).text();
 			console.log(click_key);
 
 		if(click_key == "키설정" && $(".functiontable tr td").css("backgroundColor") == "rgba(0, 0, 0, 0)"){
-
+			click_key="";
 
 			$(".functiontable tr td").css( "backgroundColor", "rgb(135, 206, 235)" );
 			$(".igkey td").css( "backgroundColor", "rgba(0, 0, 0, 0)" );
 			
 			
-			$(".functiontable tr td").on("click", function(){
-				if($(this).text() != "키설정"){
-						  
-						  keyno = $(this).attr("id");
-						  var modalLayer = $("#modalLayer");
-						  var modalLink = $(".modalLink");
-						  var modalCont = $(".modalContent");
-						  var marginLeft = modalCont.outerWidth()/2;
-						  var marginTop = modalCont.outerHeight()/2; 
+			
 
-						    modalLayer.fadeIn("fast");
-						    modalCont.css({"margin-top" : -marginTop, "margin-left" : -marginLeft});
-						    $(this).blur();
-						    $(".modalContent .md_search_data").focus(); 
-
-						    
-						  $(".close").on("click",function(){
-						
-						    modalLayer.fadeOut("fast");
-						    modalLink.focus();
-							return false;
-
-						  });//키설정 모달창
-				
-				}
-
-				$(".functiontable tr td").off("click");
-				
-			});	
-					
 
 		}else if(click_key == "키설정" && $(".functiontable tr td").css("backgroundColor") == "rgb(135, 206, 235)"){
+			console.log("click_key = "+click_key);
+
+			click_key="";
 			$(".functiontable tr td").css( "backgroundColor", "rgba(0, 0, 0, 0)" );
+			$("#modalLayer").fadeOut("fast");
+			$(".modalLink").focus();
+			$(".search_info").html("");
+			$(".md_search_data").val("");
+			
+			$(".functiontable tr td").off("click");
 
 		}else if(click_key == "〈"){
 			pageNum = 1;
-
-			functionkey(pageNum);
+			color = $(".functiontable tr td").css("backgroundColor");
+			$("#modalLayer").fadeOut("fast");
+			$(".modalLink").focus();
+			$(".search_info").html("");
+			$(".md_search_data").val("");
+			
+			functionkey(pageNum, color);
 		}else if(click_key == "〉"){
 			pageNum = 2;
-
-			functionkey(pageNum);
+			color = $(".functiontable tr td").css("backgroundColor");
+			$("#modalLayer").fadeOut("fast");
+			$(".modalLink").focus();
+			$(".search_info").html("");
+			$(".md_search_data").val("");
+			
+			functionkey(pageNum, color);
 		}
 		
 		
@@ -101,11 +123,10 @@ $(document).ready(function() {
 		
 		console.log("bar = "+barcode_no);
 
-		appendMD(barcode_no);
+		appendMD(barcode_no);//단축키로 상품등록
 		
 
 		}
-		
 		
 		
 	
@@ -168,7 +189,9 @@ $(document).ready(function() {
 
 						$("#"+key_no).text(md_name);
 						$("#"+key_no).attr("class","fk"+barcode_no); 
-					    
+						$(".search_info").html("");
+						$(".md_search_data").val("");
+
 
 
 					},
