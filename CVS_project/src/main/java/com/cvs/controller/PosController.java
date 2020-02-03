@@ -1,5 +1,6 @@
 package com.cvs.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -30,6 +31,7 @@ public class PosController {
 	@Autowired
 	private PosService pservice;
 
+
 	private static final Logger logger = LoggerFactory.getLogger(PosController.class);
 
 	
@@ -40,12 +42,10 @@ public class PosController {
 	public void posGet(Functionkey_infoVO fivo,Buttonpage bp, Model model) throws Exception {
 
 		logger.info("pos get...");
-		
-		
-
-		model.addAttribute("functionkeyList", pservice.functionButton(bp));  
+				model.addAttribute("functionkeyList", pservice.functionButton(bp));  
 
 	}
+
 	
 	@RequestMapping(value = "/posPaymentList", method = RequestMethod.GET)//전체 매출 리스트 화면
 	public void posPaymentListGet(@RequestParam String sale_date, Pos_boardVO pvo, Model model) throws Exception {
@@ -114,7 +114,7 @@ public class PosController {
 		mdvo = pservice.inputMdlist(barcode_no);
 		logger.info("mdvo="+mdvo);
 		logger.info("barcode_no = "+barcode_no);
-	
+		
 		return mdvo;
 	}
 	
@@ -134,7 +134,7 @@ public class PosController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/Auto_increment", method = RequestMethod.POST)//결제
+	@RequestMapping(value = "/Auto_increment", method = RequestMethod.POST)//ai_no 자동증가
 	public String Auto_increment(@RequestBody Auto_incrementVO aivo) throws Exception {
 	
 		if(aivo.getEmp_no()!=1) {
@@ -194,7 +194,7 @@ public class PosController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value = "/SelectsearchMD", method = RequestMethod.POST)//결제
+	@RequestMapping(value = "/SelectsearchMD", method = RequestMethod.POST)//단축키 상품 등록
 	public void SelectsearchMD(@RequestBody Functionkey_infoVO fivo) throws Exception {
 
 		pservice.SelectsearchMD(fivo);
@@ -213,7 +213,21 @@ public class PosController {
 		return pservice.functionButton(bp);
 	}
 	
-	
+	/*
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping(value = "/Payment", method =
+	 * RequestMethod.POST)//상품리스트(임시테이블) public void dummy(@RequestBody Pos_boardVO
+	 * pvo) throws Exception {
+	 * 
+	 * pservice.Payment(pvo); logger.info("Payment post...");
+	 * logger.info("getBarcode_no"+pvo.getBarcode_no()); logger.info("getMd_ea"+
+	 * pvo.getMd_ea());
+	 * 
+	 * 
+	 * 
+	 * }
+	 */
 	
 	
 	

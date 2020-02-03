@@ -221,7 +221,7 @@ $(document).ready(function() {
 		
 		eaid =  $("#"+trid+" .md_ea a").attr("id");
 		trlength = parseInt($(".listtable tbody tr").length);
-		var ignore = parseInt($("#"+trid).text())
+		
 		
 
 		console.log("eaid ="+eaid);
@@ -233,12 +233,15 @@ $(document).ready(function() {
 
 			  $(".eaplus").off("click");
 			  $(".numkey tr td").off("click");
-				
+			trid="";
+
 			
 		}else{	
 			$("#"+trid).css( "backgroundColor", "rgb(46, 154, 254)" );
 			$("#"+trid).css( "color", "white" );
-			
+			var ignore = parseInt($("#"+trid).text())
+
+
 		}
 		for(i=1; i<cnt;i++){
 			if(i!=ignore){
@@ -258,29 +261,29 @@ $(document).ready(function() {
 	
 	 	
 		idname = "";
-	  if($("#"+trid).css( "backgroundColor" ) == "rgb(46, 154, 254)"){
+		if(trid!="" && $("#"+trid).css( "backgroundColor" ) == "rgb(46, 154, 254)" ){
 				
-		$(".numkey tr td").on("click",function(){
+			$(".numkey tr td").on("click",function(){
 
-			 var inputKey = "";
-			 console.log($(this).text());
-
-				if(isNaN( $(this).text())==false&&$(this).text()>0){
-					 inputKey = $(this).text();
+				var inputKey = "";
+					console.log($(this).text());
+				
+					if(isNaN( $(this).text())==false&&$(this).text()>0){
+						inputKey = $(this).text();
 				
 
-					 	$(".changeEA").on("click",function(){
+							$(".changeEA").on("click",function(){
 						
 
-					 	$("#"+eaid).text(inputKey);
-					 	$("#"+tpid).text(inputKey*pr);
+								$("#"+eaid).text(inputKey);
+								$("#"+tpid).text(inputKey*pr);
 
-						//$(".numkey tr td").off("click");
-					 });
-				}
+								//$(".numkey tr td").off("click");
+							});
+					}
 				
 
-		});//수량변경
+			});//수량변경
 	
 		
 		$(".eaplus").off("click").on("click",function(){
@@ -296,11 +299,13 @@ $(document).ready(function() {
 		});//수량 증가 버튼
 		
 		
-		$(".deletemd").on("click",function(){
-
+		$(".deletemd").off("click").on("click",function(){
+			if(trid!=""){
+		
 			startnum = parseInt($("#"+trid).text())
 			
-			$("#"+trid).remove();
+			
+				$("#"+trid).remove();
 			
 			for(i=startnum; i<cnt;i++){
 					$("#cnt"+i).text(parseInt($("#cnt"+i).text())-1);
@@ -316,13 +321,14 @@ $(document).ready(function() {
 			}
 			cnt--;
 
-			 
+			trid="";
+			}
 		});//삭제 버튼
-	  
+	    
 	  }//tr선택에만 이벤트 발생
 	 	
 		
-		
+
 	});// 리스트상품 선택 함수
 	
 	
@@ -415,6 +421,7 @@ $(document).on("click", ".numkey tr td", function(){
 				},
 				dataType : "text",
 				data : JSON.stringify({
+					pos_no : 1,
 					barcode_no : barcode_no,
 					md_ea : md_ea,
 					type : paymentType

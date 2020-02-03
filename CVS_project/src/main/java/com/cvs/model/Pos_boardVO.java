@@ -2,6 +2,7 @@ package com.cvs.model;
 
 public class Pos_boardVO {
 	private int store_no;
+	private int pos_no;	
 	private int list_no;
 	private int md_no;
 	private int barcode_no;
@@ -97,15 +98,24 @@ public class Pos_boardVO {
 	}
 	public void setType(String type) {
 		this.type = type;
+	} 
+	
+	public int getPos_no() {
+		return pos_no;
 	}
+	public void setPos_no(int pos_no) {
+		this.pos_no = pos_no;
+	}
+	
 	
 	@Override
 	public String toString() {
-		return "Pos_boardVO [store_no=" + store_no + ", list_no=" + list_no + ", md_no=" + md_no + ", barcode_no="
-				+ barcode_no + ", md_ea=" + md_ea + ", list_md_ea=" + list_md_ea + ", price=" + price + ", total_price="
-				+ total_price + ", md_name=" + md_name + ", type=" + type + ", sale_date=" + sale_date + ", sale_time="
-				+ sale_time + ", update_date=" + update_date + "]";
+		return "Pos_boardVO [store_no=" + store_no + ", pos_no=" + pos_no + ", list_no=" + list_no + ", md_no=" + md_no
+				+ ", barcode_no=" + barcode_no + ", md_ea=" + md_ea + ", list_md_ea=" + list_md_ea + ", price=" + price
+				+ ", total_price=" + total_price + ", md_name=" + md_name + ", type=" + type + ", sale_date="
+				+ sale_date + ", sale_time=" + sale_time + ", update_date=" + update_date + "]";
 	}
+	
 	
 	
 	

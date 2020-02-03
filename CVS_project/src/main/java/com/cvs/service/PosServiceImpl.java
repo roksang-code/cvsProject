@@ -1,6 +1,7 @@
 package com.cvs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,6 +85,13 @@ public class PosServiceImpl implements PosService{
 
 		return pm.functionButton(bp);
 
+	}
+
+	@Override
+	public void dummy_table(String now_time) throws Exception {
+
+		pm.dummy_table(now_time);
+		
 	}
 	
 	

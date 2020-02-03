@@ -87,6 +87,11 @@ public class PosMapperImpl implements PosMapper {
 	}
 
 	
-	
-	
+	@Override
+	public void dummy_table(String now_time) throws Exception {
+
+		session.insert(namespace + ".dummy_table", now_time);
+		
+		
+	}
 }

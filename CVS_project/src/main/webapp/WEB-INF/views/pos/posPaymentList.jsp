@@ -30,6 +30,7 @@
 		<div>
 			<table border="1" class="mainlisttable" >
 				<tr>
+					<th>포스번호</th>
 					<th>거래번호</th>
 					<th>거래시간</th>
 					<th>상품수</th>
@@ -41,6 +42,7 @@
 				<c:forEach  var="Pos_boardVO" items="${PaymentList}">
 					
 					<tr class="mainlist" id = "no<%=i %>">
+						<td>${Pos_boardVO.pos_no}</td>
 						<td class="list_no">${Pos_boardVO.list_no}</td>
 						<td>${Pos_boardVO.sale_time}</td>
 						<td>${Pos_boardVO.list_md_ea}</td>

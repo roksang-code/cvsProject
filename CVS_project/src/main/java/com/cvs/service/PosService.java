@@ -29,6 +29,8 @@ public interface PosService {
 
 	public List<Functionkey_infoVO> functionButton(Buttonpage bp) throws Exception;
 
+	public void dummy_table(String now_time)throws Exception;
+	
 
 
 }

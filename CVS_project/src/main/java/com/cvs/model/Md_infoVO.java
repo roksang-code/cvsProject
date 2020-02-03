@@ -11,6 +11,9 @@ public class Md_infoVO {
  	private String pack_date;
 	private int cost;
 	private int price;
+	private String pr_subject;
+	private String pr_content;
+	
  	
  	
 	public int getMd_no() {
@@ -73,13 +76,26 @@ public class Md_infoVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	public String getPr_subject() {
+		return pr_subject;
+	}
+	public void setPr_subject(String pr_subject) {
+		this.pr_subject = pr_subject;
+	}
+	public String getPr_content() {
+		return pr_content;
+	}
+	public void setPr_content(String pr_content) {
+		this.pr_content = pr_content;
+	}
 	@Override
 	public String toString() {
 		return "Md_infoVO [md_no=" + md_no + ", barcode_no=" + barcode_no + ", shelf_life=" + shelf_life + ", type="
 				+ type + ", detail_type=" + detail_type + ", company=" + company + ", md_name=" + md_name
-				+ ", pack_date=" + pack_date + ", cost=" + cost + ", price=" + price + "]";
+				+ ", pack_date=" + pack_date + ", cost=" + cost + ", price=" + price + ", pr_subject=" + pr_subject
+				+ ", pr_content=" + pr_content + "]";
 	}
- 	
+	
  	
  	
 

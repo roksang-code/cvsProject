@@ -207,9 +207,9 @@
 		var barcode_no = "";
 		var key_no = "";
 		var pageNum ="";
+		var trid="";
 		
-		
-		function appendMD(barcode_no) {
+		function appendMD(barcode_no) {//상품등록
 
 				var str = "";
 				$.getJSON("posList?barcode_no=" + barcode_no, function(data) {
@@ -228,7 +228,11 @@
 											str += "<tr id='no"+cnt+"'>";
 											str += "<td id=cnt"+cnt+" class = cnt> "+ cnt + "</td>";
 											str += "<td> <a id=bar"+cnt+" class="+this.barcode_no+">"+ this.barcode_no+ "</a></td>";
-											str += "<td> <a class="+this.md_name+">"+ this.md_name+ "</a></td>";
+											str += "<td> <a class="+this.md_name+">"+ this.md_name+"</a>";
+											if(this.pr_subject != null && this.pr_content != null){
+												str += "<a style='color: red'>"+"&nbsp;&nbsp;"+this.pr_subject+"&nbsp;&nbsp;"+this.pr_content+"</a>";
+											}
+											str += "</td>";
 											str += "<td> <a class="+this.barcode_no+"pr>"+ this.price+ "</a></td>";
 											str += "<td class=md_ea id=tdea"+cnt+"> <a id=ea"+cnt+" class="+this.barcode_no+"ea>"+ ea+ "</a></td>";
 											str += "<td> <a class="+sale+">"+ sale+ "</a></td>";
@@ -249,14 +253,15 @@
 									if (inputPr < totalPr) {
 											$(".listOutputPr").html(0); //받은돈 - 합계
 									}
-
+									
+							
 						});
 						$(".listtable").append(str);
 				});
 
 		}
 		
-		function functionkey(pageNum, color) {
+		function functionkey(pageNum, color) {//단축키 페이징
 			
 		
 			$.getJSON("functionButton?pageNum="+pageNum,function(data) {
