@@ -42,7 +42,6 @@
 				<c:forEach  var="Pos_boardVO" items="${PaymentList}">
 					
 					<tr class="mainlist" id = "no<%=i %>">
-						<td>${Pos_boardVO.pos_no}</td>
 						<td class="list_no">${Pos_boardVO.list_no}</td>
 						<td>${Pos_boardVO.sale_time}</td>
 						<td>${Pos_boardVO.list_md_ea}</td>

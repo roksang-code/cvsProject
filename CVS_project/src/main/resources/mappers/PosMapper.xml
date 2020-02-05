@@ -18,7 +18,7 @@
 	<select id="inputMdlist" resultType="com.cvs.model.Md_infoVO">
 		
 		select md_info.barcode_no,md_name, price,
-			promotion_no, pr_subject, pr_content 
+			promotion_no, pr_type, pr_ea, pr_subject, pr_content, pr_price 
 		
 		from md_info join md_price on md_info.md_no = md_price.md_no
         left join promotion on md_info.barcode_no = promotion.barcode_no
@@ -27,10 +27,6 @@
 	</select>
 	
 	
-	<!-- 상품등록 프로모션 -->
-	<select id="promotionMd" resultType="com.cvs.model.PromotionVO">
-		select * from promotion where barcode_no=#{barcode_no};
-	</select>
 	
 	<!-- 결제 -->
 	<insert id="Payment">

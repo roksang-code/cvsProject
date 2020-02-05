@@ -40,17 +40,17 @@
 						<tr class="thead-dark">
 							<td width=2%>NO</td>
 							<!-- 번호 -->
-							<td width=20%>바코드</td>
+							<td width=15%>바코드</td>
 							<!-- 바코드 -->
-							<td width=20%>상품명</td>
+							<td width=30%>상품명</td>
 							<!-- 상품명 -->
 							<td width=5%>판매가</td>
 							<!-- 가격 -->
-							<td width=3%>수량</td>
+							<td width=4%>수량</td>
 							<!-- 수량 -->
-							<td width=10%>할인</td>
+							<td width=5%>할인</td>
 							<!-- 할인 -->
-							<td width=10%>합계</td>
+							<td width=7%>합계</td>
 							<!-- 합계 -->
 						</tr>
 					</thead>
@@ -199,7 +199,7 @@
 		var price = 0; //가격 초기화
 		var ead = 0; //같은 상품 1개 증가
 		var totalpr = 0; //가격 *수량
-
+		var totalsale = 0;
 		var eaid = ""; //수량 id
 		var tpid = ""; //합계 id
 		var eav = ""; //수량 값
@@ -208,44 +208,222 @@
 		var key_no = "";
 		var pageNum ="";
 		var trid="";
+		var prea=0;
+		var prc="";
+		var minus_sale=0;
+		var ea_price = 0;
+		var sale_switch = false;
+
+
+
+
+		
+		
 		
 		function appendMD(barcode_no) {//상품등록
 
 				var str = "";
+				var ealist = new Array();
+
 				$.getJSON("posList?barcode_no=" + barcode_no, function(data) {
 								console.log(data);
+					
+								
+								
+								
 						$(data).each(function() {
 									bar = $("." + barcode_no+ "").html();
+								
+									
+									if(isNaN(parseInt(this.pr_type)) == false ){//n+m 증정행사
+										prc = this.promotion_no;
+								
+										console.log("prc1 = "+prc);
+											
+										for(i=1;i<cnt;i++){
+										
+											trid = $("#no"+i).attr("id");
+									
+											console.log("trid = "+trid);
 
-								if (bar == barcode_no) {
-									ead = parseInt($("."+ barcode_no+ "ea").html()) + 1;
-									pricet = parseInt($("."+ barcode_no + "pr").html()) * ead;
-										$("."+ barcode_no + "ea").html(ead);
-										$("."+ barcode_no + "total").html(pricet);
-										totalpr += parseInt($("."+ barcode_no+ "pr").html());
+											console.log("prc2 = "+$("#"+trid).find("#pr_no"+prc).text());
+												
+											if($("#"+trid).find("#pr_no"+prc).text() == this.pr_content){
+												
+												console.log(parseInt($("#"+trid).find(".sale").text()));
+												
+												minus_sale += parseInt($("#"+trid).find(".sale").text());																
+												console.log("minus_ea = "+minus_sale);
 
-								}else {
+												prea += parseInt(($("#"+trid).find(".md_ea")).text());
+												
+												
+												
+													if((prea+1)%this.pr_ea==0){
+														sale = (((prea+1)/this.pr_ea)*this.price) - minus_sale;
+														console.log("sale = "+sale);	
+														
+													}
+													
+													
+												
+													
+											}
+												
+													
+										}
+										
+										prea=0;
+										prc=null;
+										trid="";	
+									}else if(this.pr_type == "묶음행사" ){//묶음행사
+										prc = this.promotion_no;
+										
+										console.log("prc1 = "+prc);
+									
+										 var ealist = new Array();
+										for(var j=1;j<cnt;j++){
+											
+										        
+											trid = $("#no"+j).attr("id");
+									
+											console.log("trid = "+trid);
+
+											console.log("prc2 = "+$("#"+trid).find("#pr_no"+prc).text()+"=="+this.pr_content);
+												
+											if($("#"+trid).find("#pr_no"+prc).text() == this.pr_content){
+												
+												console.log(parseInt($("#"+trid).find(".sale").text()));
+												
+												minus_sale += parseInt($("#"+trid).find(".sale").text());																
+
+												prea += parseInt(($("#"+trid).find(".md_ea")).text());
+												
+												
+												       
+												        ealist.push(parseInt($("#"+trid).find(".md_ea").text()));
+												      	
+												      
+														function sumOfValues(x, y) {
+															return x + y;
+														}
+												        
+												        var ealength = parseInt(ealist.reduce(sumOfValues)); 
+												        
+												        console.log("list = "+(ealength+1));    
+														
+												        if((ealength+1)%4==0){
+													        console.log("cnt" + cnt);    
+
+															console.log("ealist.length = "+ealist.length);
+															
+															
+															for(var i=0;i<cnt-1;i++){
+													        	trid = $("#no"+(i+1)).attr("id");
+																
+																if($("#"+trid).find(".pr_no").text()==this.pr_content){	
+																	if($("#"+trid).attr("id") != null){
+															        	console.log("for문");    
+															        	var tr_p =parseInt($("#"+trid).find(".price").text());
+														    			var tr_ea = parseInt($("#"+trid).find(".md_ea").text());
+														    		
+															        	var pr_sale = tr_p*tr_ea - 2500*tr_ea;
+															        	
+														    			$("#"+trid).find(".sale").text(parseInt($("#"+trid).find(".sale").text()+pr_sale));	//할인가격
+														    			$("#"+trid).find(".trtotal_price").text(2500*tr_ea);	//총가격													    		
+														    		
+	
+																		console.log("totalpr = "+totalpr);
+																		console.log("totalsale = "+totalsale);
+																	
+																		console.log("trid = "+$("#"+trid).attr("id"));
+
+
+																	
+																	}else{
+															        	console.log("else문");    
+	
+																		
+														    			$("#"+this.barcode_no+"sale").text(this.price-2500);	//할인가격
+														    			$("."+this.barcode_no+"total").text(2500);	//총가격													    		
+																		
+																	}
+																}
+															}
+															
+															
+															
+												        }
+												  		
+												  
+													
+											}
+												
+													
+										}
+										
+										prea=0;
+										prc=null;
+										trid="";	
+									}			
+									
+									
+									
+								if (bar == barcode_no) { //바코드번호가 같을 때
+									
+										
+										var after_sale = parseInt($("#"+ barcode_no + "sale").html());
+										if(sale>0){
+										
+											$("#"+ barcode_no + "sale").html(after_sale+sale);
+										
+										}
+										ead = parseInt($("."+ barcode_no+ "ea").html()) + 1;
+										
+										pricet = parseInt($("."+ barcode_no + "pr").html()) * ead;
+											$("."+ barcode_no + "ea").html(ead);//수량
+											
+											$("."+ barcode_no + "total").html(pricet-(after_sale+sale));//합계
+										
+											totalpr += parseInt($("."+ barcode_no+ "pr").html());
+											totalsale +=  sale;
+										
+								}else {	//바코드번호가 다를 때
+
+									
 											str += "<tr id='no"+cnt+"'>";
 											str += "<td id=cnt"+cnt+" class = cnt> "+ cnt + "</td>";
 											str += "<td> <a id=bar"+cnt+" class="+this.barcode_no+">"+ this.barcode_no+ "</a></td>";
 											str += "<td> <a class="+this.md_name+">"+ this.md_name+"</a>";
 											if(this.pr_subject != null && this.pr_content != null){
-												str += "<a style='color: red'>"+"&nbsp;&nbsp;"+this.pr_subject+"&nbsp;&nbsp;"+this.pr_content+"</a>";
+												str += "<label style='color: red'>"+"&nbsp;&nbsp;"+this.pr_subject+"&nbsp;&nbsp;<a class='pr_no' id='pr_no"+(this.promotion_no)+"'>"+this.pr_content+"</a></label>";
 											}
 											str += "</td>";
-											str += "<td> <a class="+this.barcode_no+"pr>"+ this.price+ "</a></td>";
-											str += "<td class=md_ea id=tdea"+cnt+"> <a id=ea"+cnt+" class="+this.barcode_no+"ea>"+ ea+ "</a></td>";
-											str += "<td> <a class="+sale+">"+ sale+ "</a></td>";
-											str += "<td  id=ea"+cnt+"xPrice> <a class="+this.barcode_no+"total>"+ (this.price)* ea+ "</a></td>";
+											str += "<td class='price'> <a class="+this.barcode_no+"pr>"+ this.price+ "</a></td>";
+											str += "<td class='md_ea' id=tdea"+cnt+"> <a id=ea"+cnt+" class="+this.barcode_no+"ea>"+ ea+ "</a></td>";
+											str += "<td> <a id="+this.barcode_no+"sale class='sale'>"+sale+"</a></td>";
+										
+											str += "<td id=ea"+cnt+"xPrice class='trtotal_price'> <a class="+this.barcode_no+"total>"+ (this.price*ea-sale) +"</a></td>";
+											
 											str += "</tr>";
 
 												cnt++;
 												totalpr += parseInt(this.price);
-								}
+								
+								
+								
+								
+										        console.log("str문");    
 
+								}
+								
+							
+							       
+							        
+							        
 									$(".listTotalPr").html(totalpr); //리스트 총합계
-									$(".listSalePr").html(sale); //할인금액
-									$(".listPaymentPr").html(totalpr - sale); //합계-할인금액
+									$(".listSalePr").html(totalsale); //할인금액
+									$(".listPaymentPr").html(totalpr - totalsale); //합계-할인금액
 
 									var inputPr = parseInt($(".listInputPr").val());
 									var totalPr = parseInt($(".listTotalPr").html());
@@ -253,9 +431,13 @@
 									if (inputPr < totalPr) {
 											$(".listOutputPr").html(0); //받은돈 - 합계
 									}
-									
 							
 						});
+						
+						console.log("append minus_ea = "+minus_sale);
+
+						sale=0;
+						minus_sale=0;
 						$(".listtable").append(str);
 				});
 

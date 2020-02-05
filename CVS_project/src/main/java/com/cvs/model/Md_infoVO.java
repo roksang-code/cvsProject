@@ -11,6 +11,9 @@ public class Md_infoVO {
  	private String pack_date;
 	private int cost;
 	private int price;
+	private int promotion_no;
+	private int pr_ea;
+	private String pr_type;
 	private String pr_subject;
 	private String pr_content;
 	
@@ -88,13 +91,36 @@ public class Md_infoVO {
 	public void setPr_content(String pr_content) {
 		this.pr_content = pr_content;
 	}
+	public String getPr_type() {
+		return pr_type;
+	}
+	public void setPr_type(String pr_type) {
+		this.pr_type = pr_type;
+	}
+	public int getPromotion_no() {
+		return promotion_no;
+	}
+	public void setPromotion_no(int promotion_no) {
+		this.promotion_no = promotion_no;
+	}
+	public int getPr_ea() {
+		return pr_ea;
+	}
+	public void setPr_ea(int pr_ea) {
+		this.pr_ea = pr_ea;
+	}
 	@Override
 	public String toString() {
 		return "Md_infoVO [md_no=" + md_no + ", barcode_no=" + barcode_no + ", shelf_life=" + shelf_life + ", type="
 				+ type + ", detail_type=" + detail_type + ", company=" + company + ", md_name=" + md_name
-				+ ", pack_date=" + pack_date + ", cost=" + cost + ", price=" + price + ", pr_subject=" + pr_subject
-				+ ", pr_content=" + pr_content + "]";
+				+ ", pack_date=" + pack_date + ", cost=" + cost + ", price=" + price + ", promotion_no=" + promotion_no
+				+ ", pr_ea=" + pr_ea + ", pr_type=" + pr_type + ", pr_subject=" + pr_subject + ", pr_content="
+				+ pr_content + "]";
 	}
+	
+	
+	
+	
 	
  	
  	
