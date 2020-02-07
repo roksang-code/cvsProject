@@ -18,7 +18,7 @@
 	<select id="inputMdlist" resultType="com.cvs.model.Md_infoVO">
 		
 		select md_info.barcode_no,md_name, price,
-			promotion_no, pr_type, pr_ea, pr_subject, pr_content, pr_price 
+			promotion_no, pr_type, pr_ea, pr_subject, pr_content, pr_family, pr_price 
 		
 		from md_info join md_price on md_info.md_no = md_price.md_no
         left join promotion on md_info.barcode_no = promotion.barcode_no
@@ -31,7 +31,7 @@
 	<!-- 결제 -->
 	<insert id="Payment">
  		 	<![CDATA[
- 		 insert into  pos_board( store_no, pos_no, list_no , barcode_no, md_ea, type, sale_date,sale_time)
+ 		 insert into  pos_board( store_no, pos_no, list_no , barcode_no, md_ea, sale_price, type, sale_date,sale_time)
 			   values(		
 		
 			   (select count(*) as cnt from auto_increment_info 
@@ -42,7 +42,7 @@
 			   list_no where list_no = 1),
 			   
 		
-			   #{barcode_no},#{md_ea}, #{type}, sysdate(),curtime());
+			   #{barcode_no},#{md_ea},#{sale_price}, #{type}, sysdate(),curtime());
                               
  			]]>
 	</insert>
@@ -103,7 +103,8 @@
 		resultType="com.cvs.model.Pos_boardVO">
 	<![CDATA[
 	SELECT pos_board.list_no, pos_board.barcode_no,md_name , md_ea, (price*md_ea) price,
-	list_md_ea  , total_price, sale_date, sale_time
+	list_md_ea, sale_price, total_price, sale_date, sale_time
+             		
         
 		FROM md_info
 		JOIN md_price ON
@@ -159,11 +160,19 @@
  		]]>
 	
 </select>
-	<!-- 상품리스트(임시테이블) -->
-<insert id="dummy_table">		
-		CREATE TEMPORARY TABLE dummy_table${now_time}(
-		no int, barcode_no int, price int, md_ea int, sale_price int, total_price int)
 
-</insert>
+	<!--  통신사 조회 -->
+<select id="searchTEL" resultType="com.cvs.model.Tel_membership_infoVO">
+
+        select * from tel_membership_info where tel_company=#{tel_company} and phone_no = #{phone_no};
+	
+</select>
+	<!-- 단축키 등록 -->
+<update id="updateTelPoint">
+
+			update tel_membership_info set tel_point = #{tel_point} where phone_no = #{phone_no};
+	
+</update>	
+
 
 </mapper>

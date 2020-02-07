@@ -153,5 +153,23 @@
 #modalLayer{display:none; position:relative;}
 #modalLayer .modalContent{width:440px; height:200px; padding:20px; border:1px solid #ccc; position:fixed; left:50%; 
 top:50%; z-index:11; background:#fff;}
-#modalLayer .modalContent button{position:absolute; right:0; top:0; cursor:pointer;}
+#modalLayer .modalclose button{position:absolute; right:0; top:0; cursor:pointer;}
+
+#point_save_modal{display:none; position:relative;}
+#point_save_modal .save_modalContent{width:440px; height:200px; padding:20px; border:1px solid #ccc; position:fixed; left:50%; 
+top:50%; z-index:11; background:#fff;}
+#point_save_modal .modalclose button{position:absolute; right:0; top:0; cursor:pointer;}
+
+ 
+#tel_dis_modal{display:none; position:relative;}
+#tel_dis_modal .tel_modalContent{width:440px; height:200px; padding:20px; border:1px solid #ccc; position:fixed; left:50%; 
+top:50%; z-index:11; background:#fff;}
+#tel_dis_modal .modalclose button{position:absolute; right:0; top:0; cursor:pointer;}
+
+
+
+
+
+
+
 

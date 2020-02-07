@@ -7,6 +7,7 @@ import com.cvs.model.Buttonpage;
 import com.cvs.model.Functionkey_infoVO;
 import com.cvs.model.Md_infoVO;
 import com.cvs.model.Pos_boardVO;
+import com.cvs.model.Tel_membership_infoVO;
 
 public interface PosMapper {
 	
@@ -29,5 +30,9 @@ public interface PosMapper {
 	public List<Functionkey_infoVO> functionButton(Buttonpage bp) throws Exception;
 
 	public void dummy_table(String now_time) throws Exception;
+
+	public List<Tel_membership_infoVO> searchTEL(String phone_no, String tel_company)throws Exception;
+
+	public void updateTelPoint(Tel_membership_infoVO tmvo)throws Exception;
 
 }

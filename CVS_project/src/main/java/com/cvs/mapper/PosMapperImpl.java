@@ -1,6 +1,8 @@
 package com.cvs.mapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import com.cvs.model.Buttonpage;
 import com.cvs.model.Functionkey_infoVO;
 import com.cvs.model.Md_infoVO;
 import com.cvs.model.Pos_boardVO;
+import com.cvs.model.Tel_membership_infoVO;
 
 @Repository
 public class PosMapperImpl implements PosMapper {
@@ -92,6 +95,26 @@ public class PosMapperImpl implements PosMapper {
 
 		session.insert(namespace + ".dummy_table", now_time);
 		
+		
+	}
+
+	@Override
+	public List<Tel_membership_infoVO> searchTEL(String phone_no, String tel_company) throws Exception {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("phone_no", phone_no);
+		paramMap.put("tel_company", tel_company);
+		
+		
+		List<Tel_membership_infoVO> searchTEL = session.selectList(namespace + ".functionButton", paramMap);
+	
+		return searchTEL;
+	}
+
+	@Override
+	public void updateTelPoint(Tel_membership_infoVO tmvo) throws Exception {
+		
+		session.update(namespace + ".updateTelPoint", tmvo);
 		
 	}
 }

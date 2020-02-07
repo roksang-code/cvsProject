@@ -28,7 +28,7 @@
 </head>
 <body>
 	<header>
-		${login.member_name}님 환영합니다.
+		<a id="membername">${login.member_name}님 환영합니다.</a>
 		<button class="logout">로그아웃</button>
 	</header>
 	<div>
@@ -75,16 +75,53 @@
 			</div>
 		</div>
 
-		<div id="modalLayer">
+		<div id="modalLayer">	<!-- 단축키 검색 모달창 -->
 			<div class="modalContent">
 				<div>
 					<input type="text" class="md_search_data"><input
 						type="submit" value="검색" class="md_search">
 				</div>
 				<div class="search_info"></div>
-				<button type="button" class="close">X</button>
+				
+				<div class="modalclose"><button type="button" class="close">X</button></div>
 			</div>
 		</div>
+
+		
+		<div id="point_save_modal">	<!-- 포인트 적립 모달창 -->
+			<div class="save_modalContent">
+				<div>
+					<input type="text" class="point_save_data"><input
+						type="submit" value="조회" class="member_no_search">
+				</div>
+				<div class="member_no_info"></div>
+				<div class="modalclose">
+					<button type="button" class="close">X</button>
+				</div>
+			</div>
+		</div>
+		
+		<div id="tel_dis_modal">	<!-- 통신사 할인 모달창 -->
+			<div class="tel_modalContent">
+				<div>
+					<select class="tel_com" name="tel_com">
+					   	<option value="">통신사</option>
+					   	<option value="SKT">SKT</option>
+					   	<option value="KT">KT</option>
+					   	<option value="LG">LG</option>
+					</select>
+					<input type="text" class="tel_membership_no_data"><input
+						type="submit" value="조회" class="tel_search">
+				</div>
+				<div class="tel_membership_info"></div>
+				
+				<div class="modalclose">
+					<button type="button" class="close">X</button>
+				</div>
+			</div>
+		</div>
+				
+		
 		<div class="bottom">
 			<div class="functionkey">
 
@@ -143,6 +180,7 @@
 						<td class="prnum"><a class="listOutputPr">0</a></td>
 					</tr>
 				</table>
+				<input type="hidden" id ="ignore_sale">
 			</div>
 
 
@@ -159,13 +197,13 @@
 						<td class="num">4</td>
 						<td class="num">5</td>
 						<td class="num">6</td>
-						<td class="numright">금액할인</td>
+						<td class="numright" id="point_save">포인트 적립</td>
 					</tr>
 					<tr>
 						<td class="num">1</td>
 						<td class="num">2</td>
 						<td class="num">3</td>
-						<td class="numright">(%)할인</td>
+						<td class="numright" id="tel_discount">통신사 할인</td>
 					</tr>
 					<tr>
 						<td class="num">0</td>
@@ -212,10 +250,11 @@
 		var prc="";
 		var minus_sale=0;
 		var ea_price = 0;
-		var sale_switch = false;
-
-
-
+		var pr_ea_list = new Array();
+		var parent = new Array();
+		var children = new Array();
+		var idname="";
+		var ignore_sale=0;
 
 		
 		
@@ -232,44 +271,67 @@
 								
 								
 						$(data).each(function() {
-									bar = $("." + barcode_no+ "").html();
+									bar = $("." + barcode_no+ "").text();
 								
 									
 									if(isNaN(parseInt(this.pr_type)) == false ){//n+m 증정행사
-										prc = this.promotion_no;
-								
-										console.log("prc1 = "+prc);
-											
-										for(i=1;i<cnt;i++){
 										
-											trid = $("#no"+i).attr("id");
+
+										console.log("this.promotion_no = "+this.promotion_no);
+										pr_ea_list.push(this.promotion_no);
+										
+								      
+										var pr_ea_list_length = pr_ea_list.filter(pr_ea_list => pr_ea_list == this.promotion_no).length;
+										
+											console.log("pr_ea_list_length = "+pr_ea_list_length);	
+											
+										  
+										if(pr_ea_list_length%this.pr_ea==0){
+											
+											sale = (this.price) - minus_sale;
+											minus_sale += sale;																
+											ignore_sale += (sale*this.pr_ea);
+											console.log("sale = "+sale);	
+													
+										}
+										
+										prea=0;
+										prc=null;
+										trid="";	
+										
 									
-											console.log("trid = "+trid);
+										
+									}else if(this.pr_type == "세트할인"){	//세트할인
+										
+										console.log("this.pr_family = "+this.pr_family);
 
-											console.log("prc2 = "+$("#"+trid).find("#pr_no"+prc).text());
-												
-											if($("#"+trid).find("#pr_no"+prc).text() == this.pr_content){
-												
-												console.log(parseInt($("#"+trid).find(".sale").text()));
-												
-												minus_sale += parseInt($("#"+trid).find(".sale").text());																
-												console.log("minus_ea = "+minus_sale);
+										console.log("this.promotion_no = "+this.promotion_no);
+										if(this.pr_family == "parent"){
+											parent.push(this.promotion_no);
+										}else if(this.pr_family == "children"){
+											children.push(this.promotion_no);
+										}
+										console.log("parent = "+parent[0]);
+										
 
-												prea += parseInt(($("#"+trid).find(".md_ea")).text());
-												
-												
-												
-													if((prea+1)%this.pr_ea==0){
-														sale = (((prea+1)/this.pr_ea)*this.price) - minus_sale;
-														console.log("sale = "+sale);	
-														
-													}
-													
-													
-												
-													
+								      
+										var parent_length = parent.filter(parent => parent == this.promotion_no).length;
+										var children_length = children.filter(children => children == this.promotion_no).length;
+										
+											console.log("parent_length = "+parent_length);	
+											console.log("children_length = "+children_length);	
+											console.log("family_length = "+(parent_length+children_length));	
+											if((parent_length - children_length) > 0){
+												var tosale = "parent";
+											}else{
+												var tosale = "children";
 											}
-												
+										if( parent_length == children_length || tosale != this.pr_family){
+											
+											sale = this.pr_price - minus_sale;
+											minus_sale += sale;																
+											ignore_sale += (sale*this.pr_ea);
+											console.log("sale = "+sale);	
 													
 										}
 										
@@ -295,14 +357,9 @@
 												
 												console.log(parseInt($("#"+trid).find(".sale").text()));
 												
-												minus_sale += parseInt($("#"+trid).find(".sale").text());																
-
-												prea += parseInt(($("#"+trid).find(".md_ea")).text());
-												
-												
-												       
+											       
 												        ealist.push(parseInt($("#"+trid).find(".md_ea").text()));
-												      	
+													      	
 												      
 														function sumOfValues(x, y) {
 															return x + y;
@@ -311,8 +368,9 @@
 												        var ealength = parseInt(ealist.reduce(sumOfValues)); 
 												        
 												        console.log("list = "+(ealength+1));    
-														
-												        if((ealength+1)%4==0){
+											}
+										}	
+												  if((ealength+1)%this.pr_ea==0){
 													        console.log("cnt" + cnt);    
 
 															console.log("ealist.length = "+ealist.length);
@@ -321,71 +379,72 @@
 															for(var i=0;i<cnt-1;i++){
 													        	trid = $("#no"+(i+1)).attr("id");
 																
-																if($("#"+trid).find(".pr_no").text()==this.pr_content){	
+																if($("#"+trid).find(".pr_no").text()==this.pr_content){
+																	
 																	if($("#"+trid).attr("id") != null){
 															        	console.log("for문");    
-															        	var tr_p =parseInt($("#"+trid).find(".price").text());
-														    			var tr_ea = parseInt($("#"+trid).find(".md_ea").text());
-														    		
-															        	var pr_sale = tr_p*tr_ea - 2500*tr_ea;
-															        	
-														    			$("#"+trid).find(".sale").text(parseInt($("#"+trid).find(".sale").text()+pr_sale));	//할인가격
-														    			$("#"+trid).find(".trtotal_price").text(2500*tr_ea);	//총가격													    		
+															        	var tr_p =parseInt($("#"+trid).find(".price").text());//리스트 정가
+														    			var tr_ea = parseInt($("#"+trid).find(".md_ea").text());//리스트 수량
+
+															        	var afterpr_sale= parseInt($("#"+trid).find(".sale").text());
+													    				
+														    			if(this.barcode_no==$("#"+trid).find("."+this.barcode_no).text()){
+														    				tr_ea++;
+														    			}
+															        	var pr_sale = parseInt((tr_p - this.pr_price)*tr_ea); //현재 할인된 가격
+														    			$("#"+trid).find(".sale").text((tr_p-parseInt(this.pr_price))*tr_ea);	//할인가격
+														    			$("#"+trid).find(".a_trtotal_price").text(parseInt(this.pr_price)*tr_ea);	//총가격													    		
 														    		
 	
-																		console.log("totalpr = "+totalpr);
-																		console.log("totalsale = "+totalsale);
+																		console.log("totalpr = "+(tr_p-parseInt(this.pr_price))*tr_ea);
+																		console.log("totalsale = "+parseInt(this.pr_price)*tr_ea);
 																	
 																		console.log("trid = "+$("#"+trid).attr("id"));
 
-
+																		totalsale += pr_sale-afterpr_sale;
+																		ignore_sale += tr_p*tr_ea;		
+																	}														
 																	
-																	}else{
-															        	console.log("else문");    
-	
-																		
-														    			$("#"+this.barcode_no+"sale").text(this.price-2500);	//할인가격
-														    			$("."+this.barcode_no+"total").text(2500);	//총가격													    		
-																		
-																	}
 																}
-															}
 															
 															
+												 	       }
+														
 															
-												        }
-												  		
-												  
 													
 											}
-												
-													
-										}
 										
+										
+									
 										prea=0;
 										prc=null;
 										trid="";	
-									}			
-									
+								}	
 									
 									
 								if (bar == barcode_no) { //바코드번호가 같을 때
+									console.log("이전 가격 = "+$("#"+ barcode_no + "total").text());
 									
 										
-										var after_sale = parseInt($("#"+ barcode_no + "sale").html());
+										var after_sale = parseInt($("#"+ barcode_no + "sale").text());
 										if(sale>0){
 										
-											$("#"+ barcode_no + "sale").html(after_sale+sale);
+											$("#"+ barcode_no + "sale").text(after_sale+sale);
 										
 										}
-										ead = parseInt($("."+ barcode_no+ "ea").html()) + 1;
+										ead = parseInt($("."+ barcode_no+ "ea").text()) + 1; //수량 +1
 										
-										pricet = parseInt($("."+ barcode_no + "pr").html()) * ead;
-											$("."+ barcode_no + "ea").html(ead);//수량
+										pricet = parseInt($("."+ barcode_no + "pr").text()) * ead;
+											$("."+ barcode_no + "ea").text(ead);//수량
+										if(this.pr_type == "묶음행사" && (ealength+1)%4!=0){	
+											console.log("이전 가격 = "+$("#"+ barcode_no + "total").text());
+											$("#"+ barcode_no + "total").text(parseInt($("#"+ barcode_no + "total").text())+this.price);//합계
+										
+										}else{
+											$("#"+ barcode_no + "total").text(pricet-(after_sale+sale));//합계		
+										}
 											
-											$("."+ barcode_no + "total").html(pricet-(after_sale+sale));//합계
-										
-											totalpr += parseInt($("."+ barcode_no+ "pr").html());
+											totalpr += parseInt($("."+ barcode_no+ "pr").text());
 											totalsale +=  sale;
 										
 								}else {	//바코드번호가 다를 때
@@ -393,23 +452,35 @@
 									
 											str += "<tr id='no"+cnt+"'>";
 											str += "<td id=cnt"+cnt+" class = cnt> "+ cnt + "</td>";
-											str += "<td> <a id=bar"+cnt+" class="+this.barcode_no+">"+ this.barcode_no+ "</a></td>";
+											str += "<td> <a id=bar"+cnt+" class='"+this.barcode_no+"'>"+ this.barcode_no+ "</a></td>";
 											str += "<td> <a class="+this.md_name+">"+ this.md_name+"</a>";
-											if(this.pr_subject != null && this.pr_content != null){
+										if(this.pr_subject != null && this.pr_content != null){
 												str += "<label style='color: red'>"+"&nbsp;&nbsp;"+this.pr_subject+"&nbsp;&nbsp;<a class='pr_no' id='pr_no"+(this.promotion_no)+"'>"+this.pr_content+"</a></label>";
 											}
 											str += "</td>";
 											str += "<td class='price'> <a class="+this.barcode_no+"pr>"+ this.price+ "</a></td>";
 											str += "<td class='md_ea' id=tdea"+cnt+"> <a id=ea"+cnt+" class="+this.barcode_no+"ea>"+ ea+ "</a></td>";
-											str += "<td> <a id="+this.barcode_no+"sale class='sale'>"+sale+"</a></td>";
-										
-											str += "<td id=ea"+cnt+"xPrice class='trtotal_price'> <a class="+this.barcode_no+"total>"+ (this.price*ea-sale) +"</a></td>";
+								        if(this.pr_type == "묶음행사" && (ealength+1)%4==0){
+
+											str += "<td> <a id="+this.barcode_no+"sale class='sale'>"+parseInt(this.price-this.pr_price)+"</a></td>";
+											str += "<td id=ea"+cnt+"xPrice class='trtotal_price'> <a id="+this.barcode_no+"total class ='a_trtotal_price'>"+ this.pr_price +"</a></td>";
 											
+											totalsale += parseInt(this.price-this.pr_price);
+
+											ignore_sale += this.price;		
+
+								        }else{
+								    		str += "<td> <a id="+this.barcode_no+"sale class='sale'>"+sale+"</a></td>";
+								    		str += "<td id=ea"+cnt+"xPrice class='trtotal_price'> <a id='"+this.barcode_no+"total' class ='a_trtotal_price'>"+ (this.price*ea-sale) +"</a></td>";
+											        	
+								        }							
+														
 											str += "</tr>";
 
 												cnt++;
 												totalpr += parseInt(this.price);
-								
+												totalsale +=  sale;
+
 								
 								
 								
@@ -421,15 +492,15 @@
 							       
 							        
 							        
-									$(".listTotalPr").html(totalpr); //리스트 총합계
-									$(".listSalePr").html(totalsale); //할인금액
-									$(".listPaymentPr").html(totalpr - totalsale); //합계-할인금액
+									$(".listTotalPr").text(totalpr); //리스트 총합계
+									$(".listSalePr").text(totalsale); //할인금액
+									$(".listPaymentPr").text(totalpr - totalsale); //합계-할인금액
 
 									var inputPr = parseInt($(".listInputPr").val());
-									var totalPr = parseInt($(".listTotalPr").html());
+									var totalPr = parseInt($(".listTotalPr").text());
 
 									if (inputPr < totalPr) {
-											$(".listOutputPr").html(0); //받은돈 - 합계
+											$(".listOutputPr").text(0); //받은돈 - 합계
 									}
 							
 						});
@@ -439,6 +510,9 @@
 						sale=0;
 						minus_sale=0;
 						$(".listtable").append(str);
+						$("#ignore_sale").val(ignore_sale);
+						
+						
 				});
 
 		}
@@ -474,7 +548,7 @@
 				
 				
 				$(".functiontable").html(str);
-				
+
 			});
 		
 

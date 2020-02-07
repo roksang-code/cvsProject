@@ -11,6 +11,7 @@ public class Pos_boardVO {
 	private int price;
 	private int total_price;	
 	private String md_name;
+	private int sale_price;	
 	private String type;	
 	private String sale_date;
 	private String sale_time;
@@ -108,13 +109,27 @@ public class Pos_boardVO {
 	}
 	
 	
+	
+	public int getSale_price() {
+		return sale_price;
+	}
+	public void setSale_price(int sale_price) {
+		this.sale_price = sale_price;
+	}
+	
+	
+	
 	@Override
 	public String toString() {
 		return "Pos_boardVO [store_no=" + store_no + ", pos_no=" + pos_no + ", list_no=" + list_no + ", md_no=" + md_no
 				+ ", barcode_no=" + barcode_no + ", md_ea=" + md_ea + ", list_md_ea=" + list_md_ea + ", price=" + price
-				+ ", total_price=" + total_price + ", md_name=" + md_name + ", type=" + type + ", sale_date="
-				+ sale_date + ", sale_time=" + sale_time + ", update_date=" + update_date + "]";
+				+ ", total_price=" + total_price + ", md_name=" + md_name + ", sale_price=" + sale_price + ", type="
+				+ type + ", sale_date=" + sale_date + ", sale_time=" + sale_time + ", update_date=" + update_date + "]";
 	}
+
+	
+	
+	
 	
 	
 	

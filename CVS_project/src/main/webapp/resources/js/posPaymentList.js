@@ -140,6 +140,7 @@ $(document).ready(function() {
 							str += "<th width=10%>수량</th>";
 							str += "<th width=10%>금액</th>";
 							str += "<th width=10%>할인</th>";
+							str += "<th width=10%>합계</th>";
 							str += "</tr>";
 							
 							$(data).each(function() {
@@ -148,7 +149,8 @@ $(document).ready(function() {
 								str += "<td>" + this.md_name + "</td>";
 								str += "<td>" + this.md_ea + "</td>";
 								str += "<td>" + this.price + "</td>";
-								str += "<td>" + this.price + "</td>";
+								str += "<td>" + this.sale_price + "</td>";
+								str += "<td>" + (this.price-this.sale_price) + "</td>";								
 								str += "</tr>";
 
 							});

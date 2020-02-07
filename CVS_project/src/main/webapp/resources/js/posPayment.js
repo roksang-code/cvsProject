@@ -13,30 +13,28 @@ $(document).ready(function() {
 	  
 	  appendMD(barcode_no);
 	});//바코드 입력으로 상품 등록
+	
+	
+	
 	$(".listInputPr").on("keyup", function() {
 		
-		var inputPr = parseInt($(".listInputPr").val());
+		var inputPr = parseInt($(this).val());
 		
-		var totalPr = parseInt($(".listTotalPr").html());
-
-		console.log(inputPr);	
-		console.log(totalPr);	
+		var totalPr = parseInt($(".listTotalPr").text());	//합계
+		var salePr = parseInt($(".listSalePr").text());		//할인
 		
-		if(inputPr>totalPr){
-			$(".listOutputPr").html(inputPr-totalPr);	//받은돈 - 합계
-			$(".listPaymentPr").html(0);	//받을 금액
-
-
-			console.log(inputPr-totalPr);	
+		if(inputPr>= totalPr-salePr){	//받은금액 > 받을금액
+			$(".listOutputPr").text(inputPr-parseInt($(".listPaymentPr").text()));	//거스름돈 - 합계
 			
-			
+			$(".listPaymentPr").text(0);	//받을 금액
 
-		}else{
-			$(".listOutputPr").html(0);	//거스름돈 = 받은돈 - 합계
+		}else if(totalPr-salePr > inputPr){	//받은금액 < 받을금액
+			$(".listOutputPr").text(0);	//거스름돈 = 받은돈 - 합계
 			if(isNaN(inputPr)==false)
-			$(".listPaymentPr").html(totalPr-inputPr);	//받을 금액
+			$(".listPaymentPr").text((totalPr-salePr)-inputPr);	//받을 금액
 
 		}
+	
 		
 	});
 			
@@ -330,9 +328,71 @@ $(document).ready(function() {
 		
 
 	});// 리스트상품 선택 함수
-	
-	
+	 
+	 $(document).on("click", ".point_save", function(){
+			
+		 	var now = new Date();
+			var year = now.getFullYear();
+		    var month = now.getMonth() + 1; 
+		    var date = now.getDate();  
+			var sale_date = year+"-"+month+"-"+date;
+			
+		
+	 });//포인트 적립
+	 
+	 $(document).on("click", "#tel_discount", function(){
+
+		  var modalLayer = $("#tel_dis_modal");
+		  var modalCont = $(".tel_modalContent");
+		  var marginLeft = modalCont.outerWidth()/2;
+		  var marginTop = modalCont.outerHeight()/2; 
+
+		    modalLayer.fadeIn("fast");
+		    modalCont.css({"margin-top" : -marginTop, "margin-left" : -marginLeft});
+		    $(this).blur();
+		    $(".tel_modalContent .tel_membership_no_data").focus(); 
+
+		    
+		  $(".close").on("click",function(){
+		
+		    modalLayer.fadeOut("fast");
+		  $(".tel_membership_no_data").val("");
+		  $(".tel_membership_info").html("");
+			
+		  	return false;
+
+		  });//통신사 할인 모달창
+		
+		
+			
+	 });//통신사 할인
+	 $(".tel_search").on("click",function(){
+
+			
+			str ="";
+			var phone_no = $(".tel_membership_no_data").val();
+			var tel_company = $(".tel_com").val();
+
+
+			$.getJSON("searchTEL?phone_no=" + phone_no+"tel_company="+tel_company,
+			
+			function(data) {
 				
+				console.log(data);
+				$(data).each(function() {
+					str += "<a class ="+this.barcode_no+">" + this.user_name + "</a>";
+				});
+
+				$(".tel_membership_info").html(str);
+
+			});//통신사 번호 조회 
+				$(document).on("click", ".tel_membership_info a", function(){
+					
+					
+					
+				});// 조회 내역 클릭 
+	 
+	 });//통신사 할인 조회 클릭 		
 	 
 	 
 	 $(document).on("click", ".paymentList", function(){
@@ -402,6 +462,8 @@ $(document).on("click", ".numkey tr td", function(){
 
 	$(document).on("click", ".payment td", function(){
 		var paymentType = $(this).text();
+	
+		console.log(paymentType);
 		if(cnt>1){
 
 			for(var i =1;i<cnt;i++){
@@ -409,7 +471,7 @@ $(document).on("click", ".numkey tr td", function(){
 			var barcode_no = $("#bar"+i+"").text();
 			
 			var md_ea = $("#ea"+i+"").text();
-			
+			var sale_price = $("#no"+i).find(".sale").text();
 			$.ajax({
 
 				type : "post",
@@ -424,6 +486,7 @@ $(document).on("click", ".numkey tr td", function(){
 					pos_no : 1,
 					barcode_no : barcode_no,
 					md_ea : md_ea,
+					sale_price : sale_price,
 					type : paymentType
 				
 				

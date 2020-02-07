@@ -30,7 +30,6 @@
 		<div>
 			<table border="1" class="mainlisttable" >
 				<tr>
-					<th>포스번호</th>
 					<th>거래번호</th>
 					<th>거래시간</th>
 					<th>상품수</th>
@@ -60,6 +59,8 @@
 					<th width=10%>수량</th>
 					<th width=10%>금액</th>
 					<th width=10%>할인</th>
+					<th width=10%>합계</th>
+					
 				</tr>
 	
 			</table>

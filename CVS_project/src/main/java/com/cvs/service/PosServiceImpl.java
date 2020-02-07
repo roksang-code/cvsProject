@@ -12,6 +12,7 @@ import com.cvs.model.Buttonpage;
 import com.cvs.model.Functionkey_infoVO;
 import com.cvs.model.Md_infoVO;
 import com.cvs.model.Pos_boardVO;
+import com.cvs.model.Tel_membership_infoVO;
 
 
 @Service
@@ -91,6 +92,19 @@ public class PosServiceImpl implements PosService{
 	public void dummy_table(String now_time) throws Exception {
 
 		pm.dummy_table(now_time);
+		
+	}
+
+	@Override
+	public List<Tel_membership_infoVO> searchTEL(String phone_no, String tel_company) throws Exception {
+	
+		return pm.searchTEL(phone_no, tel_company);
+	}
+
+	@Override
+	public void updateTelPoint(Tel_membership_infoVO tmvo) throws Exception {
+
+		pm.updateTelPoint(tmvo);
 		
 	}
 	

@@ -21,6 +21,7 @@ import com.cvs.model.Buttonpage;
 import com.cvs.model.Functionkey_infoVO;
 import com.cvs.model.Md_infoVO;
 import com.cvs.model.Pos_boardVO;
+import com.cvs.model.Tel_membership_infoVO;
 import com.cvs.service.PosService;
 
 @Controller
@@ -212,22 +213,35 @@ public class PosController {
 		return pservice.functionButton(bp);
 	}
 	
-	/*
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping(value = "/Payment", method =
-	 * RequestMethod.POST)//상품리스트(임시테이블) public void dummy(@RequestBody Pos_boardVO
-	 * pvo) throws Exception {
-	 * 
-	 * pservice.Payment(pvo); logger.info("Payment post...");
-	 * logger.info("getBarcode_no"+pvo.getBarcode_no()); logger.info("getMd_ea"+
-	 * pvo.getMd_ea());
-	 * 
-	 * 
-	 * 
-	 * }
-	 */
-	
+	@ResponseBody
+	@RequestMapping(value = "/searchTEL", method = RequestMethod.GET)//통신사 할인 검색
+	public ResponseEntity<List<Tel_membership_infoVO>> searchTEL(@RequestParam String phone_no, String tel_company, Tel_membership_infoVO tmvo) throws Exception{
+		
+
+		ResponseEntity<List<Tel_membership_infoVO>> entity = null;
+		logger.info("searchTEL GET...");
+		List<Tel_membership_infoVO> searchTEL = pservice.searchTEL(phone_no, tel_company);
+
+		
+		
+		entity = new ResponseEntity<List<Tel_membership_infoVO>>(searchTEL, HttpStatus.OK);
+
+		logger.info("phone_no = "+phone_no);
+		logger.info("phone_no entity = "+entity.toString());
+		
+		return entity;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/updateTelPoint", method = RequestMethod.POST)//통신사 할인 등록
+	public void updateTelPoint(@RequestBody Tel_membership_infoVO tmvo) throws Exception {
+
+		pservice.updateTelPoint(tmvo);
+		logger.info("updateTelPoint post...");
+		logger.info("tmvo"+tmvo);
+		
+		
+		
+	}
 	
 	
 	
