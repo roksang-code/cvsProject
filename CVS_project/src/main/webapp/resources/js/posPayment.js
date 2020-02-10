@@ -12,6 +12,8 @@ $(document).ready(function() {
 
 	  
 	  appendMD(barcode_no);
+	  appendMD_sale();
+	  appendMD_total_pay();
 	});//바코드 입력으로 상품 등록
 	
 	
@@ -122,8 +124,11 @@ $(document).ready(function() {
 		console.log("bar = "+barcode_no);
 
 		appendMD(barcode_no);//단축키로 상품등록
-		
 
+		//appendMD_sale(pm_info_list);
+		appendMD_total_pay();
+	
+		
 		}
 		
 		
