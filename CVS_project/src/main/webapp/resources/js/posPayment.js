@@ -120,10 +120,13 @@ $(document).ready(function() {
 		
 		else if($(".functiontable tr td").css("backgroundColor") == "rgba(0, 0, 0, 0)"){
 		barcode_no =  ($(this).attr("class")).substr(2,($(this).attr("class")).length);
-		
-		console.log("bar = "+barcode_no);
+	    var pm_info_list = new Array();
 
+		console.log("bar = "+barcode_no);
+			
 		appendMD(barcode_no);//단축키로 상품등록
+		
+		console.log("pm_info_list1 = "+pm_info_list);
 
 		//appendMD_sale(pm_info_list);
 		appendMD_total_pay();
