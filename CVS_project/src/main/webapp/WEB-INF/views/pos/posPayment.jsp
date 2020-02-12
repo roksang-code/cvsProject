@@ -262,6 +262,7 @@
 		      var tel_sale=1;
 		     
               var to_pr_no_length =1;
+			  var ignore_sale = 0;
 
 		      
 		      function appendMD(barcode_no) {//상품등록
@@ -270,14 +271,15 @@
 		
 		            $.getJSON("posList?barcode_no=" + barcode_no, function(data) {
 		                        console.log(data);
-		               
+
 		                        
 		                        
 		                  $(data).each(function() {
 		                           bar = $("." + barcode_no+ "").text();
 		                           pm_info_list.push({barcode_no : this.barcode_no, price : this.price, promotion_no : this.promotion_no, pr_type : this.pr_type,pr_ea : this.pr_ea, pr_price : this.pr_price, pr_family : this.pr_family});
 		                           pr_info_list.push(this.promotion_no);
-		                         
+		      			         console.log("bar_family1 = "+this.pr_family);
+
 		                           
 		                           
 		                        if (bar == barcode_no) { //바코드번호가 같을 때
@@ -303,7 +305,7 @@
 		                                 str += "</td>";
 		                                 str += "<td class='price'> <a class="+this.barcode_no+"pr>"+ this.price+ "</a></td>";
 		                                 str += "<td class='md_ea' id=tdea"+cnt+"> <a id=ea"+cnt+" class="+this.barcode_no+"ea>"+ ea+ "</a></td>";
-		                                 str += "<td> <a id="+this.barcode_no+"sale class='sale'>"+sale+"</a></td>";
+		                                 str += "<td class="+this.promotion_no+"sale> <a id="+this.barcode_no+"sale class='sale'>"+sale+"</a></td>";
 		                                 str += "<td id=ea"+cnt+"xPrice class='trtotal_price'> <a id='"+this.barcode_no+"total' class ='a_trtotal_price'>"+ (this.price*ea-sale) +"</a></td>";
 		                                 str += "<input id="+this.promotion_no+"hidden class='salehidden' type='hidden' value='0'>";
 		                                 str += "<input id="+this.barcode_no+"hidden class='salehidden' type='hidden' value='0'>";
@@ -315,14 +317,13 @@
 		            
 		                        } 
 
+
 		             });
 		             
 		             sale=0;
 		             minus_sale=0;
-		             
+
 		             $(".listtable").append(str);    
-                   
-                   
 		             appendMD_sale(pm_info_list);
 		             
 		            });           
@@ -331,26 +332,19 @@
 		      
 		      function appendMD_sale(data) {//할인적용
 
-		    	  $(data).each(function(index) {
+		     
+		    	  $(data, ignore_sale).each(function(index) {
+		    		  
+                     if(data.length-1 == index ){
+		    		  
                       console.log("index = "+index);
+                      var datalenght = parseInt(data.length)-1;
+		    		  var paymentlist_length = data.filter(data => data.barcode_no == this.barcode_no).length;//전체 상품 리스트 길이 
+			          var promotion_length = data.filter(data => data.promotion_no == this.promotion_no).length; //프로모션 상품 리스트 길이
 
-		    		  var paymentlist_length = pm_info_list.filter(pm_info_list => pm_info_list.barcode_no == this.barcode_no).length;//전체 상품 리스트 길이 
-			          var promotion_length = pm_info_list.filter(pm_info_list => pm_info_list.promotion_no == this.promotion_no).length; //프로모션 상품 리스트 길이
-			          var pr_info_list_check = pr_info_list.filter(pr_info_list => pr_info_list == this.promotion_no).length; //프로모션 상품 리스트 길이
-							
-			          var parent_length = pm_info_list.filter(pm_info_list => pm_info_list.promotion_no == this.promotion_no && pm_info_list.pr_family == "parent").length;
-			          var children_length = pm_info_list.filter(pm_info_list => pm_info_list.promotion_no == this.promotion_no && pm_info_list.pr_family == "children").length;
-			          var family_length = Math.abs(parent_length-children_length);
-			          
-			          if((parent_length - children_length) > 0){
-			              var tofamily = "parent";
-						  var sale_length = children_length; 
-			           }else if(parent_length - children_length < 0){
-			              var tofamily = "children";        
-						  var sale_length = parent_length;
-			
-			           }
-		          		  if(isNaN(parseInt(this.pr_type)) == false ){//n+m 증정행사
+
+			      
+		          		  if(isNaN(parseInt(this.pr_type)) == false ){//n+1 증정행사
 			          		  
 		         
 							    		var trid = $("."+this.barcode_no).parents("tr").attr("id");
@@ -367,40 +361,56 @@
 				                        var md_sale_ea_p = parseInt($("#"+this.barcode_no+"hidden").val());
 
 				                        console.log("md_sale_ea_p = "+ md_sale_ea_p);
-
 			                        	$("#"+trid).find("#"+this.barcode_no+"sale").text(this.pr_price*md_sale_ea_p);   //할인가격
 					                   	var after_sale = parseInt($("#"+trid).find(".sale").text());	
 
 			                        	$("#"+trid).find(".a_trtotal_price").text( tr_p-after_sale);   //총가격    
-			 						}
+
+			                        	ignore_sale += this.pr_price*this.pr_ea
+
+						    		}
 			          			
 		        	          
 		        	         
 		          		  
 		          		}else if(this.pr_type == "세트할인"){   //세트할인
-		        			
-					          			var trid = $("."+this.barcode_no).parents("tr").attr("id");
-					                    var tr_p =parseInt($("#"+trid).find(".price").text());//리스트 정가
-					                   	
-							            var pr_sale_ea = parseInt($("#"+this.promotion_no+"hidden").val());
-				                        $("#"+this.promotion_no+"hidden").val(pr_sale_ea+1);    
-				                        var pr_sale_ea_p = parseInt($("#"+this.promotion_no+"hidden").val());
+		                      
+		          			  var parent_length = data.filter(data => data.promotion_no == this.promotion_no && data.pr_family == "parent").length;
+					          var children_length = data.filter(data => data.promotion_no == this.promotion_no && data.pr_family == "children").length;
+					          var before_price= new Array();
 
-		 
-		    	     			if(parent_length != 0 && children_length != 0){
-		          				
-		    	     				var to_barcode_no = this.barcode_no;
-		    	          			
-			                        var trid = $("#no"+(index+1)).attr("id");
-			                        var tr_p =parseInt($("#"+trid).find(".price").text());//리스트 정가
-			                        var tr_ea = parseInt($("#"+trid).find(".md_ea").text());//리스트 수량
-			                    	$("#"+trid).find(".sale").text(sale+parseInt(this.pr_price));   //할인가격
-			                    	var tr_sale = $("#"+trid).find(".sale").text();	
-			           			 
-			                        $("#"+trid).find(".a_trtotal_price").text((tr_p*tr_ea)-tr_sale);   //총가격    
-		          				
-			           				to_pr_no_length++;
-		
+					          var re_family ="";
+					            if((parent_length - children_length) > 0){
+									var tosale = "parent";
+									var sale_length = children_length;
+								}else{
+									var tosale = "children";
+									var sale_length = parent_length;
+								}
+       						
+
+					          
+					          			
+					          	var trid = $("."+this.barcode_no).parents("tr").attr("id");
+					            var tr_p =parseInt($("#"+trid).find(".price").text());//리스트 정가
+					            
+				
+						        if( parent_length == children_length || tosale != this.pr_family){
+							         
+							          before_price = data.filter(data => data.promotion_no == this.promotion_no && data.pr_family != this.pr_family); 
+							          before_price = before_price[sale_length-1].price; //직전 family타입 상품 가격
+							 
+   	    	     				    var md_sale_ea = parseInt($("#"+this.barcode_no+"hidden").val());
+
+   	    	     				    $("#"+this.barcode_no+"hidden").val(md_sale_ea+1);    
+			                        var md_sale_ea_p = parseInt($("#"+this.barcode_no+"hidden").val());
+									
+
+		                        	$("#"+trid).find("#"+this.barcode_no+"sale").text(this.pr_price*md_sale_ea_p);   //할인가격
+				                   	var after_sale = parseInt($("#"+trid).find(".sale").text());	
+
+		                        	$("#"+trid).find(".a_trtotal_price").text( tr_p-after_sale);   //총가격    
+		                        	ignore_sale += this.price+before_price;
 		        	     	     }
 		          		
 		    
@@ -409,15 +419,48 @@
 			      	      
 		                }else if(this.pr_type == "묶음행사" ){//묶음행사
 		                
-		                	
+		            		var trid = $("."+this.barcode_no).parents("tr").attr("id");
+		                    var tr_p =parseInt($("#"+trid).find(".price").text());//리스트 정가
+		                   	
+				            var pr_sale_ea = parseInt($("#"+this.promotion_no+"hidden").val());
+	                        $("#"+this.promotion_no+"hidden").val(pr_sale_ea+1);    
+	                        var pr_sale_ea_p = parseInt($("#"+this.promotion_no+"hidden").val());
+	                     
+	                        var md_sale_ea = parseInt($("#"+this.barcode_no+"hidden").val());
+			    			$("#"+this.barcode_no+"hidden").val(md_sale_ea+1);
+	                        var md_sale_ea_p = parseInt($("#"+this.barcode_no+"hidden").val());
+
+				            
+				    		if(pr_sale_ea_p%this.pr_ea == 0){
+				    			var md_sale_ea = parseInt($("#"+this.barcode_no+"hidden").val());
+				    			$("#"+this.barcode_no+"hidden").val(md_sale_ea+1);
+		                        var md_sale_ea_p = parseInt($("#"+this.barcode_no+"hidden").val());
+
+	                        	$("."+this.promotion_no+"sale").text(this.pr_price*md_sale_ea_p);   //총가격    
+	                        	
+	                        	var tr_p2 = parseInt($("#"+this.promotion_no+"hidden").parents("tr").find(".price").text());
+	                        	
+	                        	//$("#"+this.promotion_no+"hidden").parents("tr").find(".price").text(  parseInt($("#"+this.promotion_no+"hidden").parents("tr").find(".price").text()) -     (this.price*md_sale_ea_p) );   //할인가격
+
+	
+	                        	ignore_sale += this.pr_price*this.pr_ea
+	
+				    		}
+          			
 		                }
 		          	  
-		          	  });
-              	$(".salehidden").val(0);   //할인가격
+                     	
+                     
+                     
+                     }//if datalength 끝
+		          	 console.log("ignore_sale = "+ignore_sale);
+		    	  
+		    	  });//each끝
 
+		    	
 		    	};
 		      
-		      
+		     
 		      function appendMD_total_pay() {//합계적용
 		    	
 		    	  for(var i =0;i<cnt;i++){
