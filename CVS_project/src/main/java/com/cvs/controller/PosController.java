@@ -227,21 +227,12 @@ public class PosController {
 		entity = new ResponseEntity<List<Tel_membership_infoVO>>(searchTEL, HttpStatus.OK);
 
 		logger.info("phone_no = "+phone_no);
+		logger.info("tel_company = "+tel_company);
 		logger.info("phone_no entity = "+entity.toString());
 		
 		return entity;
 	}
-	@ResponseBody
-	@RequestMapping(value = "/updateTelPoint", method = RequestMethod.POST)//통신사 할인 등록
-	public void updateTelPoint(@RequestBody Tel_membership_infoVO tmvo) throws Exception {
-
-		pservice.updateTelPoint(tmvo);
-		logger.info("updateTelPoint post...");
-		logger.info("tmvo"+tmvo);
-		
-		
-		
-	}
+	
 	
 	
 	

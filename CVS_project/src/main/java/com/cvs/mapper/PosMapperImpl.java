@@ -106,7 +106,7 @@ public class PosMapperImpl implements PosMapper {
 		paramMap.put("tel_company", tel_company);
 		
 		
-		List<Tel_membership_infoVO> searchTEL = session.selectList(namespace + ".functionButton", paramMap);
+		List<Tel_membership_infoVO> searchTEL = session.selectList(namespace + ".searchTEL", paramMap);
 	
 		return searchTEL;
 	}

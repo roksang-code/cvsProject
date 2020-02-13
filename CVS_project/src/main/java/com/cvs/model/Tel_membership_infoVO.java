@@ -1,6 +1,7 @@
 package com.cvs.model;
 
 public class Tel_membership_infoVO {
+	private String user_name;
 	private String tel_company;
 	private String phone_no;
 	private String tel_grade;
@@ -29,11 +30,19 @@ public class Tel_membership_infoVO {
 	public void setTel_point(String tel_point) {
 		this.tel_point = tel_point;
 	}
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
 	@Override
 	public String toString() {
-		return "Tel_membership_infoVO [tel_company=" + tel_company + ", phone_no=" + phone_no + ", tel_grade="
-				+ tel_grade + ", tel_point=" + tel_point + "]";
+		return "Tel_membership_infoVO [user_name=" + user_name + ", tel_company=" + tel_company + ", phone_no="
+				+ phone_no + ", tel_grade=" + tel_grade + ", tel_point=" + tel_point + "]";
 	}
+	
+	
 
 	
 	
