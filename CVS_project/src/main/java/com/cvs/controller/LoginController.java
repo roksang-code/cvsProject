@@ -47,6 +47,14 @@ public class LoginController {
 		model.addAttribute("Member_infoVO", mivo);
 
 	}
+	
+	@RequestMapping(value = "/mainPage", method = RequestMethod.GET)//로그인 화면
+	public void mainPageGet() throws Exception {
+
+		logger.info("mainPage...");
+
+	}
+
 	@RequestMapping(value = "/Logout", method = RequestMethod.GET)//로그아웃
 	public String LogoutGet(HttpSession session) throws Exception {
 		

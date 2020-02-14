@@ -4,8 +4,8 @@ $(document).ready(function() {
 
 	
 	
-	$(".logout").on("click", function() {
-		$(location).attr('href', "../login/Logout");//로그아웃 컨트롤러
+	$(".mainpage").on("click", function() {
+		$(location).attr('href', "../login/mainPage");//로그아웃 컨트롤러
 	});
 	
 	$("#md_update").on("click", function() {
@@ -327,9 +327,8 @@ $(document).ready(function() {
 			
 			
 				$("#"+trid).remove();
-				pm_info_list = pm_info_list.filter(pm_info_list => pm_info_list.barcode_no != tr_bar);
-
-				appendMD_sale(pm_info_list, 1);//상품할인 적용
+			pm_info_list = pm_info_list.filter(pm_info_list => pm_info_list.barcode_no != tr_bar);
+				
 
 			for(i=startnum; i<cnt;i++){
 					$("#cnt"+i).text(parseInt($("#cnt"+i).text())-1);
@@ -344,6 +343,10 @@ $(document).ready(function() {
 		
 			}
 			cnt--;
+            console.log("pm_info_list = ");
+            console.log(pm_info_list);
+
+			appendMD_sale(pm_info_list, 1);//상품할인 적용
 
 			}
 			trid="";
@@ -437,7 +440,8 @@ $(document).ready(function() {
 					  }else if(tel_grade == "silver"){
 						  tel_sale = 0.05;
 					  }
-					  appendMD_total_pay();
+					  
+					  appendMD_sale(pm_info_list, 1);
 					  
 					  $("#tel_discount").text("할인 취소");
 					

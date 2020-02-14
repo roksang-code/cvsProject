@@ -72,7 +72,7 @@
   					ON md_info.md_no = md_price.md_no 
  					JOIN pos_board 
     				ON md_info.barcode_no = pos_board.barcode_no
-  			join (SELECT list_no, sum(price*md_ea) total_price, sum(md_ea) list_md_ea
+  			join (SELECT list_no, sum((price-sale_price)*md_ea) total_price, sum(md_ea) list_md_ea
 		 			FROM md_info
 		  			JOIN md_price 
             		ON md_info.md_no = md_price.md_no
