@@ -3,6 +3,9 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cvs.mapper.OrderMapper">
 	
+	<select id="orderList" resultType="com.cvs.model.Md_infoVO">
+		SELECT * FROM md_info where type = #{type} and detail_type like concat('%',#{detail_type},'%') and md_name like concat('%',#{md_name},'%')
+	</select>
 	
 	
 </mapper>

@@ -105,7 +105,7 @@
 			<div class="tel_modalContent">
 				<div>
 					<select class="tel_com" name="tel_com">
-					   	<option value="">통신사</option>
+					   	<option selected>통신사</option>
 					   	<option value="SKT">SKT</option>
 					   	<option value="KT">KT</option>
 					   	<option value="LG">LG</option>

@@ -5,7 +5,7 @@ $(document).ready(function() {
 	
 	
 	$(".mainpage").on("click", function() {
-		$(location).attr('href', "../login/mainPage");//로그아웃 컨트롤러
+		$(location).attr('href', "../login/mainPage");//메인페이지
 	});
 	
 	$("#md_update").on("click", function() {
