@@ -7,5 +7,8 @@
 		SELECT * FROM md_info where type = #{type} and detail_type like concat('%',#{detail_type},'%') and md_name like concat('%',#{md_name},'%')
 	</select>
 	
+	<select id="typePage" resultType="com.cvs.model.Md_infoVO">
+		SELECT * FROM md_info where type = #{type} group by detail_type
+	</select>
 	
 </mapper>

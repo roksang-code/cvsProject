@@ -21,6 +21,13 @@ public class OrderServiceImpl implements OrderService {
 		return om.orderList(type, detail_type, md_name);
 	}
 
+	@Override
+	public List<Md_infoVO> typePage(String type) throws Exception {
+
+ 		return om.typePage(type);
+
+	}
+
 
 	
 	

@@ -1,6 +1,5 @@
 package com.cvs.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cvs.model.Md_infoVO;
-import com.cvs.model.Pos_boardVO;
-import com.cvs.model.Tel_membership_infoVO;
 import com.cvs.service.OrderService;
 
 @Controller
@@ -42,14 +39,14 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping(value = "/orderList", method = RequestMethod.GET)//전체 매출 리스트 화면
 	public ResponseEntity<List<Md_infoVO>> orderListGet(@RequestParam String type, String detail_type,String md_name, Md_infoVO mvo) throws Exception {
-		if(md_name == null) {
-			md_name="";
-		}
+		
+		
 		ResponseEntity<List<Md_infoVO>> entity = null;
 
 		logger.info("orderList get...");
 		List<Md_infoVO> orderList = oservice.orderList(type, detail_type, md_name);
 
+		logger.info("type = "+type);
 		logger.info("detail_type = "+detail_type);
 		logger.info("md_name = "+md_name);
 
@@ -59,6 +56,27 @@ public class OrderController {
 		return entity; 
 
 	}
+	 @ResponseBody
+	 @RequestMapping(value = "/typePage", method = RequestMethod.GET) 
+	 public ResponseEntity<List<Md_infoVO>> typePageGet(@RequestParam String type, Md_infoVO mvo, Model model) throws Exception{
+	  
+	  
+		 logger.info("typePage get...");
+
+		ResponseEntity<List<Md_infoVO>> entity = null;
+
+		 model.addAttribute("typePage", oservice.typePage(type)); 
+	  
+		 List<Md_infoVO> typePage = oservice.typePage(type);
+
+		 entity = new ResponseEntity<List<Md_infoVO>>(typePage, HttpStatus.OK);
+
+		 logger.info("model = "+model);
+
+		 return entity;
+	 
+	  
+	  }
 	
 	
 	

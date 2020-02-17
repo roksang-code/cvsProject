@@ -35,6 +35,15 @@ public class OrderMapperImpl implements OrderMapper{
 		return orderList;
 	}
 
+
+	@Override
+	public List<Md_infoVO> typePage(String type) throws Exception {
+
+		List<Md_infoVO> typePage = session.selectList(namespace + ".typePage", type);
+
+		return typePage;
+	}
+
 	
 
 }

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix= "sql" uri = "http://java.sun.com/jsp/jstl/sql" %>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -13,13 +16,13 @@
 <link rel="stylesheet"	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css?v=<%=System.currentTimeMillis()%>">
 <script type="text/javascript"	src="../resources/plugins/jQuery/jquery-3.4.1.min.js?v=<%=System.currentTimeMillis()%>"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js?v=<%=System.currentTimeMillis()%>"></script>
-<script	src="../resources/js/freeze_food.js?v=<%=System.currentTimeMillis()%>"></script>
+<script	src="../resources/js/typePage/freeze_food.js?v=<%=System.currentTimeMillis()%>"></script>
 </head>
 <body>
 	<div class="container-fluid">
 		<div class="input-group-append">
 
-			<div class="row no-gutters" style="padding-bottom: 1%">
+			<div class="row no-gutters" style="padding-bottom: 1%; padding-top: 2%;">
 			
 				<div class="col-4">			
 					<select class="custom-select" id="inputGroupSelect04"  aria-describedby="mdname">
@@ -43,11 +46,10 @@
 			</div>
 		</div>
 		
-		<div class="row" style="width:100%; height: 80%;">
-			<div class="col-11">
-				<div id="tableLayer" style="overflow-x:hidden; overflow-y:scroll; height:2000%;">
-		
-					<table border="1" id="detailtypetable" style="width: 100%">
+		<div class="row no-gutters border" style="width:100%; height: 600px; overflow-x:hidden; overflow-y:scroll; ">
+			<div class="col-12">
+					<table class="table table-bordered align-middle" id="detailtypetable" style="width: 100%;">
+  					<thead class="thead-light">
 						<tr>
 							<th width=25%>바코드번호</th>
 							<th width=15%>상품타입</th>
@@ -57,22 +59,21 @@
 							<th width=10%>발주 수량</th>
 						</tr>
 						
+					</thead>	
 					</table>
-				</div>
 			</div>		
-			<div class="col-1">
-			</div>
 		</div>
-		<div class="row" style="width:100%; height: 10%;">
-			
-			<div class="col-8">
-			</div>
-			<div class="col-2">
-			
-				<button class="btn btn-outline-secondary" type="button" id="order_button">적용</button>
+		<div class="align-div-bottom" style="float: right; padding-top: 2px;">
 		
+			<div class="row" style="width:100%; height: 10%;">
+				
+				<div class="col-12">
+				
+					<button class="btn btn-outline-secondary" type="button" id="order_button">적용</button>
+				</div>
 			</div>
 		</div>
+		
 	</div>
 </body>
 </html>
