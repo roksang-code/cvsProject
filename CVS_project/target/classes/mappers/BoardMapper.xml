@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cvs.mapper.BoardMapper">
+
+		
+	<select id="listCriteria" resultType="com.cvs.model.BoardVO">
+
+		select no, subject, content,writer, write_date, cnt
+		from ( select
+		@rownum:=@rownum+1 as rownum, no, subject, content,writer,
+		write_date, cnt
+		from
+		(select @rownum:=0) as rownum
+		, board
+		<if test="keyword != null">
+			where subject like concat('%',#{keyword},'%')
+		</if>
+		order by no desc
+		)board 
+		<![CDATA[
+		where rownum > (#{pageNum}-1)*#{amount}
+ 		and rownum <= #{pageNum}*#{amount}
+ 		]]>
+	</select>
+
+
+	
+	<select id="countPaging" resultType="int">
+ 	select count(no) from board
+	<if test="keyword != null">
+	where subject like concat('%',#{keyword},'%');
+	</if>
+ 	
+	</select>
+
+
+	<select id="boardDetail" resultType="com.cvs.model.BoardVO">
+	<![CDATA[
+		select * from board where no = #{no}
+ 	]]>
+	</select>
+
+
+
+	<insert id="boardWrite">
+ 	<![CDATA[
+		insert into board (subject, content, writer, write_date) 
+		values(#{subject}, #{content}, #{writer}, sysdate())
+ 	]]>
+
+	</insert>
+
+	<update id="boardUpdate">
+ 	<![CDATA[
+		update board
+		set subject = #{subject}, 
+		content = #{content}
+		where no = #{no}
+		]]>
+	</update>
+
+	<delete id="boardDelete">
+ 	
+ 	<![CDATA[
+	delete from board where no = #{no}
+		]]>
+
+	</delete>
+
+	<update id="boardCnt">
+ 	<![CDATA[
+ 		update board
+		set cnt = cnt+1
+		where no = #{no}
+	
+ 	]]>
+	</update>
+	
+	
+</mapper>

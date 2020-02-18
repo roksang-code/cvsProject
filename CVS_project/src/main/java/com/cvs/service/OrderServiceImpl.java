@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cvs.mapper.OrderMapper;
 import com.cvs.model.Md_infoVO;
+import com.cvs.model.Order_boardVO;
 
 
 @Service
@@ -26,6 +27,13 @@ public class OrderServiceImpl implements OrderService {
 
  		return om.typePage(type);
 
+	}
+
+	@Override
+	public void MDorder(Order_boardVO obvo) throws Exception {
+
+ 		om.MDorder(obvo);
+		
 	}
 
 

@@ -18,7 +18,7 @@ public class Md_infoVO {
 	private String pr_subject;
 	private String pr_content;
 	private String pr_family;
-
+	private int order_ea;
 	
  	
  	
@@ -124,14 +124,22 @@ public class Md_infoVO {
 	public void setPr_family(String pr_family) {
 		this.pr_family = pr_family;
 	}
+	public int getOrder_ea() {
+		return order_ea;
+	}
+	public void setOrder_ea(int order_ea) {
+		this.order_ea = order_ea;
+	}
 	@Override
 	public String toString() {
 		return "Md_infoVO [md_no=" + md_no + ", barcode_no=" + barcode_no + ", shelf_life=" + shelf_life + ", type="
 				+ type + ", detail_type=" + detail_type + ", company=" + company + ", md_name=" + md_name
 				+ ", pack_date=" + pack_date + ", cost=" + cost + ", price=" + price + ", promotion_no=" + promotion_no
 				+ ", pr_ea=" + pr_ea + ", pr_price=" + pr_price + ", pr_type=" + pr_type + ", pr_subject=" + pr_subject
-				+ ", pr_content=" + pr_content + ", pr_family=" + pr_family + "]";
+				+ ", pr_content=" + pr_content + ", pr_family=" + pr_family + ", order_ea=" + order_ea + "]";
 	}
+	
+	
 	
 	
 	

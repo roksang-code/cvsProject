@@ -1,6 +1,6 @@
 var str ="";
 var cnt =1;
-var type= $("#hidden_type").val();
+
 function orderList(type, detail_type, md_name) {
 	
 	
@@ -19,17 +19,19 @@ function orderList(type, detail_type, md_name) {
 		str +=	"<th width=15%>유통기한</th>";
 		str +=	"<th width=10%>발주 수량</th>";
 		str += "</tr>";
-		
+	 	cnt =1;
+
 		
 		$(data).each(function() {
+			console.log("order = "+this.order_ea);
 
 			str += "<tr id='detail"+cnt+"'>";
-			str += "<td>" + this.barcode_no + "</td>";
+			str += "<td id='barcode_no"+cnt+"'>" + this.barcode_no + "</td>";
 			str += "<td>" + this.detail_type + "</td>";
 			str += "<td>" + this.company + "</td>";
 			str += "<td>" + this.md_name + "</td>";
 			str += "<td>" + this.shelf_life + "</td>";
-			str += "<td> <input type='text' id=order_ea"+cnt+" size='7px'></td>";
+			str += "<td> <input type='text' value="+this.order_ea+" id=order_ea"+cnt+" size='7px'></td>";
 			str += "</tr>";
 
 			cnt++;
@@ -40,30 +42,80 @@ function orderList(type, detail_type, md_name) {
 		$("#detailtypetable").html(str);
 		str = "";
 	});
+	
+	
+	
+	
 }
 
 $(document).ready(function() {
 	
-	 $(".custom-select").on("change",function(){
-		 	alert(type);
-		 	console.log("type = "+type);
-		 	
-			var detail_type = $(".custom-select").val();
-			var md_name = $(".form-control").val();
-			
-			orderList(type, detail_type, md_name);
-		});
+	$(document).on("change", ".custom-select", function(){
+
+		var type= $("#hidden_type").val();
+		var detail_type = $(".custom-select").val();
+		var md_name = $(".form-control").val();
+	 	console.log("type = "+type);
 		
-	 $(document).on("click", "#button-addon2" ,function(){
+		orderList(type, detail_type, md_name);
+	});
+		
+	 $("#mdsearch").on("click",function(){
 
-
-		 	
+			var type= $("#hidden_type").val();
 			var detail_type = $(".custom-select").val();
 			var md_name = $(".form-control").val();
+
+		 	console.log("type = "+type);
 
 			orderList(type, detail_type, md_name);
 
 			
 		});
+	 
+	 $(document).on("click", "#order_button", function(){
+		 
+		 if(cnt>1){
+
+				for(var i =1;i<cnt;i++){
+						
+				var barcode_no = $("#barcode_no"+i).text();
+				var order_ea = $("#order_ea"+i+"").val();
+				console.log("barcode_no = "+barcode_no);
+				console.log("order_ea = "+order_ea);
+				$.ajax({
+
+					type : "post",
+					url : "MDorder",
+					contentType : "application/json;charset=utf-8",
+					headers : {
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "POST"
+					},
+					dataType : "text",
+					data : JSON.stringify({
+						barcode_no : barcode_no,
+						order_ea : order_ea,
+										
+					}),
+
+					success : function(data) {
+					
+
+					},
+					error : function(err) {
+
+						alert("등록에 실패했습니다.");
+					}
+		   
+		
+				});
+
+				
+				
+			}//for문 끝
+		 }
+		
+	 });
 	
 });

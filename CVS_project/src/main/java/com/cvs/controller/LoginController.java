@@ -48,7 +48,7 @@ public class LoginController {
 
 	}
 	
-	@RequestMapping(value = "/mainPage", method = RequestMethod.GET)//로그인 화면
+	@RequestMapping(value = "/mainPage", method = RequestMethod.GET)//메인 화면
 	public void mainPageGet() throws Exception {
 
 		logger.info("mainPage...");

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cvs.model.Md_infoVO;
+import com.cvs.model.Order_boardVO;
 
 
 
@@ -42,6 +43,14 @@ public class OrderMapperImpl implements OrderMapper{
 		List<Md_infoVO> typePage = session.selectList(namespace + ".typePage", type);
 
 		return typePage;
+	}
+
+
+	@Override
+	public void MDorder(Order_boardVO obvo) throws Exception {
+
+		
+		session.insert(namespace + ".MDorder", obvo);
 	}
 
 	

@@ -4,11 +4,16 @@
 <mapper namespace="com.cvs.mapper.OrderMapper">
 	
 	<select id="orderList" resultType="com.cvs.model.Md_infoVO">
-		SELECT * FROM md_info where type = #{type} and detail_type like concat('%',#{detail_type},'%') and md_name like concat('%',#{md_name},'%')
+		SELECT md_info.*, order_board.order_ea  FROM md_info left join order_board on md_info.barcode_no = order_board.barcode_no
+		 where type = #{type} and detail_type like concat('%',#{detail_type},'%') and md_name like concat('%',#{md_name},'%')
 	</select>
 	
 	<select id="typePage" resultType="com.cvs.model.Md_infoVO">
 		SELECT * FROM md_info where type = #{type} group by detail_type
 	</select>
 	
+	<insert id="MDorder">
+		insert into order_board (barcode_no, order_ea)
+			values (#{barcode_no}, #{order_ea}) on duplicate key update order_ea = #{order_ea};
+	</insert>
 </mapper>

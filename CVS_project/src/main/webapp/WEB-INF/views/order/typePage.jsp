@@ -5,34 +5,14 @@
 
 
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 
-<!-- <link rel="stylesheet"	href="../resources/css/typePage.css?v=<%=System.currentTimeMillis()%>"> -->
-<link rel="stylesheet"	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css?v=<%=System.currentTimeMillis()%>" />
-<link rel="stylesheet"	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css?v=<%=System.currentTimeMillis()%>">
-<script type="text/javascript"	src="../resources/plugins/jQuery/jquery-3.4.1.min.js?v=<%=System.currentTimeMillis()%>"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js?v=<%=System.currentTimeMillis()%>"></script>
-<script	src="../resources/js/typePage.js?v=<%=System.currentTimeMillis()%>"></script>
-</head>
-<body>
-<script type="text/javascript">
-$("#button-addon2").on("click",function(){
-
-	alert(type);
-});	
-
-</script>
 	<div class="container-fluid">
 		<div class="input-group-append">
 
 			<div class="row no-gutters" style="padding-bottom: 1%; padding-top: 2%;">
 			
 				<div class="col-4">			
-					<a class="a"></a>
+					<a class="a"> </a>
 					
 				</div>
 				<div class="col-7">			
@@ -61,8 +41,7 @@ $("#button-addon2").on("click",function(){
 							<th width=20%>상품명</th>
 							<th width=15%>유통기한</th>
 							<th width=10%>발주 수량</th>
-						</tr>
-						
+						</tr>		
 					</thead>	
 					</table>
 			</div>		
@@ -79,5 +58,15 @@ $("#button-addon2").on("click",function(){
 		</div>
 		
 	</div>
-</body>
-</html>
+	
+	
+<script type="text/javascript">
+$(document).on("change", ".custom-select", function(){
+	var type= $("#hidden_type").val();
+	var detail_type = $(".custom-select").val();
+	var md_name = $(".form-control").val();
+ 	console.log("type = "+type);
+	
+	orderList(type, detail_type, md_name);
+});
+</script>
