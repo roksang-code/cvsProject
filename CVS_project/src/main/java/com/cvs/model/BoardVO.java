@@ -2,8 +2,6 @@ package com.cvs.model;
 
 import java.util.Arrays;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class BoardVO {
 	private int no;
 	private String subject;
@@ -70,4 +68,5 @@ public class BoardVO {
 				+ "]";
 	}
 	
+ 	
 }

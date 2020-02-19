@@ -13,7 +13,7 @@
 	</select>
 	
 	<insert id="MDorder">
-		insert into order_board (barcode_no, order_ea)
-			values (#{barcode_no}, #{order_ea}) on duplicate key update order_ea = #{order_ea};
+		insert into order_board (member_no, barcode_no, order_ea)
+			values (#{member_no},#{barcode_no}, #{order_ea}) on duplicate key update order_ea = #{order_ea};
 	</insert>
 </mapper>

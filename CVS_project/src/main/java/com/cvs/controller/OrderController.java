@@ -108,19 +108,23 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/notice_detail", method = RequestMethod.GET) //상세 화면
-	public void notice_detailGet(@RequestParam("no") int no, Criteria cri, Model model) throws Exception {
+	public String notice_detail1Get(@RequestParam("no") int no, String type, Criteria cri, Model model) throws Exception {
 		logger.info("notice_detail get...");
+		logger.info("no = "+no);
+		
+
 		bservice.boardCnt(no);
 		
 		System.out.println(cri.getKeyword());
 		System.out.println(cri.getPageNum());
 		
 		model.addAttribute(bservice.boardDetail(no));
+	    model.addAttribute("type", type); 
 		model.addAttribute("cri", cri);
 		
-		
+		return "order/OrderMain";
 	}
-
+	
 	
 	
 }

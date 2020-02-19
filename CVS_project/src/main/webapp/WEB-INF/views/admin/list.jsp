@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script type="text/javascript"	src="../resources/plugins/jQuery/jquery-3.4.1.min.js"></script>
@@ -38,14 +38,14 @@
 								<th>조회수</th>
 							</tr>
 							<tr>
-								<td colspan="6"><a href="register">글쓰기</a></td>
+								<td colspan="6"><a class="btn btn-primary btn-sm active" role="button" aria-pressed="true" href="register?no=${boardVO.no}&pageNum=${pageMaker.cri.pageNum}&keyword=${pageMaker.cri.keyword}&type=write">글쓰기</a></td>
 							</tr>
 						  </tfoot>
 						  <tbody>
 						      <c:forEach var="boardVO" items="${list}">
 								<tr>
 									<td>${boardVO.no}</td>
-									<td><a href="detail?no=${boardVO.no}&pageNum=${pageMaker.cri.pageNum}&keyword=${pageMaker.cri.keyword}">${boardVO.subject}</a></td>
+									<td><a href="detail?no=${boardVO.no}&pageNum=${pageMaker.cri.pageNum}&keyword=${pageMaker.cri.keyword}&type=detail">${boardVO.subject}</a></td>
 									<td>${boardVO.writer}</td>
 									<td>${boardVO.write_date}</td>
 									<td>${boardVO.cnt}</td>

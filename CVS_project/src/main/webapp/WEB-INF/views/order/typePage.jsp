@@ -16,7 +16,7 @@
 					
 				</div>
 				<div class="col-7">			
-				  
+				
 				  <input type="text" class="form-control" placeholder="상품을 입력해주세요" id="mdname" aria-describedby="mdsearch">
 				
 				</div>
@@ -29,7 +29,8 @@
 		
 			</div>
 		</div>
-
+		
+		<input id="member_no" type="hidden" value="${login.member_no}">
 		<div class="row no-gutters border" style="width:100%; height: 600px; overflow-x:hidden; overflow-y:scroll; ">
 			<div class="col-12">
 					<table class="table table-bordered align-middle" id="detailtypetable" style="width: 100%;">
@@ -59,14 +60,3 @@
 		
 	</div>
 	
-	
-<script type="text/javascript">
-$(document).on("change", ".custom-select", function(){
-	var type= $("#hidden_type").val();
-	var detail_type = $(".custom-select").val();
-	var md_name = $(".form-control").val();
- 	console.log("type = "+type);
-	
-	orderList(type, detail_type, md_name);
-});
-</script>

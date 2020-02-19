@@ -103,8 +103,17 @@ $(document).on("click", "#main_page", function(){
 	  <div class="col-10">
 	    <div class="tab-content" id="nav-tabContent">
 	      <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-		 		<c:import url="/order/notice"></c:import>
-		 		
+		 		<c:choose>
+					<c:when test="${type!='detail'}">
+     					<c:import url="/order/notice"></c:import>
+		 			</c:when>		
+			 		
+					<c:when test="${type=='detail'}">
+     					<c:import url="notice_detail.jsp"></c:import>
+ 					</c:when>		 	
+			 		
+		 		</c:choose>
+		 				 		
 		  </div>
 	      
 	      <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">	    
@@ -114,6 +123,9 @@ $(document).on("click", "#main_page", function(){
 	    </div>
 	  </div>
 	</div>
+	
+	
+	
 </div>		
 	
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>

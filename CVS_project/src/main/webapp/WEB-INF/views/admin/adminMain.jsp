@@ -32,7 +32,19 @@
 	  <div class="col-10">
 	    <div class="tab-content" id="nav-tabContent">
 	      <div class="tab-pane fade show active" id="list-noticeAdd" role="tabpanel" aria-labelledby="list-noticeAdd-list">
-	      		<jsp:include page="noticeAdd.jsp"/>
+	      			<c:choose>
+					<c:when test="${type==null || type == 'list'}">
+     					<c:import url="/admin/list"></c:import>
+		 			</c:when>					 		
+					<c:when test="${type=='detail'}">
+     					<c:import url="detail.jsp"></c:import>
+ 					</c:when>		 	
+ 					
+			 		<c:when test="${type=='write'}">
+     					<c:import url="write.jsp"></c:import>
+ 					</c:when>
+ 							 	
+		 		</c:choose>
 	      </div>
 	      
 	      <div class="tab-pane fade" id="list-addMD" role="tabpanel" aria-labelledby="list-addMD-list">	    

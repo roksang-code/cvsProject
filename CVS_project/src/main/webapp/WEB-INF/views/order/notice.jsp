@@ -27,10 +27,14 @@
 							
 						  </tfoot>
 						  <tbody>
+									 
 						      <c:forEach var="boardVO" items="${list}">
+								
 								<tr>
 									<td>${boardVO.no}</td>
-									<td><a href="notice_detail?no=${boardVO.no}&pageNum=${pageMaker.cri.pageNum}&keyword=${pageMaker.cri.keyword}">${boardVO.subject}</a></td>
+									<td> 
+									  
+									 <a href="notice_detail?no=${boardVO.no}&pageNum=${pageMaker.cri.pageNum}&keyword=${pageMaker.cri.keyword}&type=detail">${boardVO.subject}</a></td>
 									<td>${boardVO.writer}</td>
 									<td>${boardVO.write_date}</td>
 									<td>${boardVO.cnt}</td>
@@ -38,7 +42,7 @@
  							 </c:forEach>
 						    </tbody>
 						</table>	
-					<div class="w3-bar">
+					<div>
 						<c:if test="${pageMaker.prev}">
 							<a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" href="notice?pageNum=${pageMaker.startPage-1}&keyword=${pageMaker.cri.keyword}">&laquo;</a>
 						</c:if>

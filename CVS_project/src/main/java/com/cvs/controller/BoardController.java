@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cvs.model.BoardVO;
@@ -16,7 +17,7 @@ import com.cvs.model.PageMaker;
 import com.cvs.service.BoardService;
 
 @Controller
-@RequestMapping("/board")
+@RequestMapping("/admin")
 public class BoardController {
 	
 		@Autowired
@@ -31,38 +32,49 @@ public class BoardController {
 		public void adminMainGet() throws Exception {
 	
 			logger.info("adminMain get...");
+			
+
+		}@RequestMapping(value = "/adminMain", method = RequestMethod.POST)//로그인 화면
+		public void adminMainPOST() throws Exception {
 	
+			logger.info("adminMain get...");
+			
 		}
 			
 		@RequestMapping(value = "/register", method = RequestMethod.GET)
-		public String registGet() throws Exception {
+		public String registGet(String type, Criteria cri, Model model) throws Exception {
 			logger.info("regist get...");
 			
-			return "board/write";
+		    model.addAttribute("type", type); 
+		    model.addAttribute("cri", cri);
+			
+			return "admin/adminMain";
 		}
 	
 		@RequestMapping(value = "/register", method = RequestMethod.POST)
-		public String registPost(BoardVO board) throws Exception {
-			logger.info("regist Post..." + board);
+		public String registPost(BoardVO board, @RequestParam(value = "files", required = false) MultipartFile files) throws Exception {
+			logger.info("regist Post" + board);
 			
 			logger.info("files = "+board.getFiles());
 			bservice.boardWrite(board);
-			
-			return "redirect:/board/list";
+			 
+			return "redirect:/admin/adminMain";
 		}
 	
 		@RequestMapping(value = "/detail", method = RequestMethod.GET)
-		public void detailGet(@RequestParam("no") int no, Criteria cri, Model model) throws Exception {
+		public String detailGet(@RequestParam("no") int no, String type, Criteria cri, Model model) throws Exception {
 			logger.info("detail get...");
 			bservice.boardCnt(no);
-			
+
 			System.out.println(cri.getKeyword());
 			System.out.println(cri.getPageNum());
 			
 			model.addAttribute(bservice.boardDetail(no));
+		    model.addAttribute("type", type); 
 			model.addAttribute("cri", cri);
 			
-			
+			return "admin/adminMain";
+
 		}
 	
 	
@@ -77,7 +89,7 @@ public class BoardController {
 			model.addAttribute("cri", cri);
 			model.addAttribute("no", no);
 			
-			return "redirect:/board/detail";
+			return "redirect:/admin/detail";
 			
 			
 		}
@@ -91,7 +103,7 @@ public class BoardController {
 			
 			redirectAttributes.addAttribute("pageNum", cri.getPageNum());
 			redirectAttributes.addAttribute("keyword", cri.getKeyword());
-			return "redirect:/board/list";
+			return "redirect:/admin/list";
 		}
 
 	
