@@ -11,11 +11,56 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script type="text/javascript"	src="../resources/plugins/jQuery/jquery-3.4.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script	src="../resources/js/orderApproval.js?v=<%=System.currentTimeMillis()%>"></script>
+
 </head>
 </head>
 <body>
+		<script type="text/javascript">
+					
+	   	 	 		$("#logout").on("click", function() {
+			   			$(location).attr('href', "../login/Logout");//로그아웃 컨트롤러
+			   		});
+	   	 	 		
+	   	 	 		
+	   			$(document).on("click", "#list-orderApproval-list", function(){
+					
+	   				var str ="";
+					$.getJSON("approval_list",
+							function(data) {
+								console.log(data);
+								
+								
+								str += "<table class='table table-bordered' id='approval_list_table'>";						
+								str += "<thead class='thead-light'>";
+								str += "<tr>";
+								str += "<th>매장번호</th>";
+								str += "<th>수량</th>";
+								str += "<th>원가 합계</th>";
+								str += "<th>정가 합계</th>";
+								str += "</tr>";
+								str += "</thead>";
+								
+								$(data).each(function() {
 
+									str += "<tr class='approval_list_tr'>";
+									str += "<td class='list_member_no'>" + this.member_no + "</td>";
+									str += "<td>" + this.total_order_ea + "</td>";
+									str += "<td>" + this.total_cost + "</td>";
+									str += "<td>" + this.total_price + "</td>";
+									str += "</tr>";
 
+								});
+								str += "</table>";
+
+								$("#approval_list_table").html(str);
+
+							});
+				});
+	   	 	 		
+	   	 	 		
+	   	</script>
+	   	 	 	
 <div class="container-fluid">
 
 	<div class="row">
@@ -56,11 +101,9 @@
 		  </div>
 		  
 		  <div class="tab-pane fade" id="list-logout" role="tabpanel" aria-labelledby="list-logout-list">	    
-	   	 	 	<script type="text/javascript">
-			   	 	$("#logout").on("click", function() {
-			   			$(location).attr('href', "../login/Logout");//로그아웃 컨트롤러
-			   		});
-	   	 	 	</script>
+	   	 	
+	   	 	
+	   	 	 	
 		  </div> 
 		  
 	    </div>

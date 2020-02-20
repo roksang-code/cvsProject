@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cvs.mapper.BoardMapper;
 import com.cvs.model.BoardVO;
 import com.cvs.model.Criteria;
+import com.cvs.model.Md_infoVO;
 
 @Repository
 @Service
@@ -80,6 +81,13 @@ public class BoardServiceImpl implements BoardService{
 	public List<String> getAttach(Integer no) throws Exception {
 
 		return bm.getAttach(no);
+	}
+
+
+	@Override
+	public List<Md_infoVO> approval_list(Md_infoVO mdvo) throws Exception {
+
+		return bm.approval_list(mdvo);
 	}
 
 	

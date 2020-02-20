@@ -4,49 +4,18 @@
 
 
 <div class="container-fluid">
-
-	<table class="table">
-		<thead class="thead-light">
-			<tr>
-				<th>매장번호</th>
-				<th>상품수</th>
-				<th>합계</th>
-			</tr>
-		</thead>
-		<tbody>
-
-			<c:forEach var="boardVO" items="${list}">
-
-				<tr>
-					<td>${boardVO.no}</td>
-					<td><a href="notice_detail?no=${boardVO.no}&pageNum=${pageMaker.cri.pageNum}&keyword=${pageMaker.cri.keyword}&type=detail">${boardVO.subject}</a></td>
-					<td>${boardVO.writer}</td>
-					<td>${boardVO.write_date}</td>
-					<td>${boardVO.cnt}</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-	<div>
-		<c:if test="${pageMaker.prev}">
-			<a href="#" class="btn btn-primary btn-lg active" role="button"
-				aria-pressed="true"
-				href="notice?pageNum=${pageMaker.startPage-1}&keyword=${pageMaker.cri.keyword}">&laquo;</a>
-		</c:if>
-
-		<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}"
-			var="idx">
-			<a href="#" class="btn btn-primary btn-lg active" role="button"
-				aria-pressed="true"
-				href="notice?pageNum=${idx}&keyword=${pageMaker.cri.keyword}">${idx}</a>
-
-		</c:forEach>
-
-		<c:if test="${page.next}">
-			<a href="#" class="btn btn-primary btn-lg active" role="button"
-				aria-pressed="true"
-				href="notice?pageNum=${pageMaker.endPage +1}&keyword=${pageMaker.cri.keyword}">&raquo;</a>
-		</c:if>
-	</div>
-
+	<div class="row">
+		<div class="col1" style="width:45%; height: 600px; overflow-x:hidden; overflow-y:hidden; ">
+	
+			<table class='table table-bordered' id='approval_list_table'>
+			</table>
+			
+		</div>
+		<div class="col2" style="width:45%; height: 600px; overflow-x:hidden; overflow-y:hidden; ">
+	
+			<table class='table table-bordered' id='approval_detail_list_table'>
+			</table>
+			
+		</div>
+	</div>	
 </div>

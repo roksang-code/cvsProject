@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cvs.model.BoardVO;
 import com.cvs.model.Criteria;
+import com.cvs.model.Md_infoVO;
 
 public interface BoardService {
 
@@ -33,6 +34,8 @@ public interface BoardService {
 	public void boardCnt(int no) throws Exception;
 		
 	public List<String> getAttach(Integer no) throws Exception;
+
+	public List<Md_infoVO> approval_list(Md_infoVO mdvo) throws Exception;
 
 	
 	

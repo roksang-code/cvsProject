@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cvs.model.BoardVO;
 import com.cvs.model.Criteria;
+import com.cvs.model.Md_infoVO;
 
 public interface BoardMapper {
 	
@@ -28,5 +29,7 @@ public interface BoardMapper {
 	public void addAttach(String fileName) throws Exception;
 	//디테일 업로드
 	public List<String> getAttach(Integer no) throws Exception;
+
+	public List<Md_infoVO> approval_list(Md_infoVO mdvo) throws Exception;
 
 }

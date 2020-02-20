@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cvs.model.BoardVO;
 import com.cvs.model.Criteria;
+import com.cvs.model.Md_infoVO;
 
 @Repository
 public class BoardMapperImpl implements BoardMapper {
@@ -72,6 +73,12 @@ public class BoardMapperImpl implements BoardMapper {
 	public List<String> getAttach(Integer no) throws Exception {
 		return session.selectList(namespace+".getAttach",no);
 		
+	}
+	@Override
+	public List<Md_infoVO> approval_list(Md_infoVO mdvo) throws Exception {
+
+		List<Md_infoVO> approval_list = session.selectList(namespace + ".approval_list", mdvo);
+		return approval_list;
 	}
 	
 }

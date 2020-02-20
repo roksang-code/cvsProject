@@ -1,18 +1,24 @@
 package com.cvs.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cvs.model.BoardVO;
 import com.cvs.model.Criteria;
+import com.cvs.model.Md_infoVO;
 import com.cvs.model.PageMaker;
 import com.cvs.service.BoardService;
 
@@ -147,6 +153,39 @@ public class BoardController {
 			  
 		 }
 		
-	
-		
+			
+		@ResponseBody
+		@RequestMapping(value = "/approval_list", method = RequestMethod.GET)//날짜 선택 매출 리스트
+		public ResponseEntity<List<Md_infoVO>> approval_list(Md_infoVO mdvo) throws Exception {
+				
+				ResponseEntity<List<Md_infoVO>> entity = null;
+				logger.info("approval_list GET...");
+				List<Md_infoVO> approval_list = bservice.approval_list(mdvo);
+
+				
+				
+				entity = new ResponseEntity<List<Md_infoVO>>(approval_list, HttpStatus.OK);
+
+				logger.info("approval_list entity = "+entity.toString());
+				
+				return entity;
+		}
+			
+		@ResponseBody
+		@RequestMapping(value = "/approval_detail_list", method = RequestMethod.GET)//날짜 선택 매출 리스트
+		public ResponseEntity<List<Md_infoVO>> approval_detail_list(Md_infoVO mdvo) throws Exception {
+				
+				ResponseEntity<List<Md_infoVO>> entity = null;
+				logger.info("approval_detail_list GET...");
+				List<Md_infoVO> approval_list = bservice.approval_list(mdvo);
+
+				
+				
+				entity = new ResponseEntity<List<Md_infoVO>>(approval_list, HttpStatus.OK);
+
+				logger.info("approval_detail_list entity = "+entity.toString());
+				
+				return entity;
+		}
+
 	}
