@@ -44,13 +44,13 @@ public class OrderController {
 
 	@ResponseBody
 	@RequestMapping(value = "/orderList", method = RequestMethod.GET)//전체 매출 리스트 화면
-	public ResponseEntity<List<Md_infoVO>> orderListGet(@RequestParam String type, String detail_type,String md_name, Md_infoVO mvo) throws Exception {
+	public ResponseEntity<List<Md_infoVO>> orderListGet(@RequestParam String member_no, String type, String detail_type,String md_name, Md_infoVO mvo) throws Exception {
 		
 		
 		ResponseEntity<List<Md_infoVO>> entity = null;
 
 		logger.info("orderList get...");
-		List<Md_infoVO> orderList = oservice.orderList(type, detail_type, md_name);
+		List<Md_infoVO> orderList = oservice.orderList(member_no, type, detail_type, md_name);
 
 		logger.info("type = "+type);
 		logger.info("detail_type = "+detail_type);
@@ -64,7 +64,7 @@ public class OrderController {
 	}
 	 @ResponseBody
 	 @RequestMapping(value = "/typePage", method = RequestMethod.GET) 
-	 public ResponseEntity<List<Md_infoVO>> typePageGet(@RequestParam String type, Md_infoVO mvo, Model model) throws Exception{
+	 public ResponseEntity<List<Md_infoVO>> typePageGet(@RequestParam String type, Md_infoVO mvo) throws Exception{
 	  
 	  
 		 logger.info("typePage get...");
@@ -76,7 +76,6 @@ public class OrderController {
 
 		 entity = new ResponseEntity<List<Md_infoVO>>(typePage, HttpStatus.OK);
 
-		 logger.info("model = "+model);
 
 		 return entity;
 	 

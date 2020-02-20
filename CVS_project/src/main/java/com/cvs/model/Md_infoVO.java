@@ -19,7 +19,9 @@ public class Md_infoVO {
 	private String pr_content;
 	private String pr_family;
 	private int order_ea;
-	
+	private int approval_ea;
+	private int member_no;
+	private int count;
  	
  	
 	public int getMd_no() {
@@ -130,16 +132,33 @@ public class Md_infoVO {
 	public void setOrder_ea(int order_ea) {
 		this.order_ea = order_ea;
 	}
+	public int getMember_no() {
+		return member_no;
+	}
+	public void setMember_no(int member_no) {
+		this.member_no = member_no;
+	}
+	public int getApproval_ea() {
+		return approval_ea;
+	}
+	public void setApproval_ea(int approval_ea) {
+		this.approval_ea = approval_ea;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	@Override
 	public String toString() {
 		return "Md_infoVO [md_no=" + md_no + ", barcode_no=" + barcode_no + ", shelf_life=" + shelf_life + ", type="
 				+ type + ", detail_type=" + detail_type + ", company=" + company + ", md_name=" + md_name
 				+ ", pack_date=" + pack_date + ", cost=" + cost + ", price=" + price + ", promotion_no=" + promotion_no
 				+ ", pr_ea=" + pr_ea + ", pr_price=" + pr_price + ", pr_type=" + pr_type + ", pr_subject=" + pr_subject
-				+ ", pr_content=" + pr_content + ", pr_family=" + pr_family + ", order_ea=" + order_ea + "]";
+				+ ", pr_content=" + pr_content + ", pr_family=" + pr_family + ", order_ea=" + order_ea
+				+ ", approval_ea=" + approval_ea + ", member_no=" + member_no + ", count=" + count + "]";
 	}
-	
-	
 	
 	
 	

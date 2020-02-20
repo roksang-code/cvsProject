@@ -17,9 +17,9 @@ public class OrderServiceImpl implements OrderService {
 	OrderMapper om;
 	
 	@Override
-	public List<Md_infoVO> orderList(String type, String detail_type, String md_name) throws Exception {
+	public List<Md_infoVO> orderList(String member_no, String type, String detail_type, String md_name) throws Exception {
 
-		return om.orderList(type, detail_type, md_name);
+		return om.orderList(member_no, type, detail_type, md_name);
 	}
 
 	@Override

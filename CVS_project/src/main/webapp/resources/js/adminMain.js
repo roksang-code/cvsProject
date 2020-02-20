@@ -1,10 +1,10 @@
 var str ="";
 var cnt =1;
 
-function orderList(type, detail_type, md_name) {
+
+function orderList(member_no, type, detail_type, md_name) {
 	
-	
-	$.getJSON("orderList?type="+type +"&&detail_type=" + detail_type+"&&md_name="+md_name,
+	$.getJSON("orderList?member_no="+member_no+"&&type="+type +"&&detail_type=" + detail_type+"&&md_name="+md_name,
 	
 	function (data) {
 		

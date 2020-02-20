@@ -7,7 +7,7 @@ import com.cvs.model.Order_boardVO;
 
 public interface OrderMapper {
 
-	public List<Md_infoVO> orderList(String type, String detail_type, String md_name) throws Exception;
+	public List<Md_infoVO> orderList(String member_no, String type, String detail_type, String md_name) throws Exception;
 
 	public List<Md_infoVO> typePage(String type)throws Exception;
 

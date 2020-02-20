@@ -23,10 +23,11 @@ public class OrderMapperImpl implements OrderMapper{
 
 	
 	@Override
-	public List<Md_infoVO> orderList(String type, String detail_type, String md_name) throws Exception {
+	public List<Md_infoVO> orderList(String member_no, String type, String detail_type, String md_name) throws Exception {
 
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("member_no", member_no);
 		paramMap.put("type", type);
 		paramMap.put("detail_type", detail_type);
 		paramMap.put("md_name", md_name);
