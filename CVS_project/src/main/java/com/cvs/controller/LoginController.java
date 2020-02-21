@@ -64,7 +64,7 @@ public class LoginController {
 		session.removeAttribute("login");
 		session.invalidate();
 		
-		return "login/LoginpageGet";
+		return "login/mainPage";
 	}
 	
 	

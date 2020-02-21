@@ -88,15 +88,22 @@
 	<select id="approval_detail_list" resultType="com.cvs.model.Md_infoVO">
 	
 	
-		SELECT member_no, md_info.barcode_no, type, detail_type, company, md_name, order_ea ,
+	SELECT member_no, md_info.barcode_no, type, detail_type, company, md_name, order_ea ,
 			approval_ea, cost, price, shelf_life, md_img FROM 
 			md_info left join order_board on md_info.barcode_no = order_board.barcode_no
 	 				left join md_price on md_info.barcode_no = md_price.barcode_no
-	 		where type = #{type} and
-		  detail_type like concat('%',#{detail_type},'%') and
-		  md_name like concat('%',#{md_name},'%')  and member_no =#{member_no} group by 
+	 		where member_no = #{member_no}  group by 
 		  member_no, md_info.barcode_no, type, detail_type, company, md_name, 
-          	order_ea , approval_ea, cost, price, shelf_life, md_img order by md_name asc;	
-		  
+          	order_ea , approval_ea, cost, price, shelf_life, md_img order by md_name asc	
 	</select>
+	
+	<delete id="order_approval_check">
+		 DELETE FROM order_board
+		 
+			WHERE barcode_no like concat('%',#{barcode_no},'%') and member_no = #{member_no}	     
+	</delete>
+	
+	
+	
+	
 </mapper>

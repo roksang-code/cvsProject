@@ -1,6 +1,8 @@
 package com.cvs.mapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.cvs.model.BoardVO;
 import com.cvs.model.Criteria;
 import com.cvs.model.Md_infoVO;
+import com.cvs.model.Tel_membership_infoVO;
 
 @Repository
 public class BoardMapperImpl implements BoardMapper {
@@ -80,5 +83,23 @@ public class BoardMapperImpl implements BoardMapper {
 		List<Md_infoVO> approval_list = session.selectList(namespace + ".approval_list", mdvo);
 		return approval_list;
 	}
+	@Override
+	public List<Md_infoVO> approval_detail_list(int member_no) throws Exception {
+		
+		List<Md_infoVO> approval_detail_list = session.selectList(namespace + ".approval_detail_list", member_no);
+		return approval_detail_list;
+	}
+	@Override
+	public void order_approval_check(int barcode_no, int member_no) throws Exception {
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("barcode_no", barcode_no);
+		paramMap.put("member_no", member_no);
+	
+		
+		session.delete(namespace+".order_approval_check", paramMap);
+
+	}
+	
 	
 }

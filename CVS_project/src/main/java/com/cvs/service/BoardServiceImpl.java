@@ -90,6 +90,21 @@ public class BoardServiceImpl implements BoardService{
 		return bm.approval_list(mdvo);
 	}
 
+
+	@Override
+	public List<Md_infoVO> approval_detail_list(int member_no) throws Exception {
+
+		return bm.approval_detail_list(member_no);
+	}
+
+
+	@Override
+	public void order_approval_check(int barcode_no, int member_no) throws Exception {
+
+		bm.order_approval_check(barcode_no, member_no);
+		
+	}
+
 	
 	
 

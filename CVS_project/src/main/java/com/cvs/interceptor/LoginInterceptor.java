@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.cvs.model.Member_infoVO;
+
 public class LoginInterceptor extends HandlerInterceptorAdapter{
 	
 	private static final String LOGIN = "login";
@@ -22,13 +24,20 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		
 		HttpSession session = request.getSession();
 		
-		Object Member_infoVO = modelAndView.getModel().get("Member_infoVO");
+		Member_infoVO mivo = (Member_infoVO)modelAndView.getModel().get("Member_infoVO");
 
-		if(Member_infoVO != null ) {						//사용자가 회원가입을 했으면,
-			logger.info("new login success");		
-			System.out.println("new login success");
-			session.setAttribute(LOGIN, Member_infoVO);	//로그인처리 (session 회원정보 저장)
-			response.sendRedirect("../login/mainPage");	//로그인 성공한 후 메인페이지로 이동
+		if(mivo.getId() != null ) {						//사용자가 회원가입을 했으면,
+			if(mivo.getId().equals("admin")) {
+				logger.info("new admin success");		
+				session.setAttribute(LOGIN, mivo);	//로그인처리 (session 회원정보 저장)
+				response.sendRedirect("../admin/adminMain");	//로그인 성공한 후 메인페이지로 이동
+				
+			}else {
+				logger.info("new login success");		
+				System.out.println("new login success");
+				session.setAttribute(LOGIN, mivo);	//로그인처리 (session 회원정보 저장)
+				response.sendRedirect("../login/mainPage");	//로그인 성공한 후 메인페이지로 이동
+			}
 		}else {
 			response.sendRedirect("../login/LoginpageGet");	//로그인 실패 로그인 페이지로 이동
 

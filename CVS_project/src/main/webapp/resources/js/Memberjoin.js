@@ -51,14 +51,11 @@ $(document).ready(function() {
 		$("#emtext2").val($("#selectemail").val());
 		
 	});
-
-	$("#join").on("click", function(){
-		event.preventDefault();
+	
+	
+	$("#join").on("mouseenter", function(){
 		$("#email").val($("#emtext1").val()+"@"+$("#emtext2").val());
 		$("#age").val($("#age1").val()+"-"+$("#age2").val());
-
-		
-		$("form").submit();
 	});
 	
 

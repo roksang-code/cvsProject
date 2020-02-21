@@ -17,45 +17,49 @@
 </head>
 <body>
 		<script type="text/javascript">
-					
-	   	 	 		$("#logout").on("click", function() {
-			   			$(location).attr('href', "../login/Logout");//로그아웃 컨트롤러
-			   		});
-	   	 	 		
+				
+				
 	   	 	 		
 	   			$(document).on("click", "#list-orderApproval-list", function(){
 					
-	   				var str ="";
-					$.getJSON("approval_list",
-							function(data) {
-								console.log(data);
-								
-								
-								str += "<table class='table table-bordered' id='approval_list_table'>";						
-								str += "<thead class='thead-light'>";
-								str += "<tr>";
-								str += "<th>매장번호</th>";
-								str += "<th>수량</th>";
-								str += "<th>원가 합계</th>";
-								str += "<th>정가 합계</th>";
-								str += "</tr>";
-								str += "</thead>";
-								
-								$(data).each(function() {
-
-									str += "<tr class='approval_list_tr'>";
-									str += "<td class='list_member_no'>" + this.member_no + "</td>";
-									str += "<td>" + this.total_order_ea + "</td>";
-									str += "<td>" + this.total_cost + "</td>";
-									str += "<td>" + this.total_price + "</td>";
+	   				function approval_list() {
+						
+					
+						$.getJSON("approval_list",
+								function(data) {
+									console.log(data);
+									
+									var str ="";			
+									str += "<table class='table table-bordered' id='approval_list_table'>";						
+									str += "<thead class='thead-light'>";
+									str += "<tr>";
+									str += "<th>매장번호</th>";
+									str += "<th>수량</th>";
+									str += "<th>원가 합계</th>";
+									str += "<th>정가 합계</th>";
+									str += "<th>전체 승인</th>";
 									str += "</tr>";
+									str += "</thead>";
+									
+									$(data).each(function(index) {
+	
+										str += "<tr class='approval_list_tr' id='app_tr"+(index+1)+"'>";
+										str += "<td class='list_member_no'>" + this.member_no + "</td>";
+										str += "<td>" + this.total_order_ea + "</td>";
+										str += "<td>" + this.total_cost + "</td>";
+										str += "<td>" + this.total_price + "</td>";
+										str += "<td><button id='"+this.member_no+"' class='btn btn-secondary'>승인</button></td>";
+										
+										str += "</tr>";
+	
+									});
+									str += "</table>";
 
-								});
-								str += "</table>";
-
-								$("#approval_list_table").html(str);
-
-							});
+									$("#approval_list_table").html(str);
+	
+						});
+	   				}
+	   				approval_list();
 				});
 	   	 	 		
 	   	 	 		
@@ -101,8 +105,11 @@
 		  </div>
 		  
 		  <div class="tab-pane fade" id="list-logout" role="tabpanel" aria-labelledby="list-logout-list">	    
-	   	 	
-	   	 	
+	   	 		<script type="text/javascript">
+				   	 	$("#list-logout-list").on("click", function() {
+				   			$(location).attr('href', "../login/Logout");//로그아웃 컨트롤러
+				   		});
+				</script>
 	   	 	 	
 		  </div> 
 		  

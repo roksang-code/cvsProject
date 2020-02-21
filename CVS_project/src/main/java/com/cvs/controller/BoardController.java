@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cvs.model.BoardVO;
 import com.cvs.model.Criteria;
+import com.cvs.model.Functionkey_infoVO;
 import com.cvs.model.Md_infoVO;
 import com.cvs.model.PageMaker;
 import com.cvs.service.BoardService;
@@ -155,7 +157,7 @@ public class BoardController {
 		
 			
 		@ResponseBody
-		@RequestMapping(value = "/approval_list", method = RequestMethod.GET)//날짜 선택 매출 리스트
+		@RequestMapping(value = "/approval_list", method = RequestMethod.GET)//발주승인 리스트
 		public ResponseEntity<List<Md_infoVO>> approval_list(Md_infoVO mdvo) throws Exception {
 				
 				ResponseEntity<List<Md_infoVO>> entity = null;
@@ -172,12 +174,12 @@ public class BoardController {
 		}
 			
 		@ResponseBody
-		@RequestMapping(value = "/approval_detail_list", method = RequestMethod.GET)//날짜 선택 매출 리스트
-		public ResponseEntity<List<Md_infoVO>> approval_detail_list(Md_infoVO mdvo) throws Exception {
+		@RequestMapping(value = "/approval_detail_list", method = RequestMethod.GET)//발주승인 세부리스트
+		public ResponseEntity<List<Md_infoVO>> approval_detail_list(@RequestParam int member_no, Md_infoVO mdvo) throws Exception {
 				
 				ResponseEntity<List<Md_infoVO>> entity = null;
 				logger.info("approval_detail_list GET...");
-				List<Md_infoVO> approval_list = bservice.approval_list(mdvo);
+				List<Md_infoVO> approval_list = bservice.approval_detail_list(member_no);
 
 				
 				
@@ -188,4 +190,18 @@ public class BoardController {
 				return entity;
 		}
 
+		@ResponseBody
+		@RequestMapping(value = "/order_approval_check", method = RequestMethod.POST)//발주 승인 체크
+		public void order_approval_check(@RequestBody int barcode_no, int member_no) throws Exception {
+
+			
+			logger.info("order_approval_check get...");
+			
+			bservice.order_approval_check(barcode_no, member_no);
+			
+			
+			
+		}
+		
+		
 	}
