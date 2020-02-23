@@ -99,7 +99,7 @@ public class BoardServiceImpl implements BoardService{
 
 
 	@Override
-	public void order_approval_check(int barcode_no, int member_no) throws Exception {
+	public void order_approval_check(String barcode_no, int member_no) throws Exception {
 
 		bm.order_approval_check(barcode_no, member_no);
 		

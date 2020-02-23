@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,7 @@ import com.cvs.model.Criteria;
 import com.cvs.model.Functionkey_infoVO;
 import com.cvs.model.Md_infoVO;
 import com.cvs.model.PageMaker;
+import com.cvs.model.Pos_boardVO;
 import com.cvs.service.BoardService;
 
 @Controller
@@ -191,17 +193,22 @@ public class BoardController {
 		}
 
 		@ResponseBody
-		@RequestMapping(value = "/order_approval_check", method = RequestMethod.POST)//발주 승인 체크
-		public void order_approval_check(@RequestBody int barcode_no, int member_no) throws Exception {
+		@RequestMapping(value = "/order_approval_check/{barcode_no}/{member_no}", method = RequestMethod.DELETE)//발주 승인 체크
+		public void order_approval_check(@PathVariable String barcode_no, @PathVariable int member_no,  Md_infoVO mdvo) throws Exception {
 
-			
+			if(barcode_no.equals("0")){
+				barcode_no="";
+			}
 			logger.info("order_approval_check get...");
-			
+			logger.info("barcode_no = "+barcode_no);
+			logger.info("member_no = "+member_no);
+			logger.info("mdvo = "+mdvo);
+
 			bservice.order_approval_check(barcode_no, member_no);
 			
 			
-			
 		}
+		
 		
 		
 	}

@@ -22,7 +22,7 @@
 	</select>
 	
 	<select id="typePage" resultType="com.cvs.model.Md_infoVO">
-		SELECT * FROM md_info where type = #{type} group by detail_type
+		SELECT detail_type FROM md_info where type = #{type} group by detail_type
 	</select>
 	
 	<insert id="MDorder">

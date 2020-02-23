@@ -90,7 +90,7 @@ public class BoardMapperImpl implements BoardMapper {
 		return approval_detail_list;
 	}
 	@Override
-	public void order_approval_check(int barcode_no, int member_no) throws Exception {
+	public void order_approval_check(String barcode_no, int member_no) throws Exception {
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("barcode_no", barcode_no);

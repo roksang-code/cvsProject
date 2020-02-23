@@ -39,7 +39,7 @@ public interface BoardService {
 
 	public List<Md_infoVO> approval_detail_list(int member_no)throws Exception;
 
-	public void order_approval_check(int barcode_no, int member_no)throws Exception;
+	public void order_approval_check(String barcode_no, int member_no)throws Exception;
 
 	
 	
