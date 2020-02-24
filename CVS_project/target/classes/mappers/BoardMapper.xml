@@ -103,7 +103,17 @@
 			WHERE barcode_no like concat('%',#{barcode_no},'%') and member_no = #{member_no}	     
 	</delete>
 	
+	<insert id="addMD">
+		 insert into md_info(barcode_no , type, detail_type, company, md_name, pack_date, shelf_life)
+			   values(#{barcode_no}, #{type}, #{detail_type}, #{company}, #{md_name}, sysdate(), #{shelf_life});
+	</insert>
 	
+	<insert id="addAttach">
+		insert into tbl_attach(fileName,no) values(#{fileName},LAST_INSERT_ID())
+	</insert>
 	
+	<select id="getAttach" resultType="String">
+		select filename from tbl_attach where no = #{no} order by regdate;
+	</select>
 	
 </mapper>

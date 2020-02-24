@@ -1,6 +1,10 @@
 
 $(document).ready(function() {
 	
+	$('#writeTextarea').attr('contentEditable', 'true');
+
+	
+	
 	function checkImageType(fileName) {
 		var pattern = /jpg|gif|png|jpeg/i;
 		
@@ -27,13 +31,8 @@ $(document).ready(function() {
 		return fileName.substr(idx);
 	}
 	
-	
-	
-	$(".fileDrop").on("dragenter dragover", function(event) {
-		event.preventDefault();
-	});
-
-	$(".fileDrop").on("drop", function(event) {
+	$("#writeTextarea").on("drop", function(event) {
+		
 		event.preventDefault();
 		
 		var files = event.originalEvent.dataTransfer.files;
@@ -43,10 +42,8 @@ $(document).ready(function() {
 		var formData = new FormData();
 		
 		formData.append("file",file);
-		
-		
 		$.ajax({
-			url:"uploadAjax",
+			url:"../uploadAjax",
 			data:formData,
 			dataType:"text",
 			processData:false,
@@ -55,15 +52,56 @@ $(document).ready(function() {
 			success:function(data){
 				
 				var str = "";
-				
+				var img = "";
 				if(checkImageType(data)){
-					str = "<div>" + 
-					"<img src='displayFile?fileName="+getImageLink(data)+"'/>"
+					img = "<div>" + 
+					"<img style='width: 200px; height: 100px;' src='../displayFile?fileName="+getImageLink(data)+"'/>"
 					+"<br><small data-src="+data+">X</small>" +
 					"</div>";
+					str = "<div class='imgbox' ><a href='displayFile?fileName="+data+"'>"
+					+getOriginalName(data)+"</a><small data-src="+data+">X</small></div>";
+
+				}
+					 
+				$("#writeTextarea").append(img);
+
+				$(".upLoadedList").append(str);
+			}
+		});
+
+	});
+	
+	$("#files").on("change", function(event) {
+		
+		
+		var file = $("#files")[0].files[0];
+		
+		var formData = new FormData();
+	
+		formData.append("file",file);
+
+		$.ajax({
+			url:"../uploadAjax",
+			data:formData,
+			dataType:"text",
+			processData:false,
+			contentType:false,
+			type:"post",
+			success:function(data){
+				
+				var str = "";
+				var img = "";
+				if(checkImageType(data)){
+					img = "<div>" + 
+					"<img src='../displayFile?fileName="+getImageLink(data)+"'/>"
+					+"<br><small data-src="+data+">X</small>" +
+					"</div>";
+					str = "<div><a href='displayFile?fileName="+data+"'>"
+					+getOriginalName(data)+"</a><small data-src="+data+">X</small></div>";
+
 				}else {
 					str = "<div><a href='displayFile?fileName="+data+"'>"
-					+getOriginalName(data)+"</a></div>";
+					+getOriginalName(data)+"</a><small data-src="+data+">X</small></div>";
 				}
 				
 					 
@@ -71,21 +109,35 @@ $(document).ready(function() {
 				$(".upLoadedList").append(str);
 			}
 		});
+
 		
 		
 	});
-	
-	
-	$(".upLoadedList").on("click","small",function(event){
+	$("#writeTextarea").on("click","small",function(event){
 		var that = $(this);
 		$.ajax({
-			url:"deleteFile",
+			url:"../deleteFile",
 			data:{fileName:$(this).attr("data-src")},
 			dataType:"text",
 			type:"post",
 			success:function(result){
 				if(result == "deleted"){
-						alert("deleted");
+						that.parent("div").remove();
+						$(".upLoadedList .imgbox").remove();
+					}
+				}
+		});
+	});
+	
+	$(".upLoadedList").on("click","small",function(event){
+		var that = $(this);
+		$.ajax({
+			url:"../deleteFile",
+			data:{fileName:$(this).attr("data-src")},
+			dataType:"text",
+			type:"post",
+			success:function(result){
+				if(result == "deleted"){
 						that.parent("div").remove();
 					}
 				}
@@ -95,6 +147,8 @@ $(document).ready(function() {
 	
 	$("#registerForm").submit(function(event) {
 		event.preventDefault();
+		var content = $('#writeTextarea').html();
+		$('#content').val(content);
 		
 		var that = $(this);
 		
@@ -104,7 +158,7 @@ $(document).ready(function() {
 			
 		});
 		that.append(str);
-		that.get(0).submit();
+		that.get(0).submit();	
 	});
 	
 	

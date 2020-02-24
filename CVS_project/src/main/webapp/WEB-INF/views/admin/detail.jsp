@@ -20,13 +20,24 @@
 				 	<td>제목 </td>	<td><input class="form-control" type="text" name="subject" value="${boardVO.subject}" size="137px;"></td>
 				</tr>
 				<tr>
-				 	<td>내용</td>	<td><textarea class="form-control" rows="15" cols="40" name="content">${boardVO.content}</textarea></td>
+				 	<td>내용</td>	
+				 	<td>
+				 		<div class="form-control" id="writeTextarea" style="width: 1020px; height: 300px"></div>
+							<input type='hidden' name='content' id='content' />
+					</td>
 				</tr>
 				<tr>
 					<td>작성자 </td> <td> ${boardVO.writer}</td>
 				</tr>	
 				<tr> 
-					<td>파일</td> <td>${boardVO.files}</td>
+					<td>파일</td> 
+					<td>
+						<c:choose>
+							<c:when test="${files != null}">
+								<a href="../displayFile?fileName=${files}">${files}</a>		
+							</c:when>
+						</c:choose>
+					</td>
 				</tr>
 				<tr> 
 					<td>조회수</td> <td>${boardVO.cnt}</td>
@@ -38,3 +49,30 @@
 			<input class="btn btn-secondary" type="submit" value="글삭제" formaction="delete">
 		</div>	
 	</form>
+<script>
+
+	$('#writeTextarea').attr('contentEditable', 'true');
+
+	var ctent = '${boardVO.content}';
+	console.log(ctent);
+	$("#writeTextarea").html(ctent);
+
+	
+	$("#writeTextarea").on("click","small",function(event){
+		var that = $(this);
+		$.ajax({
+			url:"../deleteFile",
+			data:{fileName:$(this).attr("data-src")},
+			dataType:"text",
+			type:"post",
+			success:function(result){
+				if(result == "deleted"){
+						that.parent("div").remove();
+						$(".upLoadedList .imgbox").remove();
+					}
+				}
+		});
+	});
+	
+	
+</script>

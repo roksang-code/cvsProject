@@ -12,6 +12,7 @@
 <script type="text/javascript"	src="../resources/plugins/jQuery/jquery-3.4.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script	src="../resources/js/orderApproval.js?v=<%=System.currentTimeMillis()%>"></script>
+<script	src="../resources/js/uploadwrite.js?v=<%=System.currentTimeMillis()%>"></script>
 
 </head>
 </head>
@@ -98,7 +99,10 @@
 	      </div>
 	      
 	      <div class="tab-pane fade" id="list-addMD" role="tabpanel" aria-labelledby="list-addMD-list">	    
-	   	 	 	<jsp:include page="addMD.jsp"/>
+	   	 	 	
+	   	 	 		<jsp:include page="addMD.jsp"/>
+		  			 	
+	   	 	
 		  </div>
 	      
 	      <div class="tab-pane fade" id="list-orderApproval" role="tabpanel" aria-labelledby="list-orderApproval-list">	    

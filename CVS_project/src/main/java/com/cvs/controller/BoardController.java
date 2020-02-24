@@ -62,7 +62,7 @@ public class BoardController {
 		}
 	
 		@RequestMapping(value = "/register", method = RequestMethod.POST)
-		public String registPost(BoardVO board, @RequestParam(value = "files", required = false) MultipartFile files) throws Exception {
+		public String registPost(BoardVO board) throws Exception {
 			logger.info("regist Post" + board);
 			
 			logger.info("files = "+board.getFiles());
@@ -74,13 +74,18 @@ public class BoardController {
 		@RequestMapping(value = "/detail", method = RequestMethod.GET)
 		public String detailGet(@RequestParam("no") int no, String type, Criteria cri, Model model) throws Exception {
 			logger.info("detail get...");
+			
+			
 			bservice.boardCnt(no);
 
 			System.out.println(cri.getKeyword());
 			System.out.println(cri.getPageNum());
 			
+			if(bservice.getAttach(no).size() != 0) {
+				model.addAttribute("files", bservice.getAttach(no).get(0));		
+			}
 			model.addAttribute(bservice.boardDetail(no));
-		    model.addAttribute("type", type); 
+		    model.addAttribute("type", type);
 			model.addAttribute("cri", cri);
 			
 			return "admin/adminMain";
@@ -208,7 +213,30 @@ public class BoardController {
 			
 			
 		}
+		@ResponseBody
+		@RequestMapping(value = "/addMD", method = RequestMethod.POST)
+		public ResponseEntity<String> addMDPost(Md_infoVO mivo) throws Exception {
 		
+			 logger.info("addMD Post" + mivo);
+
+			ResponseEntity<String> entity = null;
+			try {
+				entity = new ResponseEntity<String>("succese", HttpStatus.OK);
+
+			} catch (Exception e) {
+				entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			}
+			return entity;
+
+			
+			
+			
+		/*
+		 * logger.info("addMD Post" + mivo);
+		 * 
+		 * logger.info("img = "+mivo.getMd_img()); bservice.addMD(mivo);
+		 */	 
 		
+		}
 		
 	}

@@ -1,5 +1,7 @@
 package com.cvs.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Md_infoVO {
 	private int md_no;
 	private int barcode_no;
@@ -25,6 +27,7 @@ public class Md_infoVO {
 	private int total_order_ea;	
 	private int total_cost;	
 	private int total_price;	
+ 	private MultipartFile md_img;
 
  	
 	public int getMd_no() {
@@ -172,6 +175,13 @@ public class Md_infoVO {
 		this.total_price = total_price;
 	}
 	
+	
+	public MultipartFile getMd_img() {
+		return md_img;
+	}
+	public void setMd_img(MultipartFile md_img) {
+		this.md_img = md_img;
+	}
 	@Override
 	public String toString() {
 		return "Md_infoVO [md_no=" + md_no + ", barcode_no=" + barcode_no + ", shelf_life=" + shelf_life + ", type="
@@ -180,10 +190,11 @@ public class Md_infoVO {
 				+ ", pr_ea=" + pr_ea + ", pr_price=" + pr_price + ", pr_type=" + pr_type + ", pr_subject=" + pr_subject
 				+ ", pr_content=" + pr_content + ", pr_family=" + pr_family + ", order_ea=" + order_ea
 				+ ", approval_ea=" + approval_ea + ", member_no=" + member_no + ", count=" + count + ", total_order_ea="
-				+ total_order_ea + ", total_cost=" + total_cost + ", total_price=" + total_price + "]";
+				+ total_order_ea + ", total_cost=" + total_cost + ", total_price=" + total_price + ", md_img=" + md_img
+				+ "]";
 	}
 	
-	
+
 	
 	
 	

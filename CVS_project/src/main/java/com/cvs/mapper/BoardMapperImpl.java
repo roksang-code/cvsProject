@@ -74,6 +74,7 @@ public class BoardMapperImpl implements BoardMapper {
 	//디테일 업로드
 	@Override
 	public List<String> getAttach(Integer no) throws Exception {
+	
 		return session.selectList(namespace+".getAttach",no);
 		
 	}
@@ -99,6 +100,12 @@ public class BoardMapperImpl implements BoardMapper {
 		
 		session.delete(namespace+".order_approval_check", paramMap);
 
+	}
+	@Override
+	public void addMD(Md_infoVO mivo) throws Exception {
+
+		session.insert(namespace+".addMD",mivo);
+		
 	}
 	
 	

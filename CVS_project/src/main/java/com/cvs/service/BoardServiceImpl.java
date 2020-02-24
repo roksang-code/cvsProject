@@ -105,6 +105,14 @@ public class BoardServiceImpl implements BoardService{
 		
 	}
 
+
+	@Override
+	public void addMD(Md_infoVO mivo) throws Exception {
+	
+		bm.addMD(mivo);
+		
+	}
+
 	
 	
 
