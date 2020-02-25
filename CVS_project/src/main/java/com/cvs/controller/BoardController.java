@@ -29,214 +29,190 @@ import com.cvs.service.BoardService;
 @Controller
 @RequestMapping("/admin")
 public class BoardController {
-	
-		@Autowired
-		private BoardService bservice;
+
+	@Autowired
+	private BoardService bservice;
 
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
-	
-	
-	
-		@RequestMapping(value = "/adminMain", method = RequestMethod.GET)//로그인 화면
-		public void adminMainGet() throws Exception {
-	
-			logger.info("adminMain get...");
-			
+	@RequestMapping(value = "/adminMain", method = RequestMethod.GET) // 로그인 화면
+	public void adminMainGet() throws Exception {
 
-		}@RequestMapping(value = "/adminMain", method = RequestMethod.POST)//로그인 화면
-		public void adminMainPOST() throws Exception {
-	
-			logger.info("adminMain get...");
-			
-		}
-			
-		@RequestMapping(value = "/register", method = RequestMethod.GET)
-		public String registGet(String type, Criteria cri, Model model) throws Exception {
-			logger.info("regist get...");
-			
-		    model.addAttribute("type", type); 
-		    model.addAttribute("cri", cri);
-			
-			return "admin/adminMain";
-		}
-	
-		@RequestMapping(value = "/register", method = RequestMethod.POST)
-		public String registPost(BoardVO board) throws Exception {
-			logger.info("regist Post" + board);
-			
-			logger.info("files = "+board.getFiles());
-			bservice.boardWrite(board);
-			 
-			return "redirect:/admin/adminMain";
-		}
-	
-		@RequestMapping(value = "/detail", method = RequestMethod.GET)
-		public String detailGet(@RequestParam("no") int no, String type, Criteria cri, Model model) throws Exception {
-			logger.info("detail get...");
-			
-			
-			bservice.boardCnt(no);
+		logger.info("adminMain get...");
 
-			System.out.println(cri.getKeyword());
-			System.out.println(cri.getPageNum());
-			
-			if(bservice.getAttach(no).size() != 0) {
-				model.addAttribute("files", bservice.getAttach(no).get(0));		
-			}
-			model.addAttribute(bservice.boardDetail(no));
-		    model.addAttribute("type", type);
-			model.addAttribute("cri", cri);
-			
-			return "admin/adminMain";
+	}
 
+	@RequestMapping(value = "/adminMain", method = RequestMethod.POST) // 로그인 화면
+	public void adminMainPOST() throws Exception {
+
+		logger.info("adminMain get...");
+
+	}
+
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String registGet(String type, Criteria cri, Model model) throws Exception {
+		logger.info("regist get...");
+
+		model.addAttribute("type", type);
+		model.addAttribute("cri", cri);
+
+		return "admin/adminMain";
+	}
+
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String registPost(BoardVO board) throws Exception {
+		logger.info("regist Post" + board);
+
+		logger.info("files = " + board.getFiles());
+		bservice.boardWrite(board);
+
+		return "redirect:/admin/adminMain";
+
+	}
+
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public String detailGet(@RequestParam("no") int no, String type, Criteria cri, Model model) throws Exception {
+		logger.info("detail get...");
+
+		bservice.boardCnt(no);
+
+		System.out.println(cri.getKeyword());
+		System.out.println(cri.getPageNum());
+
+		if (bservice.getAttach(no).size() != 0) {
+			model.addAttribute("files", bservice.getAttach(no).get(0));
 		}
+		model.addAttribute(bservice.boardDetail(no));
+		model.addAttribute("type", type);
+		model.addAttribute("cri", cri);
+
+		return "admin/adminMain";
+
+	}
 	
-	
-	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String updatePost(BoardVO board, Criteria cri, Model model) throws Exception {
+		logger.info("update Post..." + board);
 		
-		@RequestMapping(value = "/update", method = RequestMethod.POST)
-		public String updatePost(@RequestParam("no") int no, BoardVO board, Criteria cri,  Model model) throws Exception {
-			logger.info("update Post..." + board);
+		bservice.boardUpdate(board);
+		bservice.listCriteria(cri);
+		model.addAttribute("cri", cri);
+
+		return "redirect:/admin/detail?no="+board.getNo()+"";
+
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String deletePost(BoardVO board, Criteria cri, Model model, RedirectAttributes redirectAttributes)
+			throws Exception {
+		logger.info("delete Post..." + board);
+		bservice.boardDelete(board);
+
+		redirectAttributes.addAttribute("no", board.getNo());
+
+		redirectAttributes.addAttribute("pageNum", cri.getPageNum());
+		redirectAttributes.addAttribute("keyword", cri.getKeyword());
+		return "redirect:/admin/list";
+	}
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public void listGet(Criteria cri, Model model) throws Exception {
+		logger.info("page = " + cri.getPageNum() + " key = " + cri.getKeyword());
+
+		PageMaker pageMaker = new PageMaker(cri, bservice.listCountCriteria(cri));
+		model.addAttribute("list", bservice.listCriteria(cri));
+
+		model.addAttribute("pageMaker", pageMaker);
+
+	}
 	
-			bservice.boardUpdate(board);
-			bservice.listCriteria(cri);
-			model.addAttribute("cri", cri);
-			model.addAttribute("no", no);
-			
-			return "redirect:/admin/detail";
-			
-			
-		}
-	
-		@RequestMapping(value = "/delete", method = RequestMethod.POST)
-		public String deletePost(BoardVO board, Criteria cri,  Model model, RedirectAttributes redirectAttributes) throws Exception {
-			logger.info("delete Post..." + board);
-			bservice.boardDelete(board);
-			
-			redirectAttributes.addAttribute("no", board.getNo());
-			
-			redirectAttributes.addAttribute("pageNum", cri.getPageNum());
-			redirectAttributes.addAttribute("keyword", cri.getKeyword());
-			return "redirect:/admin/list";
-		}
+	@RequestMapping(value = "/list_page", method = RequestMethod.GET)
+	public String listPageGet(Criteria cri, Model model) throws Exception {
+		logger.info("page = " + cri.getPageNum() + " key = " + cri.getKeyword());
+
+		PageMaker pageMaker = new PageMaker(cri, bservice.listCountCriteria(cri));
+		model.addAttribute("list", bservice.listCriteria(cri));
+
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "admin/adminMain";
+
+	}
 
 	
-		
-		@RequestMapping(value = "/list", method = RequestMethod.GET) 
-		public void listGet(Criteria cri, Model model) throws Exception{
-			 logger.info("page = "+cri.getPageNum()+" key = "+cri.getKeyword());
-			  
-			  
-			  
-			 PageMaker pageMaker = new PageMaker(cri, bservice.listCountCriteria(cri)); 
-			 model.addAttribute("list", bservice.listCriteria(cri)); 
-			  
-			  
-			  
-			  
-			  model.addAttribute("pageMaker", pageMaker);
-			 
-		  
-		  }
-		  
-		 @RequestMapping(value = "/list", method = RequestMethod.POST) 
-		 public void listPOST(Criteria cri, Model model) throws Exception{
-			  logger.info("page = "+cri.getPageNum()+" key = "+cri.getKeyword());
-			  
-			  PageMaker pageMaker = new PageMaker(cri, bservice.listCountCriteria(cri)); 
-			  model.addAttribute("list", bservice.listCriteria(cri)); 
-			  
-			  
-			  
-			  
-			  model.addAttribute("pageMaker", pageMaker);
-		 
-		  
-		 }
-		  
-		 
-			  
-		 @RequestMapping(value = "/replyboard",  method = RequestMethod.GET) 
-		 public void replyGET() throws Exception{
-			  
-		 }
-		
-			
-		@ResponseBody
-		@RequestMapping(value = "/approval_list", method = RequestMethod.GET)//발주승인 리스트
-		public ResponseEntity<List<Md_infoVO>> approval_list(Md_infoVO mdvo) throws Exception {
-				
-				ResponseEntity<List<Md_infoVO>> entity = null;
-				logger.info("approval_list GET...");
-				List<Md_infoVO> approval_list = bservice.approval_list(mdvo);
+	@RequestMapping(value = "/list", method = RequestMethod.POST)
+	public void listPOST(Criteria cri, Model model) throws Exception {
+		logger.info("page = " + cri.getPageNum() + " key = " + cri.getKeyword());
 
-				
-				
-				entity = new ResponseEntity<List<Md_infoVO>>(approval_list, HttpStatus.OK);
+		PageMaker pageMaker = new PageMaker(cri, bservice.listCountCriteria(cri));
+		model.addAttribute("list", bservice.listCriteria(cri));
 
-				logger.info("approval_list entity = "+entity.toString());
-				
-				return entity;
-		}
-			
-		@ResponseBody
-		@RequestMapping(value = "/approval_detail_list", method = RequestMethod.GET)//발주승인 세부리스트
-		public ResponseEntity<List<Md_infoVO>> approval_detail_list(@RequestParam int member_no, Md_infoVO mdvo) throws Exception {
-				
-				ResponseEntity<List<Md_infoVO>> entity = null;
-				logger.info("approval_detail_list GET...");
-				List<Md_infoVO> approval_list = bservice.approval_detail_list(member_no);
+		model.addAttribute("pageMaker", pageMaker);
 
-				
-				
-				entity = new ResponseEntity<List<Md_infoVO>>(approval_list, HttpStatus.OK);
-
-				logger.info("approval_detail_list entity = "+entity.toString());
-				
-				return entity;
-		}
-
-		@ResponseBody
-		@RequestMapping(value = "/order_approval_check/{barcode_no}/{member_no}", method = RequestMethod.DELETE)//발주 승인 체크
-		public void order_approval_check(@PathVariable String barcode_no, @PathVariable int member_no,  Md_infoVO mdvo) throws Exception {
-
-			if(barcode_no.equals("0")){
-				barcode_no="";
-			}
-			logger.info("order_approval_check get...");
-			logger.info("barcode_no = "+barcode_no);
-			logger.info("member_no = "+member_no);
-			logger.info("mdvo = "+mdvo);
-
-			bservice.order_approval_check(barcode_no, member_no);
-			
-			
-		}
-		@ResponseBody
-		@RequestMapping(value = "/addMD", method = RequestMethod.POST)
-		public ResponseEntity<String> addMDPost(Md_infoVO mivo) throws Exception {
-		
-			 logger.info("addMD Post" + mivo);
-
-			ResponseEntity<String> entity = null;
-			try {
-				entity = new ResponseEntity<String>("succese", HttpStatus.OK);
-
-			} catch (Exception e) {
-				entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-			}
-			return entity;
-
-			
-			
-			
-		/*
-		 * logger.info("addMD Post" + mivo);
-		 * 
-		 * logger.info("img = "+mivo.getMd_img()); bservice.addMD(mivo);
-		 */	 
-		
-		}
 		
 	}
+
+	@RequestMapping(value = "/replyboard", method = RequestMethod.GET)
+	public void replyGET() throws Exception {
+
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/approval_list", method = RequestMethod.GET) // 발주승인 리스트
+	public ResponseEntity<List<Md_infoVO>> approval_list(Md_infoVO mdvo) throws Exception {
+
+		ResponseEntity<List<Md_infoVO>> entity = null;
+		logger.info("approval_list GET...");
+		List<Md_infoVO> approval_list = bservice.approval_list(mdvo);
+
+		entity = new ResponseEntity<List<Md_infoVO>>(approval_list, HttpStatus.OK);
+
+		logger.info("approval_list entity = " + entity.toString());
+
+		return entity;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/approval_detail_list", method = RequestMethod.GET) // 발주승인 세부리스트
+	public ResponseEntity<List<Md_infoVO>> approval_detail_list(@RequestParam int member_no, Md_infoVO mdvo)
+			throws Exception {
+
+		ResponseEntity<List<Md_infoVO>> entity = null;
+		logger.info("approval_detail_list GET...");
+		List<Md_infoVO> approval_list = bservice.approval_detail_list(member_no);
+
+		entity = new ResponseEntity<List<Md_infoVO>>(approval_list, HttpStatus.OK);
+
+		logger.info("approval_detail_list entity = " + entity.toString());
+
+		return entity;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/order_approval_check/{barcode_no}/{member_no}", method = RequestMethod.DELETE) // 발주 승인 체크
+	public void order_approval_check(@PathVariable String barcode_no, @PathVariable int member_no, Md_infoVO mdvo)
+			throws Exception {
+
+		if (barcode_no.equals("0")) {
+			barcode_no = "";
+		}
+		logger.info("order_approval_check get...");
+		logger.info("barcode_no = " + barcode_no);
+		logger.info("member_no = " + member_no);
+		logger.info("mdvo = " + mdvo);
+
+		bservice.order_approval_check(barcode_no, member_no);
+
+	}
+
+	@RequestMapping(value = "/addMD", method = RequestMethod.POST)
+	public void addMDPost(Md_infoVO mivo) throws Exception {
+
+		logger.info("addMD Post" + mivo);
+		
+		  bservice.addMD(mivo);
+		 
+		
+	}
+
+}

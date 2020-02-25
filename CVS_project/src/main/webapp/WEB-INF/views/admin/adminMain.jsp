@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
 <!DOCTYPE html>
@@ -14,6 +13,7 @@
 <script	src="../resources/js/orderApproval.js?v=<%=System.currentTimeMillis()%>"></script>
 <script	src="../resources/js/uploadwrite.js?v=<%=System.currentTimeMillis()%>"></script>
 
+<script type="text/javascript" src="../resources/plugins/jQuery/jquery.form.min.js"></script> 
 </head>
 </head>
 <body>
@@ -26,7 +26,7 @@
 						console.log(data);
 						
 						var str ="";			
-						str += "<table class='table table-bordered' id='approval_list_table'>";						
+						str += "<table style='text-align: center;' class='table table-bordered' id='approval_list_table'>";						
 						str += "<thead class='thead-light'>";
 						str += "<tr>";
 						str += "<th>매장번호</th>";
@@ -94,6 +94,8 @@
 			 		<c:when test="${type=='write'}">
      					<c:import url="write.jsp"></c:import>
  					</c:when>
+ 					
+ 					
  							 	
 		 		</c:choose>
 	      </div>

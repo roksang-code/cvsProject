@@ -13,11 +13,10 @@
 
 
 </head>
-
 <body id="page-top">
 
 				<div class="container">
-				
+				<h1 style="padding-top: 30px; padding-bottom: 20px;">공지사항</h1>
 				
 						<table class="table">
 						  <thead class="thead-light">
@@ -37,9 +36,7 @@
 								<th>작성일자</th>
 								<th>조회수</th>
 							</tr>
-							<tr>
-								<td colspan="6"><a class="btn btn-primary btn-sm active" role="button" aria-pressed="true" href="register?no=${boardVO.no}&pageNum=${pageMaker.cri.pageNum}&keyword=${pageMaker.cri.keyword}&type=write">글쓰기</a></td>
-							</tr>
+				
 						  </tfoot>
 						  <tbody>
 						      <c:forEach var="boardVO" items="${list}">
@@ -52,19 +49,37 @@
 								</tr>
  							 </c:forEach>
 						    </tbody>
-						</table>	
-					<div class="w3-bar">
+						</table>
+					<div class="row">	
+						<div class="col-9">	
+							<a class="btn btn-primary btn active" role="button" aria-pressed="true" href="register?no=${boardVO.no}&pageNum=${pageMaker.cri.pageNum}&keyword=${pageMaker.cri.keyword}&type=write">글쓰기</a>
+						</div>
+						<div class="col-3">	
+						
+						<form action="list_page" method="get"
+							class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+							<div class="input-group-append" style="padding-bottom: 20px;">
+								<input type="text" name="keyword" class="form-control">
+								<div class="input-group-append">
+									<input type="submit" value="검색">
+								</div>
+							</div>
+						</form>
+						</div>
+					</div>
+					
+					<div class="pagination">
 						<c:if test="${pageMaker.prev}">
-							<a class="w3-button" href="list?pageNum=${pageMaker.startPage-1}&keyword=${pageMaker.cri.keyword}">&laquo;</a>
+							<a class="page-link" href="list_page?pageNum=${pageMaker.startPage-1}&keyword=${pageMaker.cri.keyword}">&laquo;</a>
 						</c:if>
 
 						<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-							<a class="w3-button" href="list?pageNum=${idx}&keyword=${pageMaker.cri.keyword}">${idx}</a>
+							<a class="page-link" href="list_page?pageNum=${idx}&keyword=${pageMaker.cri.keyword}">${idx}</a>
 
 						</c:forEach>
 
 						<c:if test="${page.next}">
-							<a class="w3-button" href="list?pageNum=${pageMaker.endPage +1}&keyword=${pageMaker.cri.keyword}">&raquo;</a>
+							<a class="page-link" href="list_page?pageNum=${pageMaker.endPage +1}&keyword=${pageMaker.cri.keyword}">&raquo;</a>
 						</c:if>
 					</div>
 					

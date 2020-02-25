@@ -28,11 +28,20 @@ public class BoardServiceImpl implements BoardService{
 
 	}
 
-	
+	@Transactional
 	@Override
 	public void boardUpdate(BoardVO board) throws Exception {
 	
 		bm.boardUpdate(board);
+		int no = board.getNo(); 
+		String[] files = board.getFiles(); 
+		System.out.println("files = "+board.getFiles());
+		  if(files == null) { return; }
+		  
+		  for(String fileName : files) {
+			  System.out.println("filename = "+fileName); 
+			  bm.updateAttach(fileName, no); }
+		 
 	}
 
 	@Override
@@ -105,12 +114,14 @@ public class BoardServiceImpl implements BoardService{
 		
 	}
 
-
+	@Transactional
 	@Override
 	public void addMD(Md_infoVO mivo) throws Exception {
 	
+		  
 		bm.addMD(mivo);
-		
+		bm.addMD_price(mivo);
+
 	}
 
 	

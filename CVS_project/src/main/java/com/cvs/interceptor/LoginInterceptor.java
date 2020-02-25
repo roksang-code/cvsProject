@@ -26,7 +26,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		
 		Member_infoVO mivo = (Member_infoVO)modelAndView.getModel().get("Member_infoVO");
 
-		if(mivo.getId() != null ) {						//사용자가 회원가입을 했으면,
+		if(mivo != null ) {						//사용자가 회원가입을 했으면,
 			if(mivo.getId().equals("admin")) {
 				logger.info("new admin success");		
 				session.setAttribute(LOGIN, mivo);	//로그인처리 (session 회원정보 저장)

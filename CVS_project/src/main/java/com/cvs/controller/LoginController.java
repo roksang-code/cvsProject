@@ -44,8 +44,8 @@ public class LoginController {
 
 		if(mivo == null) {return;}
 		
-		model.addAttribute("Member_infoVO", mivo);
-
+			model.addAttribute("Member_infoVO", mivo);
+		
 	}
 	
 	@RequestMapping(value = "/mainPage", method = RequestMethod.GET)//메인 화면

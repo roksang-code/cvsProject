@@ -9,18 +9,19 @@ function orderList(member_no, type, detail_type, md_name) {
 			function (data) {
 			
 			console.log(data);
-			str += "<table  class='table table-bordered'  id='detailtypetable' style='width: 100%;'>";
+			str += "<table class='table table-bordered text-center'  id='detailtypetable' style='width: 100%; text-align: center;'>";
 			str += "<thead class='thead-light'>";
 			str += "<tr>";
-			str += "<th width=11%>바코드번호</th>";
-			str +=	"<th width=11%>상품타입</th>";
-			str +=	"<th width=16%>제조사</th>";
-			str +=	"<th width=16%>상품명</th>";
-			str +=	"<th width=8%>원가</th>";
-			str +=	"<th width=8%>정가</th>";
-			str +=	"<th width=8%>유통기한</th>";
-			str +=	"<th width=8%>예정 수량</th>";
-			str +=	"<th width=8%>발주 수량</th>";
+			str += "<th width=10%>바코드번호</th>";
+			str += "<th width=10%>사진</th>";
+			str += "<th width=10%>상품타입</th>";
+			str += "<th width=10%>제조사</th>";
+			str += "<th width=10%>상품명</th>";
+			str += "<th width=10%>원가</th>";
+			str += "<th width=10%>정가</th>";
+			str += "<th width=10%>유통기한</th>";
+			str += "<th width=10%>예정 수량</th>";
+			str += "<th width=10%>발주 수량</th>";
 			str += "</tr>";
 		 	cnt =1;
 
@@ -30,6 +31,7 @@ function orderList(member_no, type, detail_type, md_name) {
 
 				str += "<tr id='detail"+cnt+"'>";
 				str += "<td id='barcode_no"+cnt+"'>" + this.barcode_no + "</td>";
+				str += "<td><img style='width: 100px; height: 100px;' src='"+ this.md_img + "'/></td>";
 				str += "<td>" + this.detail_type + "</td>";
 				str += "<td>" + this.company + "</td>";
 				str += "<td>" + this.md_name + "</td>";

@@ -104,9 +104,16 @@
 	</delete>
 	
 	<insert id="addMD">
-		 insert into md_info(barcode_no , type, detail_type, company, md_name, pack_date, shelf_life)
-			   values(#{barcode_no}, #{type}, #{detail_type}, #{company}, #{md_name}, sysdate(), #{shelf_life});
+		 insert into md_info(barcode_no , type, detail_type, company, md_name, pack_date, shelf_life, md_img)
+			   values(#{barcode_no}, #{type}, #{detail_type}, #{company}, #{md_name}, sysdate(), #{shelf_life}, #{md_img});
+
 	</insert>
+	<insert id="addMD_price">
+		insert into md_price(barcode_no, cost, price, date) values 
+		(#{barcode_no},#{cost}, #{price}, sysdate() )
+
+	</insert>
+
 	
 	<insert id="addAttach">
 		insert into tbl_attach(fileName,no) values(#{fileName},LAST_INSERT_ID())

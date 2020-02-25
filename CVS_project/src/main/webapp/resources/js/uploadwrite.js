@@ -161,5 +161,21 @@ $(document).ready(function() {
 		that.get(0).submit();	
 	});
 	
+	$("#detailForm").submit(function(event) {
+		event.preventDefault();
+		var content = $('#writeTextarea').html();
+		$('#content').val(content);
+		
+		var that = $(this);
+		
+		var str="";
+		$(".upLoadedList small").each(function(index) {
+			str+="<input type='hidden' name='files["+index+"]' value='"+$(this).attr("data-src")+"'>";
+			
+		});
+		that.append(str);
+		that.get(0).submit();	
+	});
+	
 	
 });

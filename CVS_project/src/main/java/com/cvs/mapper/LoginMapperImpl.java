@@ -16,6 +16,7 @@ public class LoginMapperImpl implements LoginMapper{
 	
 	@Override
 	public Member_infoVO Loginpage(LoginVO lvo) throws Exception {
+		
 		Member_infoVO mivo = session.selectOne(namespace+".Loginpage",lvo);
 		
 		System.out.println("mapper = "+mivo);

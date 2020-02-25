@@ -107,6 +107,11 @@ public class BoardMapperImpl implements BoardMapper {
 		session.insert(namespace+".addMD",mivo);
 		
 	}
-	
+	@Override
+	public void addMD_price(Md_infoVO mivo) throws Exception {
+
+		session.insert(namespace+".addMD_price",mivo);
+		
+	}
 	
 }

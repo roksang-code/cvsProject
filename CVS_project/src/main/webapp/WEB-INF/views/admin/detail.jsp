@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-	<form method="post">
+	<form id="detailForm" method="post" action="update" enctype="multipart/form-data">
 		<div class="container">
 			
 			<input type="hidden" name="no" value="${boardVO.no}">
@@ -32,11 +32,14 @@
 				<tr> 
 					<td>파일</td> 
 					<td>
+						<input id ="files" class="form-control" type="file" name="filename"> 
 						<c:choose>
 							<c:when test="${files != null}">
 								<a href="../displayFile?fileName=${files}">${files}</a>		
 							</c:when>
 						</c:choose>
+						<div class="upLoadedList"></div> 						
+						
 					</td>
 				</tr>
 				<tr> 
@@ -44,8 +47,9 @@
 				</tr>
 			</table>
 				
-			<input class="btn btn-secondary" type="submit" value="목록" formaction="detail?no=${boardVO.no}&pageNum=${cri.pageNum}&keyword=${cri.keyword}&type=list" formmethod="get">
-			<input class="btn btn-secondary" type="submit" value="글수정" formaction="update"> 
+			<a class="btn btn-secondary"  href="detail?no=${boardVO.no}&pageNum=${cri.pageNum}&keyword=${cri.keyword}&type=list">목록</a>
+			<input class="btn btn-secondary" type="submit" value="글수정"> 
+		
 			<input class="btn btn-secondary" type="submit" value="글삭제" formaction="delete">
 		</div>	
 	</form>
@@ -57,22 +61,6 @@
 	console.log(ctent);
 	$("#writeTextarea").html(ctent);
 
-	
-	$("#writeTextarea").on("click","small",function(event){
-		var that = $(this);
-		$.ajax({
-			url:"../deleteFile",
-			data:{fileName:$(this).attr("data-src")},
-			dataType:"text",
-			type:"post",
-			success:function(result){
-				if(result == "deleted"){
-						that.parent("div").remove();
-						$(".upLoadedList .imgbox").remove();
-					}
-				}
-		});
-	});
 	
 	
 </script>

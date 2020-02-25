@@ -32,15 +32,19 @@
 		
 		<input id="member_no" type="hidden" value="${login.member_no}">
 		<div class="row no-gutters border" style="width:100%; height: 600px; overflow-x:hidden; overflow-y:scroll; ">
-			<div class="col-12">
-					<table class="table table-bordered align-middle" id="detailtypetable" style="width: 100%;">
+			<div class="col-12 ">
+					<table class="table table-bordered text-center" id="detailtypetable" style="width: 100%; text-align: center;">
   					<thead class="thead-light">
 						<tr>
-							<th width=25%>바코드번호</th>
-							<th width=15%>상품타입</th>
-							<th width=15%>제조사</th>
-							<th width=20%>상품명</th>
-							<th width=15%>유통기한</th>
+							<th width=15%>바코드번호</th>
+							<th width=30%>사진</th>
+							<th width=10%>상품타입</th>
+							<th width=10%>제조사</th>
+							<th width=15%>상품명</th>
+							<th width=10%>원가</th>
+							<th width=10%>정가</th>
+							<th width=10%>유통기한</th>
+							<th width=10%>예정수량</th>
 							<th width=10%>발주 수량</th>
 						</tr>		
 					</thead>	

@@ -6,7 +6,7 @@
 	<select id="orderList" resultType="com.cvs.model.Md_infoVO">
 	
 	
-		SELECT md_info.barcode_no, type, detail_type, company, md_name, member_t.order_ea ,
+		SELECT md_info.barcode_no, md_img, type, detail_type, company, md_name, member_t.order_ea ,
 	     member_t.approval_ea, cost, price, shelf_life, md_img FROM 
 		md_info left join order_board on md_info.barcode_no = order_board.barcode_no
  				left join md_price on md_info.barcode_no = md_price.barcode_no
@@ -15,7 +15,7 @@
  		 where type = #{type} and
 		 detail_type like concat('%',#{detail_type},'%') and
 		  md_name like concat('%',#{md_name},'%') group by 
-		  md_info.barcode_no, type, detail_type, company, md_name, member_t.order_ea, 
+		  md_info.barcode_no, md_img, type, detail_type, company, md_name, member_t.order_ea, 
 		  member_t.approval_ea, cost, price, shelf_life, md_img 
 		  order by md_name asc	
 		  

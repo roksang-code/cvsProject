@@ -21,7 +21,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		if(session.getAttribute("login")==null) {
 			logger.info("current user is not logined.............");
-			response.sendRedirect("pos/posPayment");
+			response.sendRedirect("../login/LoginpageGet");
 			return false;
 		}
 		

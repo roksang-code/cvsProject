@@ -1,93 +1,110 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<script type="text/javascript"	src="../resources/plugins/jQuery/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../resources/plugins/jQuery/jquery.form.min.js"></script> 
 
-</head>
-<body>
+
+
 	<script type="text/javascript">
         
         var sel_files = [];
  
         $(document).ready(function() {
+        	function checkImageType(fileName) {
+        		var pattern = /jpg|gif|png|jpeg/i;
+        		
+        		return fileName.match(pattern);
+        	}
+        	function getImageLink(fileName) {
+        		
+        		if(!checkImageType(fileName)){
+        			return;
+        		}
+        		var front = fileName.substr(0,12);
+        		var end = fileName.substr(14);
+        		
+        		
+        		return front+end;
+        	}
+        	
+        	function getOriginalName(fileName){
+        	
+        		var idx=fileName.indexOf("_")+1;
+        		
+        		
+        		return fileName.substr(idx);
+        	}
+        	
+        	$("#input_imgs").on("change", function(event) {
+        		
+        		
+        		var file = $("#input_imgs")[0].files[0];
+        		
+        		var formData = new FormData();
+        	
+        		formData.append("file",file);
 
+        		$.ajax({
+        			url:"../uploadAjax",
+        			data:formData,
+        			dataType:"text",
+        			processData:false,
+        			contentType:false,
+        			type:"post",
+        			success:function(data){
+        				
+        				var img = "";
+        				var str ="";
+        				if(checkImageType(data)){
+        					img = "<div>" + 
+        					"<img src='../displayFile?fileName="+getImageLink(data)+"'/>" +
+        					"</div>";
+							
+        					str= "../displayFile?fileName="+getImageLink(data);
+        	        		
+        				}else {
+		                    alert("이미지 파일을 등록하세요.");
+		                    return;
+        				}
+        				
+        					 
+        				$("#md_img").val(str);
+        				
+	                    $(".imgs_wrap").html(img);
+        			}
+        		});
+
+        		
+        		
+        	});
+         
+            $(document).on("click", "#addMDbtn", function(){
             
+            	$("#MDform").ajaxForm({
+                     type: 'POST',
+                     url: 'addMD',
+                     enctype: "multipart/form-data",
+                     contentType: false,
+                     processData: false,
+                   
+                     success: function(result) {
+                      
+                         
+             			$("input").val(null);
+
+                     },
+                     error: function(data, status, err) {
+                    	
+             			alert("등록에 실패했습니다.");
+						alert(data.responseText);
+                     }
+                 }).submit();
             
-            $("#addMDbtn").on("click", function(){
-
-            	var MDform = $('#MDform')[0];
-                var formData = new FormData(MDform);
-                formData.append("fileObj", $("#input_imgs")[0].files[0]);
-
-
-            	
-                var MDform = document.getElementById("MDform");	
-                alert(MDform);
-        		var formData = new FormData(MDform);
-        		alert(formData);
-        		console.log(formData);
-        			$.ajax({
-
-                		type : "post",
-                		url : "addMD",
-                		dataType : 'text',
-                		data : formData, 
-                		contentType : false,
-                		processData : false,
-                		
-                		success : function(result) {
-                			if(result == 'succese'){
-                				alert("s");
-                			}
-                			
-                			/* $("input").val(null); */
-
-
-                		},
-                		error : function(err) {
-
-                			alert("등록에 실패했습니다.");
-                		}
-
-
-
-                	});
-
-                });
+    
+             });
             
             
         }); 
-        $("#input_imgs").on("change", handleImgsFilesSelect);
 
-        function handleImgsFilesSelect(e) {
-            var files = e.target.files;
-            var filesArr = Array.prototype.slice.call(files);
- 
-            
-            
-            filesArr.forEach(function(f) {
-                if(!f.type.match("image.*")) {
-                    alert("이미지 파일을 등록하세요.");
-                    return;
-                }
- 
-                sel_files.push(f);
- 
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    var img_html = "<img id='md_img' src=\"" + e.target.result + "\" />";
-                    $(".imgs_wrap").append(img_html);
-                }
-                reader.readAsDataURL(f);
-            });
-        }
  
         
     </script>
@@ -95,7 +112,7 @@
 	<div class="container-fluid  my-1">
 		<div class="row"> 
 			<div class="col-md-6 offset-md-1">
-				<form id="MDform" name="MDform" enctype="multipart/form-data">
+				<form id="MDform" name="MDform" method="post">
 	
 				<h1 align="center" style="padding-top: 10%; padding-bottom: 5%;">상품등록</h1>
 	
@@ -122,12 +139,22 @@
 								<td><input class="form-control" type="text" id="md_name" name="md_name" size="15px" required/></td>
 							</tr>
 							<tr>
+								<td class="b">원가</td>
+								<td><input class="form-control" type="text" id="cost" name="cost" size="15px" required/></td>
+							</tr>
+								<tr>
+								<td class="b">정가</td>
+								<td><input class="form-control" type="text" id="price" name="price" size="15px" required/></td>
+							</tr>
+							<tr>
 								<td class="b">유통기한</td>
 								<td><input class="form-control" type="text" id="shelf_life" name="shelf_life" size="15px" required/></td>
 							</tr>
 							<tr>
 								<td class="b">사진</td>
-								<td><input class="btn" type="file" id="input_imgs" name="md_img" ></td>
+								<td><input class="btn" type="file" id="input_imgs" required>
+									<input type='hidden' id ="md_img" name='md_img'>
+								</td>
 								
 							</tr>
 							<tr>
@@ -146,6 +173,3 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	
 
-
-</body>
-</html>
