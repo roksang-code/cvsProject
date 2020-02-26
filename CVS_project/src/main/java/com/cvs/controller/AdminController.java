@@ -24,16 +24,16 @@ import com.cvs.model.Functionkey_infoVO;
 import com.cvs.model.Md_infoVO;
 import com.cvs.model.PageMaker;
 import com.cvs.model.Pos_boardVO;
-import com.cvs.service.BoardService;
+import com.cvs.service.AdminService;
 
 @Controller
 @RequestMapping("/admin")
-public class BoardController {
+public class AdminController {
 
 	@Autowired
-	private BoardService bservice;
+	private AdminService bservice;
 
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 	@RequestMapping(value = "/adminMain", method = RequestMethod.GET) // 로그인 화면
 	public void adminMainGet() throws Exception {
@@ -189,19 +189,17 @@ public class BoardController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/order_approval_check/{barcode_no}/{member_no}", method = RequestMethod.DELETE) // 발주 승인 체크
-	public void order_approval_check(@PathVariable String barcode_no, @PathVariable int member_no, Md_infoVO mdvo)
+	@RequestMapping(value = "/order_approval_check", method = RequestMethod.GET) // 발주 승인 체크
+	public void order_approval_check(@RequestParam int barcode_no, int member_no, int order_ea, Md_infoVO mdvo)
 			throws Exception {
-
-		if (barcode_no.equals("0")) {
-			barcode_no = "";
-		}
 		logger.info("order_approval_check get...");
 		logger.info("barcode_no = " + barcode_no);
 		logger.info("member_no = " + member_no);
+		logger.info("order_ea = " + order_ea);
+		
 		logger.info("mdvo = " + mdvo);
 
-		bservice.order_approval_check(barcode_no, member_no);
+		bservice.order_approval_check(barcode_no, member_no, order_ea);
 
 	}
 

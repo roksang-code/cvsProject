@@ -251,7 +251,7 @@
 		      var prc="";
 		      var minus_sale=0;
 		      var ea_price = 0;
-		      var pm_info_list = new Array();
+		      var pm_info_list = new Array(); //상품등록 리스트
 		      var re_pm_info_list = new Array();
 		      var parent = new Array();
 		      var children = new Array();

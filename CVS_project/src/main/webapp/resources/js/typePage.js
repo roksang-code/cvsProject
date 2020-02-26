@@ -77,7 +77,7 @@ $(document).ready(function() {
 			
 			var type= $("#hidden_type").val();
 			var detail_type = $(".custom-select").val();
-			var md_name = $(".form-control").val();
+			var md_name = $("#mdname").val();
 
 		 	console.log("type = "+type);
 

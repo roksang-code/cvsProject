@@ -56,10 +56,8 @@ $(document).ready(function() {
 				if(checkImageType(data)){
 					img = "<div>" + 
 					"<img style='width: 200px; height: 100px;' src='../displayFile?fileName="+getImageLink(data)+"'/>"
-					+"<br><small data-src="+data+">X</small>" +
-					"</div>";
-					str = "<div class='imgbox' ><a href='displayFile?fileName="+data+"'>"
-					+getOriginalName(data)+"</a><small data-src="+data+">X</small></div>";
+					+"</div>";
+				
 
 				}
 					 
@@ -91,18 +89,8 @@ $(document).ready(function() {
 				
 				var str = "";
 				var img = "";
-				if(checkImageType(data)){
-					img = "<div>" + 
-					"<img src='../displayFile?fileName="+getImageLink(data)+"'/>"
-					+"<br><small data-src="+data+">X</small>" +
-					"</div>";
-					str = "<div><a href='displayFile?fileName="+data+"'>"
+						str = "<div><a href='displayFile?fileName="+data+"'>"
 					+getOriginalName(data)+"</a><small data-src="+data+">X</small></div>";
-
-				}else {
-					str = "<div><a href='displayFile?fileName="+data+"'>"
-					+getOriginalName(data)+"</a><small data-src="+data+">X</small></div>";
-				}
 				
 					 
 				

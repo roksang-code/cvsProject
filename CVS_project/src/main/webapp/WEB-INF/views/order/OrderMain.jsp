@@ -104,6 +104,53 @@ $(document).on("click", "#main_page", function(){
 
 
 });
+
+function cheack_list(member_no) {
+	
+	$.getJSON("../admin/approval_detail_list?member_no="+member_no,
+			
+			function(data) {
+				console.log(data);
+				
+				str="";
+							
+				str += "<table class='table table-bordered' id='cheack_list_table'>";						
+				str += "<thead class='thead-light'>";
+				str += "<tr>";
+				str += "<th>바코드번호</th>";
+				str += "<th>상품명</th>";
+				str += "<th>원가</th>";
+				str += "<th>정가</th>";
+				str += "<th>입고수량</th>";			
+				str += "<th>검품완료</th>";				
+				str += "</tr>";
+				str += "</thead>";
+				
+				$(data).each(function(index) {
+					if(this.approval_ea > 0){
+						str += "<tr class='cheack_list_tr' id='cheack_list_tr"+(index+1)+"'>";
+						str += "<td class='bar'>" + this.barcode_no + "</td>";
+						str += "<td>" + this.md_name + "</td>";
+						str += "<td>" + this.total_cost + "</td>";
+						str += "<td>" + this.total_price + "</td>";
+						str += "<td id=approval_ea"+this.barcode_no+">" + this.approval_ea + "</td>";
+						str += "<td><button id='"+this.barcode_no+"' class='btn btn-light'>승인</button></td>";
+						str += "</tr>";
+					}
+				});
+				str += "</table>";
+
+				$("#cheack_list_table").html(str);
+
+			});
+}
+$(document).on("click", "#cheak_md_page", function(){
+	
+	cheack_list(member_no);
+
+
+});
+
 </script>
 <div class="container-fluid">
 		<input id="member_no" type="hidden" value="${login.member_no}">
@@ -111,14 +158,15 @@ $(document).on("click", "#main_page", function(){
 	<div class="row">
 	  <div class="col-2">
 	    <div class="list-group" id="list-tab" role="tablist">
-	      <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">공지사항</a>
-	      <a class="list-group-item list-group-item-action" id="select_type_page" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">상품발주</a>
+	      <a class="list-group-item list-group-item-action active" id="notice_page" data-toggle="list" href="#notice" role="tab" aria-controls="notice">공지사항</a>
+	      <a class="list-group-item list-group-item-action" id="select_type_page" data-toggle="list" href="#select_type" role="tab" aria-controls="select_type">상품발주</a>
+	      <a class="list-group-item list-group-item-action" id="cheak_md_page" data-toggle="list" href="#cheak_md" role="tab" aria-controls="cheak_md">검품</a>	   
 	      <a class="list-group-item list-group-item-action" id="main_page" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">메인페이지</a>
 	    </div>
 	  </div>
 	  <div class="col-10">
 	    <div class="tab-content" id="nav-tabContent">
-	      <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+	      <div class="tab-pane fade show active" id="notice" role="tabpanel" aria-labelledby="notice_page">
 		 		<c:choose>
 					<c:when test="${type!='detail'}">
      					<c:import url="/order/notice"></c:import>
@@ -132,10 +180,12 @@ $(document).on("click", "#main_page", function(){
 		 				 		
 		  </div>
 	      
-	      <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">	    
+	      <div class="tab-pane fade" id="select_type" role="tabpanel" aria-labelledby="select_type_page">	    
 	   	  		<jsp:include page="select_MD_Type.jsp"/>
 		  </div>
-	   
+	   	  <div class="tab-pane fade" id="cheak_md" role="tabpanel" aria-labelledby="cheak_md_page">	    
+	   	  		<jsp:include page="cheak_md.jsp"/>
+		  </div>
 	    </div>
 	  </div>
 	</div>

@@ -54,6 +54,20 @@ public class OrderMapperImpl implements OrderMapper{
 		session.insert(namespace + ".MDorder", obvo);
 	}
 
+
+	@Override
+	public void cheack_md(String barcode_no, int member_no) throws Exception {
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("barcode_no", barcode_no);
+		paramMap.put("member_no", member_no);
+		
+	
+		session.update(namespace+".cheack_md", paramMap);
+
+		
+	}
+
 	
 
 }

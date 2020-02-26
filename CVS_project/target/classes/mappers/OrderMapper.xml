@@ -3,6 +3,41 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cvs.mapper.OrderMapper">
 	
+	<select id="listCriteria" resultType="com.cvs.model.BoardVO">
+
+		select no, subject, content,writer, write_date, cnt
+		from ( select
+		@rownum:=@rownum+1 as rownum, no, subject, content,writer,
+		write_date, cnt
+		from
+		(select @rownum:=0) as rownum
+		, board
+		<if test="keyword != null">
+			where subject like concat('%',#{keyword},'%')
+		</if>
+		order by no desc
+		)board 
+		<![CDATA[
+		where rownum > (#{pageNum}-1)*#{amount}
+ 		and rownum <= #{pageNum}*#{amount}
+ 		]]>
+	</select>
+	
+	<select id="countPaging" resultType="int">
+ 	select count(no) from board
+	<if test="keyword != null">
+	where subject like concat('%',#{keyword},'%');
+	</if>
+ 	
+	</select>
+	
+	<select id="notice_detail" resultType="com.cvs.model.BoardVO">
+	<![CDATA[
+		select * from board where no = #{no}
+ 	]]>
+	</select>
+	
+	
 	<select id="orderList" resultType="com.cvs.model.Md_infoVO">
 	
 	
@@ -47,6 +82,12 @@
 		    </choose>	
 	</insert>
 	
+	<update id="cheack_md">
+		update order_board
+			set approval_ea = 0
+			where member_no = #{member_no} and barcode_no = #{barcode_no};
+	
+	</update>
 	
 	
 	

@@ -20,19 +20,43 @@
 				 	<td>제목 </td> <td><input class="form-control" type="text" name="subject" value="${boardVO.subject}" size="137px;"></td>
 				</tr>
 				<tr>
-				 	<td>내용</td>	<td><textarea class="form-control" rows="10" cols="40" name="content">${boardVO.content}</textarea></td>
+				 	<td>내용</td>	<td>
+		 		 		<div class="form-control" id="writeTextarea" style="width: 1020px; height: 300px"></div>
+						<input type='hidden' name='content' id='content' />
+	
+				 	</td>
 				</tr>
 				<tr>
 					<td>작성자 </td> <td> ${boardVO.writer}</td>
 				</tr>	
 				<tr> 
-					<td>파일</td> <td>${boardVO.files}</td>
+					<td>파일</td> 
+					<td>	
+						<c:choose>
+							<c:when test="${files != null}">
+								<a href="../displayFile?fileName=${files}">${files}</a>		
+							</c:when>
+						</c:choose>	
+						<div class="upLoadedList"></div> 						
+										
+					</td>
 				</tr>
 				<tr> 
 					<td>조회수</td> <td>${boardVO.cnt}</td>
 				</tr>
 			</table>
 			
-			<a class="btn btn-secondary btn-sm" tabindex="-3" role="button" href="notice_detail?no=${boardVO.no}&pageNum=${cri.pageNum}&keyword=${cri.keyword}&type=list">목록</a>
+			<a class="btn btn-secondary btn-sm" tabindex="-3" role="button" href="OrderMain?no=${boardVO.no}&pageNum=${cri.pageNum}&keyword=${cri.keyword}&type=list">목록</a>
 			
 		</div>	
+		
+<script>
+
+
+	var ctent = '${boardVO.content}';
+	console.log(ctent);
+	$("#writeTextarea").html(ctent);
+
+	
+	
+</script>

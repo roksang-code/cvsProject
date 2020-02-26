@@ -42,7 +42,7 @@
  							 </c:forEach>
 						    </tbody>
 						</table>	
-						<form action="list" method="get"
+						<form action="notice_page" method="get"
 						class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
 						<div class="input-group-append" style="padding-bottom: 10px;">
 							<input type="text" name="keyword" class="form-control">
@@ -51,18 +51,19 @@
 							</div>
 						</div>
 					</form>	
+
 					<div class="pagination">
 						<c:if test="${pageMaker.prev}">
-							<a href="#" class="page-link" role="button" aria-pressed="true" href="notice?pageNum=${pageMaker.startPage-1}&keyword=${pageMaker.cri.keyword}">&laquo;</a>
+							<a class="page-link" href="notice_page?pageNum=${pageMaker.startPage-1}&keyword=${pageMaker.cri.keyword}">&laquo;</a>
 						</c:if>
 
 						<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-							<a href="#" class="page-link" role="button" aria-pressed="true" href="notice?pageNum=${idx}&keyword=${pageMaker.cri.keyword}">${idx}</a>
+							<a class="page-link" href="notice_page?pageNum=${idx}&keyword=${pageMaker.cri.keyword}">${idx}</a>
 
 						</c:forEach>
 
 						<c:if test="${page.next}">
-							<a href="#" class="page-link" role="button" aria-pressed="true" href="notice?pageNum=${pageMaker.endPage +1}&keyword=${pageMaker.cri.keyword}">&raquo;</a>
+							<a class="page-link" href="notice_page?pageNum=${pageMaker.endPage +1}&keyword=${pageMaker.cri.keyword}">&raquo;</a>
 						</c:if>
 					</div>
 					

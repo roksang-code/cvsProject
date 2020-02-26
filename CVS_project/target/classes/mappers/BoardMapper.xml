@@ -79,9 +79,11 @@
 	
 	
 	<select id="approval_list" resultType="com.cvs.model.Md_infoVO">
-		select member_no, sum(order_ea) total_order_ea, sum(cost) total_cost, sum(price) total_price from 
-			order_board left join md_info on order_board.barcode_no= md_info.barcode_no
+		select order_board.member_no, total_order_ea.total_order_ea, sum(cost) total_cost, sum(price) total_price from 
+			order_board left join (select member_no, sum(order_ea) total_order_ea from order_board group by member_no) total_order_ea on total_order_ea.member_no = order_board.member_no
+						left join md_info on order_board.barcode_no= md_info.barcode_no
 					    left join md_price on order_board.barcode_no = md_price.barcode_no
+            where total_order_ea.total_order_ea > 0
             group by order_board.member_no;
 	</select>
 	
@@ -92,16 +94,16 @@
 			approval_ea, cost, price, shelf_life, md_img FROM 
 			md_info left join order_board on md_info.barcode_no = order_board.barcode_no
 	 				left join md_price on md_info.barcode_no = md_price.barcode_no
-	 		where member_no = #{member_no}  group by 
-		  member_no, md_info.barcode_no, type, detail_type, company, md_name, 
-          	order_ea , approval_ea, cost, price, shelf_life, md_img order by md_name asc	
+	 		where member_no = #{member_no} group by member_no, md_info.barcode_no, type, detail_type, company, md_name, order_ea ,
+			approval_ea, cost, price, shelf_life, md_img order by md_name asc	
 	</select>
 	
-	<delete id="order_approval_check">
-		 DELETE FROM order_board
-		 
-			WHERE barcode_no like concat('%',#{barcode_no},'%') and member_no = #{member_no}	     
-	</delete>
+	<update id="order_approval_check">
+			update order_board
+				set approval_ea = #{order_ea}, order_ea = 0
+				where member_no = #{member_no} and barcode_no = #{barcode_no};
+	</update>
+	
 	
 	<insert id="addMD">
 		 insert into md_info(barcode_no , type, detail_type, company, md_name, pack_date, shelf_life, md_img)
@@ -117,6 +119,10 @@
 	
 	<insert id="addAttach">
 		insert into tbl_attach(fileName,no) values(#{fileName},LAST_INSERT_ID())
+	</insert>
+	
+	<insert id="updateAttach">
+		insert into tbl_attach(fileName,no) values(#{fileName},#{no})
 	</insert>
 	
 	<select id="getAttach" resultType="String">

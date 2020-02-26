@@ -2,6 +2,7 @@ var str ="";
 var cnt =1;
 var check_member_no =0;
 function app_d_list(list_member_no) {
+	cnt = 1;
 	
 	$.getJSON("approval_detail_list?member_no="+list_member_no,
 			
@@ -9,7 +10,7 @@ function app_d_list(list_member_no) {
 				console.log(data);
 				
 				str="";
-							
+
 				str += "<table class='table table-bordered' id='approval_detail_list_table'>";						
 				str += "<thead class='thead-light'>";
 				str += "<tr>";
@@ -23,18 +24,23 @@ function app_d_list(list_member_no) {
 				str += "</thead>";
 				
 				$(data).each(function(index) {
-
-					str += "<tr class='app_d_list_tr' id='app_d_list_tr"+(index+1)+"'>";
-					str += "<td class='bar'>" + this.barcode_no + "</td>";
-					str += "<td>" + this.md_name + "</td>";
-					str += "<td>" + this.total_cost + "</td>";
-					str += "<td>" + this.total_price + "</td>";
-					str += "<td>" + this.order_ea + "</td>";
-					str += "<td><button id='"+this.barcode_no+"' class='btn btn-light'>승인</button></td>";
-					str += "<input id='hidden_no"+this.barcode_no+"' type='hidden' value="+list_member_no+">";
-					str += "</tr>";
 					
+					if(this.order_ea > 0){
+							
+						str += "<tr class='app_d_list_tr' id='app_d_list_tr"+cnt+"'>";
+						str += "<td id= 'bar"+cnt+"'>" + this.barcode_no + "</td>";
+						str += "<td>" + this.md_name + "</td>";
+						str += "<td>" + this.total_cost + "</td>";
+						str += "<td>" + this.total_price + "</td>";
+						str += "<td id=order_ea"+this.barcode_no+">" + this.order_ea + "</td>";
+						str += "<td><button id='"+this.barcode_no+"' class='btn btn-light'>승인</button></td>";
+						str += "<input id='hidden_no"+this.barcode_no+"' type='hidden' value="+list_member_no+">";
+						str += "</tr>";
+						cnt += 1;
+					}
+				
 				});
+				
 				str += "</table>";
 
 				$("#approval_detail_list_table").html(str);
@@ -44,63 +50,78 @@ function app_d_list(list_member_no) {
 
 
 $(document).off("click").on("click", ".approval_list_tr", function(){
+
 		
 	var list_member_no = $(this).find(".list_member_no").text(); 
-		
 		app_d_list(list_member_no);
 		
 		
 });
 
-$(document).on("click", ".approval_list_tr td button", function(){
-	var check_barcode_no = "0";
+$(document).on("click", ".approval_list_tr td button", function(){//전체승인
+		
+			check_member_no = $(this).attr("id");
+			
 
-	check_member_no = $(this).attr("id");
-	$.ajax({
-
-		type : "DELETE",
-		url : "order_approval_check/"+check_barcode_no+"/"+check_member_no,
-	
-		success : function() {
-			approval_list();
-			app_d_list(check_member_no);
-
-		},
-		error : function(err) {
-
-			alert("등록에 실패했습니다.");
-		}
-
-
-	});
+			for(var i =1; i<cnt ; i++){
+				
+				var check_barcode_no = $("#bar"+i).text();
+				var order_ea = $("#order_ea"+check_barcode_no).text();
+				
+				
+				$.ajax({
+					
+					type : "get",
+					url : "order_approval_check?member_no="+check_member_no+"&barcode_no="+check_barcode_no+"&order_ea="+order_ea,
+					contentType : "application/json;charset=utf-8",
+					dataType : "text",
+					success : function(data) {
+						approval_list();
+						app_d_list(check_member_no);
+			
+					},
+					error : function(err) {
+			
+						alert("등록에 실패했습니다.");
+					}
+			
+			
+				});
+			}
+			
+		
+				
 
 
 });
 
 
-$(document).on("click", ".app_d_list_tr td button", function(){
+$(document).on("click", ".app_d_list_tr td button", function(){//상세승인
 
 	var check_barcode_no = $(this).attr("id");
 	check_member_no = $("#hidden_no"+check_barcode_no).val();
-
-	$.ajax({
-
-		type : "DELETE",
-		url : "order_approval_check/"+check_barcode_no+"/"+check_member_no,
+	var order_ea = $("#order_ea"+check_barcode_no).text();
+	console.log(order_ea);
+	
+			$.ajax({
+				
+				type : "get",
+				url : "order_approval_check?member_no="+check_member_no+"&barcode_no="+check_barcode_no+"&order_ea="+order_ea,
+				contentType : "application/json;charset=utf-8",
+				dataType : "text",
+				success : function(data) {
+					approval_list();
+					app_d_list(check_member_no);
+					cnt--;
+				},
+				error : function(err) {
 		
-		success : function() {
-			app_d_list(check_member_no);
+					alert("등록에 실패했습니다.");
+				}
+		
+		
+			});
 
-
-		},
-		error : function(err) {
-
-			alert("등록에 실패했습니다.");
-		}
-
-
-
-	});
 
 });
 

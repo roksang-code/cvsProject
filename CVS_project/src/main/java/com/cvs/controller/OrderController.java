@@ -19,7 +19,7 @@ import com.cvs.model.Criteria;
 import com.cvs.model.Md_infoVO;
 import com.cvs.model.Order_boardVO;
 import com.cvs.model.PageMaker;
-import com.cvs.service.BoardService;
+import com.cvs.service.AdminService;
 import com.cvs.service.OrderService;
 
 @Controller
@@ -29,7 +29,7 @@ public class OrderController {
 	@Autowired
 	private OrderService oservice;
 	@Autowired
-	private BoardService bservice;
+	private AdminService bservice;
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
@@ -105,7 +105,18 @@ public class OrderController {
 		logger.info("mdOrder get...");
 
 	}
-	
+	@RequestMapping(value = "/notice_page", method = RequestMethod.GET)
+	public String notice_pageGet(Criteria cri, Model model) throws Exception {
+		logger.info("page = " + cri.getPageNum() + " key = " + cri.getKeyword());
+
+		PageMaker pageMaker = new PageMaker(cri, bservice.listCountCriteria(cri));
+		model.addAttribute("list", bservice.listCriteria(cri));
+
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "order/OrderMain";
+
+	}
 	@RequestMapping(value = "/notice_detail", method = RequestMethod.GET) //상세 화면
 	public String notice_detail1Get(@RequestParam("no") int no, String type, Criteria cri, Model model) throws Exception {
 		logger.info("notice_detail get...");
@@ -117,11 +128,30 @@ public class OrderController {
 		System.out.println(cri.getKeyword());
 		System.out.println(cri.getPageNum());
 		
+		
+		if (bservice.getAttach(no).size() != 0) {
+			model.addAttribute("files", bservice.getAttach(no).get(0));
+		}
+		
 		model.addAttribute(bservice.boardDetail(no));
 	    model.addAttribute("type", type); 
 		model.addAttribute("cri", cri);
 		
 		return "order/OrderMain";
+	}
+	@ResponseBody
+	@RequestMapping(value = "/cheack_md", method = RequestMethod.GET) // 발주 승인 체크
+	public void cheack_md(@RequestParam String barcode_no, int member_no, Md_infoVO mdvo) throws Exception {
+
+		
+		logger.info("order_approval_check get...");
+		logger.info("barcode_no = " + barcode_no);
+		logger.info("member_no = " + member_no);
+		
+		logger.info("mdvo = " + mdvo);
+
+		oservice.cheack_md(barcode_no, member_no);
+
 	}
 	
 	

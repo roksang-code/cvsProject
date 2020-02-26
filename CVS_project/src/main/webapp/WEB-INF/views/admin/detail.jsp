@@ -47,7 +47,7 @@
 				</tr>
 			</table>
 				
-			<a class="btn btn-secondary"  href="detail?no=${boardVO.no}&pageNum=${cri.pageNum}&keyword=${cri.keyword}&type=list">목록</a>
+			<a class="btn btn-secondary"  href="adminMain?no=${boardVO.no}&pageNum=${cri.pageNum}&keyword=${cri.keyword}&type=list">목록</a>
 			<input class="btn btn-secondary" type="submit" value="글수정"> 
 		
 			<input class="btn btn-secondary" type="submit" value="글삭제" formaction="delete">
