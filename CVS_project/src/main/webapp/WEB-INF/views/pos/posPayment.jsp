@@ -88,19 +88,6 @@
 		</div>
 
 		
-		<div id="point_save_modal">	<!-- 포인트 적립 모달창 -->
-			<div class="save_modalContent">
-				<div>
-					<input type="text" class="point_save_data"><input
-						type="submit" value="조회" class="member_no_search">
-				</div>
-				<div class="member_no_info"></div>
-				<div class="modalclose">
-					<button type="button" class="close">X</button>
-				</div>
-			</div>
-		</div>
-		
 		<div id="tel_dis_modal">	<!-- 통신사 할인 모달창 -->
 			<div class="tel_modalContent">
 				<div>
