@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="shortcut icon" href="#">
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script type="text/javascript"	src="../resources/plugins/jQuery/jquery-3.4.1.min.js"></script>
@@ -14,21 +15,18 @@
 	<style type="text/css">
 		.mask{width:100%; height:100%; position:fixed; left:0; top:0; z-index:10; background:#000; opacity:.5; filter:alpha(opacity=50);}
 		 
-		#modalLayer{display:none; position:relative;}
-		#modalLayer .modalContent{width:440px; height:200px; padding:20px; border:1px solid #ccc; position:fixed; left:50%; 
+		#IDmodalLayer{display:none; position:relative;}
+		#IDmodalLayer .modalContent{width:440px; height:200px; padding:20px; border:1px solid #ccc; position:fixed; left:50%; 
 		top:50%; z-index:11; background:#fff;}
-		#modalLayer .modalclose button{position:absolute; right:0; top:0; cursor:pointer;}
+		#IDmodalLayer .modalclose button{position:absolute; right:0; top:0; cursor:pointer;}
 		
-		#point_save_modal{display:none; position:relative;}
-		#point_save_modal .save_modalContent{width:440px; height:200px; padding:20px; border:1px solid #ccc; position:fixed; left:50%; 
+		#PWmodalLayer{display:none; position:relative;}
+		#PWmodalLayer .modalContent{width:440px; height:200px; padding:20px; border:1px solid #ccc; position:fixed; left:50%; 
 		top:50%; z-index:11; background:#fff;}
-		#point_save_modal .modalclose button{position:absolute; right:0; top:0; cursor:pointer;}
+		#PWmodalLayer .modalclose button{position:absolute; right:0; top:0; cursor:pointer;}
+		
 		
 		 
-		#tel_dis_modal{display:none; position:relative;}
-		#tel_dis_modal .tel_modalContent{width:440px; height:200px; padding:20px; border:1px solid #ccc; position:fixed; left:50%; 
-		top:50%; z-index:11; background:#fff;}
-		#tel_dis_modal .modalclose button{position:absolute; right:0; top:0; cursor:pointer;}
 			
 	</style>
 <body>
@@ -60,29 +58,72 @@
 			</div>
 			<div>
 				<a href="#" id="search_ID">아이디 찾기</a> <a>|</a>
-				<a href="#">비밀번호 찾기</a>
+				<a href="#" id="search_PW">비밀번호 찾기</a>
 			</div>
 		</div>
 </div>	
-	<div class="form-group form-group-sm" id="modalLayer">	<!-- 아이디 검색 모달창 -->
-			<div class="modalContent">
-				<div>
-					<input type="text" class="form-control input-sm" id="member_search_data">
-					<input type="submit" value="검색" class="form-control" id="member_search">
-				</div>
-				<div class="search_info"></div>
+	<div id="IDmodalLayer">	<!-- ID 검색 모달창 -->
+		<div class="modalContent">
+			<div class="input-group-append" style="padding-bottom: 20px; padding-top: 20px;">
+				<div class="modalclose"><button  class="btn btn-secondary" type="button" id="ID_close">X</button></div>
 				
-				<div class="modalclose"><button type="button" id="close">X</button></div>
-			</div>
+				<div id="ID_search_info">
+				
+							<div class="row no-gutters">
+								<div class="col-3">	Email : </div>
+								<div class="col-9"> <input type="text" class="form-control"  id="ID_search_email"></div>
+							</div>
+							
+							<div class="row" style="padding-top: 20px;">
+								<div class="col-2"></div>
+								<div class="col-3"><button type="button" class="btn btn-primary" id="btn_ID_search">검색</button>	</div>
+								<div class="col-4"><button  class="btn btn-primary" type="button" id="id_close">취소</button></div>
+							</div>	
+							
+				</div>				
+			</div>	
 		</div>
+	</div>
 		
+	<div id="PWmodalLayer">	<!-- PW 검색 모달창 -->
+		<div class="modalContent">
+				<div>
+							<div class="input-group-append" style="padding-bottom: 20px; padding-top: 20px;">
+							<div class="modalclose"><button  class="btn btn-secondary" type="button" id="PW_close">X</button></div>
+							
+								
+							<div id="PW_search_info">
+								
+						
+									<div class="row no-gutters">
+									
+										<div class="col-3">	ID : </div>
+										<div class="col-9"> <input type="text" class="form-control"  id="PW_search_ID"></div>
+									</div>
+									
+									<div class="row no-gutters">
+										<div class="col-3">	Email : </div>
+									
+										<div class="col-9"> <input type="text" class="form-control"  id="PW_search_email"></div>
+									
+									</div>
+									<div class="row" style="padding-top: 20px;">
+										<div class="col-2"></div>
+										<div class="col-3"><button type="button" class="btn btn-primary" id="btn_PW_search">검색</button>	</div>
+										<div class="col-4"><button  class="btn btn-primary" type="button" id="pw_close">취소</button></div>
+									</div>		
+							</div>
+						</div>
+				</div>
+		</div>
+	</div>
 	
 	<script type="text/javascript">
 	
 	$(document).on("click", "#search_ID", function(){
 
 				  keyno = $(this).attr("id");
-				  var modalLayer = $("#modalLayer");
+				  var modalLayer = $("#IDmodalLayer");
 				  var modalCont = $(".modalContent");
 				  var marginLeft = modalCont.outerWidth()/2;
 				  var marginTop = modalCont.outerHeight()/2; 
@@ -90,22 +131,133 @@
 				    modalLayer.fadeIn("fast");
 				    modalCont.css({"margin-top" : -marginTop, "margin-left" : -marginLeft});
 				    $(this).blur();
-				    $(".modalContent #member_search_data").focus(); 
+				    $(".modalContent #ID_search_email").focus(); 
 
 				    
-				  $("#close").on("click",function(){
+				  $("#ID_close").on("click",function(){
 				
 				    modalLayer.fadeOut("fast");
-					$(".search_info").html("");
-					$("#member_search_data").val("");
+				    var str = "<div class='row no-gutters'>	<div class='col-3'>	Email : </div>"+
+							  "<div class='col-9'> <input type='text' class='form-control' id='ID_search_email'></div></div>"+
+							  "<div class='row' style='padding-top: 20px;'>	<div class='col-2'></div>"+
+							  "<div class='col-3'><button type='button' class='btn btn-primary' id='btn_ID_search'>검색</button></div>"+
+							  "<div class='col-4'><button class='btn btn-primary' type='button' id='id_close'>취소</button></div>	</div>";
+					
+					$("#ID_search_info").html(str);
+					
 					return false;
 
-				  });//키설정 모달창
-		
+				  });//ID 찾기 모달창 닫기
+				  $("#id_close").on("click",function(){
+					  modalLayer.fadeOut("fast");
+					    var str = "<div class='row no-gutters'>	<div class='col-3'>	Email : </div>"+
+								  "<div class='col-9'> <input type='text' class='form-control' id='ID_search_email'></div></div>"+
+								  "<div class='row' style='padding-top: 20px;'>	<div class='col-2'></div>"+
+								  "<div class='col-3'><button type='button' class='btn btn-primary' id='btn_ID_search'>검색</button></div>"+
+								  "<div class='col-4'><button class='btn btn-primary' type='button' id='id_close'>취소</button></div>	</div>";
+						
+						$("#ID_search_info").html(str);
+						
+						return false;	
+					});//ID 찾기 모달창 닫기
+
 		
 	});	
 	
+	$(document).on("click", "#btn_ID_search", function(){
 	
+		var str ="";
+		var email = $("#ID_search_email").val();
+		
+
+		$.getJSON("searchID?email=" + email,
+				
+				function(data) {
+					
+					console.log(data);
+					$(data).each(function() {
+						str += "<a> 고객님의 ID는 \"" + this.id+"\" 입니다.</a></br>";
+				
+					});
+					$("#ID_search_info").html("");
+					$("#ID_search_info").html(str);
+		});
+	
+	});
+	
+	$(document).on("click", "#search_PW", function(){
+		
+					  keyno = $(this).attr("id");
+					  var modalLayer = $("#PWmodalLayer");
+					  var modalCont = $(".modalContent");
+					  var marginLeft = modalCont.outerWidth()/2;
+					  var marginTop = modalCont.outerHeight()/2; 
+		
+					    modalLayer.fadeIn("fast");
+					    modalCont.css({"margin-top" : -marginTop, "margin-left" : -marginLeft});
+					    $(this).blur();
+					    $(".modalContent #PW_search_ID").focus(); 
+					    $(".modalContent #PW_search_email").focus(); 
+						
+					    
+					  $("#PW_close").on("click",function(){
+					
+					    modalLayer.fadeOut("fast");
+					    var str = 	"<div class='row no-gutters'><div class='col-3'>ID : </div>"+
+									"<div class='col-9'> <input type='text' class='form-control'  id='PW_search_ID'></div></div>"+
+									"<div class='row no-gutters'><div class='col-3'>Email : </div> <div class='col-9'>"+
+									"<input type='text' class='form-control'  id='PW_search_email'></div></div>"+
+									"<div class='row' style='padding-top: 20px;'><div class='col-2'></div>"+
+									"<div class='col-3'><button type='button' class='btn btn-primary' id='btn_PW_search'>검색</button></div>"+
+									"<div class='col-4'><button  class='btn btn-primary' type='button' id='pw_close'>취소</button></div></div>";
+						
+						$("#PW_search_info").html("");
+						$("#PW_search_info").html(str);
+						
+						return false;
+		
+					  });//PW 찾기 모달창 닫기
+					  $("#pw_close").on("click",function(){
+							
+						    modalLayer.fadeOut("fast");
+						    var str = 	"<div class='row no-gutters'><div class='col-3'>ID : </div>"+
+										"<div class='col-9'> <input type='text' class='form-control'  id='PW_search_ID'></div></div>"+
+										"<div class='row no-gutters'><div class='col-3'>Email : </div> <div class='col-9'>"+
+										"<input type='text' class='form-control'  id='PW_search_email'></div></div>"+
+										"<div class='row' style='padding-top: 20px;'><div class='col-2'></div>"+
+										"<div class='col-3'><button type='button' class='btn btn-primary' id='btn_PW_search'>검색</button></div>"+
+										"<div class='col-4'><button  class='btn btn-primary' type='button' id='pw_close'>취소</button></div></div>";
+							
+							$("#PW_search_info").html("");
+							$("#PW_search_info").html(str);
+							
+							return false;
+			
+						  });//PW 찾기 모달창 닫기
+				
+			
+	});	
+		
+		$(document).on("click", "#btn_PW_search", function(){
+		
+			var str ="";
+			var ID = $("#PW_search_ID").val();
+			var email = $("#PW_search_email").val();
+			
+		
+			$.getJSON("searchPW?id="+ID+"&email=" + email,
+					
+					function(data) {
+						
+						console.log(data.pw);
+						$(data).each(function() {
+							str += "<a> 고객님의 PW는 \"" + this.pw+"\" 입니다.</a></br>";
+					
+						});
+						$("#PW_search_info").html("");
+						$("#PW_search_info").html(str);
+			});
+		});
 	</script>
 	
 

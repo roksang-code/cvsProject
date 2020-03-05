@@ -29,6 +29,7 @@
 <body>
 	<header>
 		<a id="membername">${login.member_name}님 환영합니다.</a>
+		
 		<button class="mainpage">메인페이지</button>
 	</header>
 	<div>
@@ -218,6 +219,7 @@
 
 			
 		<script type="text/javascript">
+			  var member_no = ${login.member_no};
 		      var cnt = 1; //리스트 등록 카운트
 		      var ea = 1; //첫 등록제품 수
 		      var sale = 0; //할인

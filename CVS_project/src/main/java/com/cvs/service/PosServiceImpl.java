@@ -44,16 +44,16 @@ public class PosServiceImpl implements PosService{
 	}
 
 	@Override
-	public List<Pos_boardVO> PaymentList(String sale_date) throws Exception {
+	public List<Pos_boardVO> PaymentList(String sale_date, int member_no) throws Exception {
 
-		return pm.PaymentList(sale_date);
+		return pm.PaymentList(sale_date, member_no);
 	}
 
 	
 	@Override
-	public List<Pos_boardVO> DetailPaymentList(int list_no) throws Exception {
+	public List<Pos_boardVO> DetailPaymentList(int list_no, int member_no) throws Exception {
 		
-		List<Pos_boardVO> DetailPaymentList = pm.DetailPaymentList(list_no);
+		List<Pos_boardVO> DetailPaymentList = pm.DetailPaymentList(list_no, member_no);
 		
 		return DetailPaymentList;
 		

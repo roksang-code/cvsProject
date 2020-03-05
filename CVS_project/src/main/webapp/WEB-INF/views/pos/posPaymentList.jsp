@@ -15,6 +15,10 @@
 
 </head>
 <body>
+<script type="text/javascript">
+var member_no = ${login.member_no};
+
+</script>
 <header class="paymentdate">
 	
   <div class="datepicker">  <input type="text" id="paymentdate"></div>

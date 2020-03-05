@@ -31,18 +31,14 @@
 	<!-- 결제 -->
 	<insert id="Payment">
  		 	<![CDATA[
- 		 insert into  pos_board( store_no, pos_no, list_no , barcode_no, md_ea, sale_price, type, sale_date,sale_time)
+ 		 insert into  pos_board(list_no,member_no, barcode_no, md_ea, sale_price, type, sale_date,sale_time)
 			   values(		
 		
-			   (select count(*) as cnt from auto_increment_info 
-			   list_no where store_no = 1),
-			   #{pos_no},
-		
-			   (select count(*) as cnt from auto_increment_info 
+			   	   (select count(*) as cnt from auto_increment_info 
 			   list_no where list_no = 1),
 			   
 		
-			   #{barcode_no},#{md_ea},#{sale_price}, #{type}, sysdate(),curtime());
+			   #{member_no},#{barcode_no},#{md_ea},#{sale_price}, #{type}, sysdate(),curtime());
                               
  			]]>
 	</insert>
@@ -81,7 +77,7 @@
 	     			group by list_no
 	   				) total 
 					on total.list_no = pos_board.list_no
- 						where sale_date = #{sale_date}
+ 						where sale_date = #{sale_date} and member_no = #{member_no}
 					 	group by pos_board.list_no
          				,pos_board.sale_date
 						,list_md_ea
@@ -118,7 +114,7 @@
 		md_info.md_no = md_price.md_no
 		JOIN pos_board ON
 		md_info.barcode_no = pos_board.barcode_no group by list_no) total on 
-        total.list_no = pos_board.list_no  where pos_board.list_no = #{list_no};
+        total.list_no = pos_board.list_no  where pos_board.list_no = #{list_no} and member_no = #{member_no};
          
     ]]>
 	</select>

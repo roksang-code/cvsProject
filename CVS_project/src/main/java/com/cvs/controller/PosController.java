@@ -48,33 +48,33 @@ public class PosController {
 
 	
 	@RequestMapping(value = "/posPaymentList", method = RequestMethod.GET)//전체 매출 리스트 화면
-	public void posPaymentListGet(@RequestParam String sale_date, Pos_boardVO pvo, Model model) throws Exception {
+	public void posPaymentListGet(@RequestParam String sale_date, int member_no, Pos_boardVO pvo, Model model) throws Exception {
 		
 		logger.info("posPaymentList get...");
 		logger.info("sale_date = "+sale_date);
 
-		model.addAttribute("PaymentList", pservice.PaymentList(sale_date)); 
-		model.addAttribute("selectdate", pservice.PaymentList(sale_date)); 
+		model.addAttribute("PaymentList", pservice.PaymentList(sale_date, member_no)); 
+		model.addAttribute("selectdate", pservice.PaymentList(sale_date, member_no)); 
 		
 		
 	}@RequestMapping(value = "/posPaymentList", method = RequestMethod.POST)//전체 매출 리스트 화면
-	public void posPaymentListPost(@RequestParam String sale_date, Pos_boardVO pvo, Model model) throws Exception {
+	public void posPaymentListPost(@RequestParam String sale_date, int member_no, Pos_boardVO pvo, Model model) throws Exception {
 		
 		logger.info("posPaymentList Post...");
 		logger.info("sale_date = "+sale_date);
 		
-		model.addAttribute("PaymentList", pservice.PaymentList(sale_date)); 
-		model.addAttribute("selectdate", pservice.PaymentList(sale_date)); 
+		model.addAttribute("PaymentList", pservice.PaymentList(sale_date, member_no)); 
+		model.addAttribute("selectdate", pservice.PaymentList(sale_date, member_no)); 
 		
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/selectPaymentList", method = RequestMethod.GET)//날짜 선택 매출 리스트
-	public ResponseEntity<List<Pos_boardVO>> selectPaymentListGet(@RequestParam("sale_date") String sale_date) throws Exception {
+	public ResponseEntity<List<Pos_boardVO>> selectPaymentListGet(@RequestParam String sale_date, int member_no) throws Exception {
 		
 		ResponseEntity<List<Pos_boardVO>> entity = null;
 		logger.info("DetailPaymentList GET...");
-		List<Pos_boardVO> selectPaymentListGet = pservice.PaymentList(sale_date);
+		List<Pos_boardVO> selectPaymentListGet = pservice.PaymentList(sale_date, member_no);
 
 		
 		
@@ -90,11 +90,11 @@ public class PosController {
 
 	@ResponseBody
 	@RequestMapping(value = "/DetailPaymentList", method = RequestMethod.GET)//세부 매출 리스트 화면
-	public ResponseEntity<List<Pos_boardVO>> DetailPaymentListGET(@RequestParam("list_no") Integer list_no) throws Exception {
+	public ResponseEntity<List<Pos_boardVO>> DetailPaymentListGET(@RequestParam int list_no, int member_no) throws Exception {
 		
 		ResponseEntity<List<Pos_boardVO>> entity = null;
 		logger.info("DetailPaymentList GET...");
-		List<Pos_boardVO> DetailPaymentListGET = pservice.DetailPaymentList(list_no);
+		List<Pos_boardVO> DetailPaymentListGET = pservice.DetailPaymentList(list_no, member_no);
 
 		
 		

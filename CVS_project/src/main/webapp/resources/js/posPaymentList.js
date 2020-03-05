@@ -1,7 +1,6 @@
 var trid ="";
 var list_no = 0;
 var sale_date = $("#paymentdate").val();
-
 function detailreset() {
 	console.log("reset");
 	str="";
@@ -129,7 +128,7 @@ $(document).ready(function() {
 			
 			function getDetail(){
 				
-				$.getJSON("DetailPaymentList?list_no=" + list_no,
+				$.getJSON("DetailPaymentList?member_no="+member_no+"&list_no=" + list_no,
 						function(data) {
 							console.log(data);
 							
@@ -171,7 +170,7 @@ $(document).ready(function() {
 			function getPaymentList(){
 				str ="";
 				sale_date = $("#paymentdate").val();
-				$.getJSON("selectPaymentList?sale_date=" + sale_date,
+				$.getJSON("selectPaymentList?member_no="+member_no+"&sale_date=" + sale_date,
 						
 						function(data) {
 					str += "<table border='1' class='mainlisttable'>";

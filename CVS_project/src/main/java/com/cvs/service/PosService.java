@@ -18,9 +18,9 @@ public interface PosService {
 
 	public void increment(Auto_incrementVO aivo) throws Exception;
 
-	public List<Pos_boardVO>  PaymentList(String sale_date) throws Exception;
+	public List<Pos_boardVO>  PaymentList(String sale_date, int member_no) throws Exception;
 	
-	public List<Pos_boardVO> DetailPaymentList(int list_no) throws Exception;
+	public List<Pos_boardVO> DetailPaymentList(int list_no, int member_no) throws Exception;
 
 	public void refund(int list_no) throws Exception;
 

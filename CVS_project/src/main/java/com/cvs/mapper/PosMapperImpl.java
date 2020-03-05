@@ -44,17 +44,24 @@ public class PosMapperImpl implements PosMapper {
 	}
 
 	@Override
-	public List<Pos_boardVO> PaymentList(String sale_date) throws Exception {
-
-		List<Pos_boardVO> PaymentList = session.selectList(namespace + ".PaymentList", sale_date);
+	public List<Pos_boardVO> PaymentList(String sale_date, int member_no) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("sale_date", sale_date);
+		paramMap.put("member_no", member_no);
+		
+		List<Pos_boardVO> PaymentList = session.selectList(namespace + ".PaymentList", paramMap);
 
 		return PaymentList;
 	}
 
 	@Override
-	public List<Pos_boardVO> DetailPaymentList(int list_no) throws Exception {
-
-		List<Pos_boardVO> DetailPaymentList = session.selectList(namespace + ".DetailPaymentList",list_no);
+	public List<Pos_boardVO> DetailPaymentList(int list_no, int member_no) throws Exception {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("list_no", list_no);
+		paramMap.put("member_no", member_no);
+		
+		List<Pos_boardVO> DetailPaymentList = session.selectList(namespace + ".DetailPaymentList",paramMap);
 
 		return DetailPaymentList;
 	}

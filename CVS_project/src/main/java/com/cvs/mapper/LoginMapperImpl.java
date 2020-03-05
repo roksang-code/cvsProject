@@ -1,11 +1,16 @@
 package com.cvs.mapper;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cvs.model.LoginVO;
 import com.cvs.model.Member_infoVO;
+import com.cvs.model.Tel_membership_infoVO;
 
 @Repository
 public class LoginMapperImpl implements LoginMapper{
@@ -29,6 +34,28 @@ public class LoginMapperImpl implements LoginMapper{
 		 System.out.println("mapper");
 		 session.insert(namespace + ".Memberjoin", mivo);
 		
+	}
+
+	@Override
+	public List<Member_infoVO> searchID(String email) throws Exception {
+		
+		
+		List<Member_infoVO> searchID = session.selectList(namespace + ".searchID", email);
+	
+		return searchID;
+	}
+
+	@Override
+	public List<Member_infoVO> searchPW(String id, String email) throws Exception {
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("id", id);
+		paramMap.put("email", email);
+		
+		
+		List<Member_infoVO> searchPW = session.selectList(namespace + ".searchPW", paramMap);
+	
+		return searchPW;
 	}
 
 

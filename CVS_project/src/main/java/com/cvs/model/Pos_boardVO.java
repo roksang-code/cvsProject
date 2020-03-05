@@ -1,8 +1,7 @@
 package com.cvs.model;
 
 public class Pos_boardVO {
-	private int store_no;
-	private int pos_no;	
+	private int member_no;
 	private int list_no;
 	private int md_no;
 	private int barcode_no;
@@ -19,6 +18,12 @@ public class Pos_boardVO {
 
 	
 	
+	public int getMember_no() {
+		return member_no;
+	}
+	public void setMember_no(int member_no) {
+		this.member_no = member_no;
+	}
 	public int getList_md_ea() {
 		return list_md_ea;
 	}
@@ -68,12 +73,6 @@ public class Pos_boardVO {
 	public void setBarcode_no(int barcode_no) {
 		this.barcode_no = barcode_no;
 	}
-	public int getStore_no() {
-		return store_no;
-	}
-	public void setStore_no(int store_no) {
-		this.store_no = store_no;
-	}
 	public int getList_no() {
 		return list_no;
 	}
@@ -101,12 +100,6 @@ public class Pos_boardVO {
 		this.type = type;
 	} 
 	
-	public int getPos_no() {
-		return pos_no;
-	}
-	public void setPos_no(int pos_no) {
-		this.pos_no = pos_no;
-	}
 	
 	
 	
@@ -121,10 +114,10 @@ public class Pos_boardVO {
 	
 	@Override
 	public String toString() {
-		return "Pos_boardVO [store_no=" + store_no + ", pos_no=" + pos_no + ", list_no=" + list_no + ", md_no=" + md_no
-				+ ", barcode_no=" + barcode_no + ", md_ea=" + md_ea + ", list_md_ea=" + list_md_ea + ", price=" + price
-				+ ", total_price=" + total_price + ", md_name=" + md_name + ", sale_price=" + sale_price + ", type="
-				+ type + ", sale_date=" + sale_date + ", sale_time=" + sale_time + ", update_date=" + update_date + "]";
+		return "Pos_boardVO [member_no=" + member_no + ", list_no=" + list_no + ", md_no=" + md_no + ", barcode_no="
+				+ barcode_no + ", md_ea=" + md_ea + ", list_md_ea=" + list_md_ea + ", price=" + price + ", total_price="
+				+ total_price + ", md_name=" + md_name + ", sale_price=" + sale_price + ", type=" + type
+				+ ", sale_date=" + sale_date + ", sale_time=" + sale_time + ", update_date=" + update_date + "]";
 	}
 
 	

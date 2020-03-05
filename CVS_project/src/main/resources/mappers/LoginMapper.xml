@@ -16,4 +16,14 @@
 		 
 	</insert>
 	
+	<select id="searchID" resultType="com.cvs.model.Member_infoVO">
+
+        select * from member_info where email=#{email};
+		
+	</select>
+	<select id="searchPW" resultType="com.cvs.model.Member_infoVO">
+	
+	        select * from member_info where ID=#{id} and email = #{email};
+		
+	</select>
 </mapper>

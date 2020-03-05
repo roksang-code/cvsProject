@@ -1,17 +1,24 @@
 package com.cvs.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cvs.model.LoginVO;
 import com.cvs.model.Member_infoVO;
+import com.cvs.model.Tel_membership_infoVO;
 import com.cvs.service.LoginService;
 
 @Controller
@@ -85,7 +92,40 @@ public class LoginController {
 		return "login/LoginpageGet";
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value = "/searchID", method = RequestMethod.GET)//ID 검색
+	public ResponseEntity<List<Member_infoVO>> searchID(@RequestParam String email, Member_infoVO mivo) throws Exception{
+		
 
-	
+		ResponseEntity<List<Member_infoVO>> entity = null;
+		logger.info("searchID GET...");
+		List<Member_infoVO> searchID = lservice.searchID(email);
+
+		
+		
+		entity = new ResponseEntity<List<Member_infoVO>>(searchID, HttpStatus.OK);
+
+		logger.info("email = "+email);
+		
+		return entity;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/searchPW", method = RequestMethod.GET)//PW 검색
+	public ResponseEntity<List<Member_infoVO>> searchPW(@RequestParam String id, String email, Member_infoVO mivo) throws Exception{
+		
+
+		ResponseEntity<List<Member_infoVO>> entity = null;
+		logger.info("searchPW GET...");
+		List<Member_infoVO> searchPW = lservice.searchPW(id, email);
+
+		
+		
+		entity = new ResponseEntity<List<Member_infoVO>>(searchPW, HttpStatus.OK);
+
+		logger.info("ID = "+id);
+		logger.info("email = "+email);
+		logger.info("mivo = "+mivo);
+		return entity;
+	}	
 }

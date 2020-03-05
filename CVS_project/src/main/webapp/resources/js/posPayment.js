@@ -441,7 +441,7 @@ $(document).ready(function() {
 		    var date = now.getDate();  
 			var sale_date = year+"-"+month+"-"+date;
 					
-		$(location).attr('href', 'posPaymentList?sale_date='+sale_date);//매출리스트로 이동
+		$(location).attr('href', "posPaymentList?member_no="+member_no+"&sale_date="+sale_date);//매출리스트로 이동
 
 
 		
@@ -521,7 +521,7 @@ $(document).on("click", ".numkey tr td", function(){
 				},
 				dataType : "text",
 				data : JSON.stringify({
-					pos_no : 1,
+					member_no : member_no,
 					barcode_no : barcode_no,
 					md_ea : md_ea,
 					sale_price : sale_price,
