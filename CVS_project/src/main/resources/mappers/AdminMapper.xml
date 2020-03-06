@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cvs.mapper.AdminMapper">
+
+		
+	<select id="listCriteria" resultType="com.cvs.model.BoardVO">
+
+		select no, subject, content,writer, write_date, cnt
+		from ( select
+		@rownum:=@rownum+1 as rownum, no, subject, content,writer,
+		write_date, cnt
+		from
+		(select @rownum:=0) as rownum
+		, board
+		<if test="keyword != null">
+			where subject like concat('%',#{keyword},'%')
+		</if>
+		order by no desc
+		)board 
+		<![CDATA[
+		where rownum > (#{pageNum}-1)*#{amount}
+ 		and rownum <= #{pageNum}*#{amount}
+ 		]]>
+	</select>
+
+
+	
+	<select id="countPaging" resultType="int">
+ 	select count(no) from board
+	<if test="keyword != null">
+	where subject like concat('%',#{keyword},'%');
+	</if>
+ 	
+	</select>
+
+
+	<select id="boardDetail" resultType="com.cvs.model.BoardVO">
+	<![CDATA[
+		select * from board where no = #{no}
+ 	]]>
+	</select>
+
+
+
+	<insert id="boardWrite">
+ 	<![CDATA[
+		insert into board (subject, content, writer, write_date) 
+		values(#{subject}, #{content}, #{writer}, sysdate())
+ 	]]>
+
+	</insert>
+
+	<update id="boardUpdate">
+ 	<![CDATA[
+		update board
+		set subject = #{subject}, 
+		content = #{content}
+		where no = #{no}
+		]]>
+	</update>
+
+	<delete id="boardDelete">
+ 	
+ 	<![CDATA[
+	delete from board where no = #{no}
+		]]>
+
+	</delete>
+
+	<update id="boardCnt">
+ 	<![CDATA[
+ 		update board
+		set cnt = cnt+1
+		where no = #{no}
+	
+ 	]]>
+	</update>
+	
+	
+	<select id="approval_list" resultType="com.cvs.model.Md_infoVO">
+		select order_board.member_no, total_order_ea.total_order_ea, sum(cost) total_cost, sum(price) total_price from 
+			order_board left join (select member_no, sum(order_ea) total_order_ea from order_board group by member_no) total_order_ea on total_order_ea.member_no = order_board.member_no
+						left join md_info on order_board.barcode_no= md_info.barcode_no
+					    left join md_price on order_board.barcode_no = md_price.barcode_no
+            where total_order_ea.total_order_ea > 0
+            group by order_board.member_no;
+	</select>
+	
+	<select id="approval_detail_list" resultType="com.cvs.model.Md_infoVO">
+	
+	
+	SELECT member_no, md_info.barcode_no, type, detail_type, company, md_name, order_ea ,
+			approval_ea, cost, price, shelf_life, md_img FROM 
+			md_info left join order_board on md_info.barcode_no = order_board.barcode_no
+	 				left join md_price on md_info.barcode_no = md_price.barcode_no
+	 		where member_no = #{member_no} group by member_no, md_info.barcode_no, type, detail_type, company, md_name, order_ea ,
+			approval_ea, cost, price, shelf_life, md_img order by md_name asc	
+	</select>
+	
+	<update id="order_approval_check">
+			update order_board
+				set approval_ea = #{order_ea}, order_ea = 0
+				where member_no = #{member_no} and barcode_no = #{barcode_no};
+	</update>
+	
+	
+	<insert id="addMD">
+		 insert into md_info(barcode_no , type, detail_type, company, md_name, pack_date, shelf_life, md_img)
+			   values(#{barcode_no}, #{type}, #{detail_type}, #{company}, #{md_name}, sysdate(), #{shelf_life}, #{md_img});
+
+	</insert>
+	<insert id="addMD_price">
+		insert into md_price(barcode_no, cost, price, date) values 
+		(#{barcode_no},#{cost}, #{price}, sysdate() )
+
+	</insert>
+
+	
+	<insert id="addAttach">
+		insert into tbl_attach(fileName,no) values(#{fileName},LAST_INSERT_ID())
+	</insert>
+	
+	<insert id="updateAttach">
+		insert into tbl_attach(fileName,no) values(#{fileName},#{no})
+	</insert>
+	
+	<select id="getAttach" resultType="String">
+		select filename from tbl_attach where no = #{no} order by regdate;
+	</select>
+	
+</mapper>

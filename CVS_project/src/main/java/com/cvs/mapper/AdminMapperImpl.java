@@ -18,7 +18,7 @@ public class AdminMapperImpl implements AdminMapper {
 	
 	@Inject
 	private SqlSession session;
-	private static String namespace = "com.cvs.mapper.BoardMapper";
+	private static String namespace = "com.cvs.mapper.AdminMapper";
 	
 	
 	@Override
