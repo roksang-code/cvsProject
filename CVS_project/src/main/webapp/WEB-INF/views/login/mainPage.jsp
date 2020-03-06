@@ -12,24 +12,44 @@
 <script type="text/javascript"	src="../resources/plugins/jQuery/jquery-3.4.1.min.js"></script>
 <script	src="../resources/js/mainPage.js?v=<%=System.currentTimeMillis()%>"></script>
 </head>
-<body>
+<body style="background : #6CC0FF;">
 
-<div class="container" style="margin-top: 15%; margin-left: 23%;">
-
-	
+<div class="container" style="margin-top: 5%;">
+	 
+	<div class="row justify-content-md-center">
+			 <img src="../resources/img/logo.png" style="margin-right: 20px;"></img><a style="color: white; text-align: center; font-size: 150px;"> WEB_POS</a>
+	</div>
+	<div class="row" style=" margin-top: 8%;">
+		<div class="col-4">
+			<button type="button" class="btn btn-primary btn-lg" id="pospage" style="width: 300px;height: 300px;">
+			<img src="../resources/img/payment.png" style="width: 150px; height: 150px;"><p style="margin-top: 25px;">상품판매</p></button>
 		
-		<button type="button" class="btn btn-primary btn-lg" id="pospage" style="width: 300px;height: 300px">상품판매</button>
+		</div>		
+		<div class="col-4">
+			<button type="button" class="btn btn-primary btn-lg" id="order" style="width: 300px;height: 300px;">
+			<img src="../resources/img/order.png" style="width: 150px; height: 150px;"><p style="margin-top: 25px;">상품발주</p></button>
 		
-		<button type="button" class="btn btn-primary btn-lg" id="order" style="width: 300px;height: 300px; margin-left: 40px; margin-right: 40px;">상품발주</button>
+		</div>		
+		<div class="col-4">
+			<button type="button" class="btn btn-primary btn-lg" id="logout" style="width: 300px;height: 300px">
+			<img src="../resources/img/login.png" style="width: 150px; height: 150px;">
+			
+				<p style="margin-top: 25px;">
+				<c:if test="${login.member_name ==null}">
+					<c:out value="로그인"></c:out>		
+				</c:if>
+				<c:if test="${login.member_name !=null}">
+					<c:out value="로그아웃"></c:out>		
+				</c:if>
+				</p>
+				
+			</button>
 		
-		<button type="button" class="btn btn-primary btn-lg" id="logout" style="width: 300px;height: 300px">
-			<c:if test="${login.member_name ==null}">
-				<c:out value="로그인"></c:out>		
-			</c:if>
-			<c:if test="${login.member_name !=null}">
-				<c:out value="로그아웃"></c:out>		
-			</c:if>
-		</button>
+		</div>		
+	</div>
+		
+		
+			
 </div>
 <script type="text/javascript">
 	
