@@ -118,10 +118,5 @@ public class PosMapperImpl implements PosMapper {
 		return searchTEL;
 	}
 
-	@Override
-	public void updateTelPoint(Tel_membership_infoVO tmvo) throws Exception {
-		
-		session.update(namespace + ".updateTelPoint", tmvo);
-		
-	}
+	
 }

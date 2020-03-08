@@ -137,18 +137,6 @@ public class PosController {
 	@RequestMapping(value = "/Auto_increment", method = RequestMethod.POST)//ai_no 자동증가
 	public String Auto_increment(@RequestBody Auto_incrementVO aivo) throws Exception {
 	
-		if(aivo.getEmp_no()!=1) {
-			aivo.setEmp_no(0);		
-		}else if(aivo.getList_no()!=1) {
-			aivo.setList_no(0);		
-		}else if(aivo.getMember_no()!=1) {
-			aivo.setMember_no(0);		
-		}else if(aivo.getStore_no()!=1) {
-			aivo.setStore_no(0);		
-		}else if(aivo.getTrade_no()!=1) {
-			aivo.setTrade_no(0);		
-		}
-		
 		
 		pservice.increment(aivo);
 		logger.info("increment post...");

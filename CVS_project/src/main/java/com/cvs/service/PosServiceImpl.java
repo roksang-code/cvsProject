@@ -101,12 +101,7 @@ public class PosServiceImpl implements PosService{
 		return pm.searchTEL(phone_no, tel_company);
 	}
 
-	@Override
-	public void updateTelPoint(Tel_membership_infoVO tmvo) throws Exception {
-
-		pm.updateTelPoint(tmvo);
-		
-	}
+	
 	
 	
 	

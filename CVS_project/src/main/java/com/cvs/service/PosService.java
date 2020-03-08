@@ -18,7 +18,7 @@ public interface PosService {
 
 	public void increment(Auto_incrementVO aivo) throws Exception;
 
-	public List<Pos_boardVO>  PaymentList(String sale_date, int member_no) throws Exception;
+	public List<Pos_boardVO> PaymentList(String sale_date, int member_no) throws Exception;
 	
 	public List<Pos_boardVO> DetailPaymentList(int list_no, int member_no) throws Exception;
 
@@ -34,7 +34,6 @@ public interface PosService {
 
 	public List<Tel_membership_infoVO> searchTEL(String phone_no, String tel_company)throws Exception;
 
-	public void updateTelPoint(Tel_membership_infoVO tmvo)throws Exception;
 	
 
 

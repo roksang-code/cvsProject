@@ -28,7 +28,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 
 		if(mivo != null ) {						//사용자가 회원가입을 했으면,
 			if(mivo.getId().equals("admin")) {
-				logger.info("new admin success");		
+				logger.info("new admin success");
 				session.setAttribute(LOGIN, mivo);	//로그인처리 (session 회원정보 저장)
 				response.sendRedirect("../admin/adminMain");	//로그인 성공한 후 메인페이지로 이동
 				

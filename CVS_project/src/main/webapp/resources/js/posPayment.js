@@ -557,7 +557,7 @@ $(document).on("click", ".numkey tr td", function(){
 			},
 			dataType : "text",
 			data : JSON.stringify({
-				list_no : 1
+				list_no : member_no
 			
 			
 			}),

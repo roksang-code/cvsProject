@@ -11,8 +11,8 @@
 
 	<!-- 회원가입 -->
 	<insert id="Memberjoin">
-			 insert into  member_info(member_name , id, pw, email,gender,age )
-			   values(#{member_name}, #{id}, #{pw}, #{email}, #{gender}, #{age} )
+		insert into  member_info(member_name , id, pw, email,gender,age )
+		values(#{member_name}, #{id}, #{pw}, #{email}, #{gender}, #{age} )
 		 
 	</insert>
 	

@@ -33,6 +33,5 @@ public interface PosMapper {
 
 	public List<Tel_membership_infoVO> searchTEL(String phone_no, String tel_company)throws Exception;
 
-	public void updateTelPoint(Tel_membership_infoVO tmvo)throws Exception;
 
 }

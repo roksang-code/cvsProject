@@ -26,7 +26,7 @@
 		
 		
 		<property name="username" value="root"></property>
-		<property name="password" value="1234"></property>
+		<property name="password" value="111111"></property>
 	</bean>
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig"/>
