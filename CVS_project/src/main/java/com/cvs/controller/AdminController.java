@@ -35,21 +35,21 @@ public class AdminController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
-	@RequestMapping(value = "/adminMain", method = RequestMethod.GET) // 로그인 화면
+	@RequestMapping(value = "/adminMain", method = RequestMethod.GET) // 관리자 화면
 	public void adminMainGet() throws Exception {
 
 		logger.info("adminMain get...");
 
 	}
 
-	@RequestMapping(value = "/adminMain", method = RequestMethod.POST) // 로그인 화면
+	@RequestMapping(value = "/adminMain", method = RequestMethod.POST) // 관리자 화면
 	public void adminMainPOST() throws Exception {
 
 		logger.info("adminMain get...");
 
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@RequestMapping(value = "/register", method = RequestMethod.GET)	//글쓰기
 	public String registGet(String type, Criteria cri, Model model) throws Exception {
 		logger.info("regist get...");
 
@@ -59,7 +59,7 @@ public class AdminController {
 		return "admin/adminMain";
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)	//글쓰기
 	public String registPost(BoardVO board) throws Exception {
 		logger.info("regist Post" + board);
 
@@ -70,7 +70,7 @@ public class AdminController {
 
 	}
 
-	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)	//글 상세보기
 	public String detailGet(@RequestParam("no") int no, String type, Criteria cri, Model model) throws Exception {
 		logger.info("detail get...");
 
@@ -90,7 +90,7 @@ public class AdminController {
 
 	}
 	
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)	//글수정
 	public String updatePost(BoardVO board, Criteria cri, Model model) throws Exception {
 		logger.info("update Post..." + board);
 		
@@ -101,18 +101,12 @@ public class AdminController {
 		return "redirect:/admin/detail?no="+board.getNo()+"";
 
 	}
+	@ResponseBody
+	@RequestMapping(value = "/delete/{no}", method = RequestMethod.DELETE)	//글삭제
+	public void deletePost(@PathVariable("no") int no, BoardVO board)throws Exception {
+		logger.info("delete Post..." + no);
+		bservice.boardDelete(no);
 
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String deletePost(BoardVO board, Criteria cri, Model model, RedirectAttributes redirectAttributes)
-			throws Exception {
-		logger.info("delete Post..." + board);
-		bservice.boardDelete(board);
-
-		redirectAttributes.addAttribute("no", board.getNo());
-
-		redirectAttributes.addAttribute("pageNum", cri.getPageNum());
-		redirectAttributes.addAttribute("keyword", cri.getKeyword());
-		return "redirect:/admin/list";
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)

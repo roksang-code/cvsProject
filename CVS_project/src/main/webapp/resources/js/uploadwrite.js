@@ -55,7 +55,7 @@ $(document).ready(function() {
 				var img = "";
 				if(checkImageType(data)){
 					img = "<div>" + 
-					"<img style='width: 200px; height: 100px;' src='../displayFile?fileName="+getImageLink(data)+"'/>"
+					"<img style='width: 100px; height: 100px;' src='../displayFile?fileName="+getImageLink(data)+"'/>"
 					+"</div>";
 				
 

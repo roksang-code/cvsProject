@@ -21,7 +21,7 @@ public interface AdminMapper {
 
 	public void boardUpdate(BoardVO board) throws Exception;
 
-	public void boardDelete(BoardVO board) throws Exception;
+	public void boardDelete(int no) throws Exception;
 	
 	public void boardCnt(int no) throws Exception;
 

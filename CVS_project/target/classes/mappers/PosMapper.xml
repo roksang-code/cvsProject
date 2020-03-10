@@ -26,7 +26,7 @@
 			   values(		
 		
 			   	   (select count(*) as cnt from auto_increment_info 
-			   list_no where list_no = member_no),
+			   list_no where list_no = #{member_no}),
 			   
 		
 			   #{member_no},#{barcode_no},#{md_ea},#{sale_price}, #{type}, sysdate(),curtime());

@@ -30,8 +30,8 @@ function app_d_list(list_member_no) {
 						str += "<tr class='app_d_list_tr' id='app_d_list_tr"+cnt+"'>";
 						str += "<td id= 'bar"+cnt+"'>" + this.barcode_no + "</td>";
 						str += "<td>" + this.md_name + "</td>";
-						str += "<td>" + this.total_cost + "</td>";
-						str += "<td>" + this.total_price + "</td>";
+						str += "<td>" + this.cost + "</td>";
+						str += "<td>" + this.price + "</td>";
 						str += "<td id=order_ea"+this.barcode_no+">" + this.order_ea + "</td>";
 						str += "<td><button id='"+this.barcode_no+"' class='btn btn-light'>승인</button></td>";
 						str += "<input id='hidden_no"+this.barcode_no+"' type='hidden' value="+list_member_no+">";

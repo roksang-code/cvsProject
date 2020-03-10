@@ -17,7 +17,7 @@
 				</tr>
 			 </thead>
 				<tr>
-				 	<td>제목 </td> <td><input class="form-control" type="text" name="subject" value="${boardVO.subject}" size="137px;"></td>
+				 	<td>제목 </td> <td><input class="form-control" type="text" name="subject" value="${boardVO.subject}" size="137px;" style="background-color: white;" readonly></td>
 				</tr>
 				<tr>
 				 	<td>내용</td>	<td>

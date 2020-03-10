@@ -78,7 +78,8 @@
         	});
          
             $(document).on("click", "#addMDbtn", function(){
-            
+            	$("[name=b]").attr("required",true);
+            	
             	$("#MDform").ajaxForm({
                      type: 'POST',
                      url: 'addMD',
@@ -90,12 +91,11 @@
                       
                          
              			$("input").val(null);
-
+             			$("#md_img_div").html("");
                      },
                      error: function(data, status, err) {
                     	
-             			alert("등록에 실패했습니다.");
-						alert(data.responseText);
+             			alert("중복된 바코드번호 입니다.");
                      }
                  }).submit();
             

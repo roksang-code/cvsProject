@@ -93,6 +93,7 @@ $(document).ready(function() {
 				for(var i =1;i<cnt;i++){		
 				var barcode_no = $("#barcode_no"+i).text();
 				var order_ea = $("#order_ea"+i+"").val();
+				var approval_ea = $("#approval_ea"+i+"").text();
 				var count = $("#hidden_ea"+i).val();
 
 				console.log("barcode_no = "+barcode_no);
@@ -114,6 +115,7 @@ $(document).ready(function() {
 						member_no : member_no,
 						barcode_no : barcode_no,
 						order_ea : order_ea,
+						approval_ea : approval_ea,
 						count : count,			
 					}),
 

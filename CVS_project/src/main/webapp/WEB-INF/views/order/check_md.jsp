@@ -4,19 +4,19 @@
 
 <script type="text/javascript">
 
-	$(document).on("click", "#cheack_list_table tr td button", function(){//상세승인
+	$(document).on("click", "#check_list_table tr td button", function(){//상세승인
 	
 		var check_barcode_no = $(this).attr("id");
 		
 				$.ajax({
 					
 					type : "get",
-					url : "cheack_md?barcode_no="+check_barcode_no+"&member_no="+member_no,
+					url : "check_md?barcode_no="+check_barcode_no+"&member_no="+member_no,
 					contentType : "application/json;charset=utf-8",
 					dataType : "text",
 					success : function(data) {
 
-						cheack_list(member_no);
+						check_list(member_no);
 			
 					},
 					error : function(err) {
@@ -35,7 +35,7 @@
 	
 		<div style=" height: 800px; overflow-x:hidden; overflow-y:scroll ">
 	
-			<table class='table table-bordered' id='cheack_list_table'>
+			<table class='table table-bordered' id='check_list_table'>
 				<thead class='thead-light'>
 					<tr>
 						<th>바코드번호</th>

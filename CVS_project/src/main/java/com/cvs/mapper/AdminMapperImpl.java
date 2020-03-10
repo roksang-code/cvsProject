@@ -45,8 +45,8 @@ public class AdminMapperImpl implements AdminMapper {
 	}
 	
 	@Override
-	public void boardDelete(BoardVO board) throws Exception {
-		session.delete(namespace+".boardDelete",board);
+	public void boardDelete(int no) throws Exception {
+		session.delete(namespace+".boardDelete",no);
 		
 	}
 	

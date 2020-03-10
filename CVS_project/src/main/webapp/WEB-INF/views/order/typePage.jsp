@@ -31,7 +31,7 @@
 		</div>
 		
 		<input id="member_no" type="hidden" value="${login.member_no}">
-		<div class="row no-gutters border" style="width:100%; height: 600px; overflow-x:hidden; overflow-y:scroll; ">
+		<div class="row no-gutters border" style="width:100%; height: 600px; overflow-x:hidden; overflow-y:scroll;" id="detailtypediv">
 			<div class="col-12 ">
 					<table class="table table-bordered text-center" id="detailtypetable" style="width: 100%; text-align: center;">
   					<thead class="thead-light">

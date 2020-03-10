@@ -45,9 +45,9 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public void boardDelete(BoardVO board) throws Exception {
+	public void boardDelete(int no) throws Exception {
 		
-		bm.boardDelete(board);
+		bm.boardDelete(no);
 	}
 
 	@Transactional

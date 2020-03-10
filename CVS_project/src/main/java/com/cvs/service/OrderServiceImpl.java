@@ -37,9 +37,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void cheack_md(String barcode_no, int member_no) throws Exception {
+	public void check_md(String barcode_no, int member_no) throws Exception {
 
- 		om.cheack_md(barcode_no, member_no);		
+ 		om.check_md(barcode_no, member_no);		
 	}
 
 

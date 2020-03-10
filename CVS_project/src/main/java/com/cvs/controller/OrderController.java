@@ -140,7 +140,7 @@ public class OrderController {
 		return "order/OrderMain";
 	}
 	@ResponseBody
-	@RequestMapping(value = "/cheack_md", method = RequestMethod.GET) // 발주 승인 체크
+	@RequestMapping(value = "/check_md", method = RequestMethod.GET) // 검품
 	public void cheack_md(@RequestParam String barcode_no, int member_no, Md_infoVO mdvo) throws Exception {
 
 		
@@ -150,7 +150,7 @@ public class OrderController {
 		
 		logger.info("mdvo = " + mdvo);
 
-		oservice.cheack_md(barcode_no, member_no);
+		oservice.check_md(barcode_no, member_no);
 
 	}
 	

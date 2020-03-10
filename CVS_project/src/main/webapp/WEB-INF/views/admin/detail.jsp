@@ -5,15 +5,15 @@
 	<form id="detailForm" method="post" action="update" enctype="multipart/form-data">
 		<div class="container">
 			
-			<input type="hidden" name="no" value="${boardVO.no}">
-			<input type="hidden" name="pageNum" value="${cri.pageNum}">
-			<input type="hidden" name="keyword" value="${cri.keyword}">
+			<input type="hidden" name="no" id = "no" value="${boardVO.no}">
+			<input type="hidden" name="pageNum" id="pageNum" value="${cri.pageNum}">
+			<input type="hidden" name="keyword" id="keyword" value="${cri.keyword}">
 			
 			<h1 style="padding-top: 5%; padding-bottom: 3%;">글수정</h1>
 			<table class="table table-hover" style="width: 100%;">
 			 <thead>
 				<tr>
-					<td style="width: 10%;">글번호</td> <td> ${boardVO.no}</td>
+					<td style="width: 10%;">글번호</td> <td id="board_no">${boardVO.no}</td>
 				</tr>
 			 </thead>
 				<tr>
@@ -49,8 +49,7 @@
 				
 			<a class="btn btn-secondary"  href="adminMain?no=${boardVO.no}&pageNum=${cri.pageNum}&keyword=${cri.keyword}&type=list">목록</a>
 			<input class="btn btn-secondary" type="submit" value="글수정"> 
-		
-			<input class="btn btn-secondary" type="submit" value="글삭제" formaction="delete">
+			<button class="btn btn-secondary" type="button" id="delete_board">글삭제</button>
 		</div>	
 	</form>
 <script>
@@ -61,6 +60,27 @@
 	console.log(ctent);
 	$("#writeTextarea").html(ctent);
 
-	
+	$("#delete_board").on("click", function name(){
+		
+		var no = $("#board_no").html();
+		var pageNum =  $("#pageNum").val();
+		var keyword =  $("#keyword").val();
+		
+		$.ajax({
+
+			type : "DELETE",
+			url : "delete/"+no,
+			success : function(data) {
+				$(location).attr('href', "adminMain?pageNum="+pageNum+"&keyword="+keyword+"&type=list");
+			},
+			error : function(err) {
+				alert("등록에 실패했습니다.");
+			}
+   
+
+		});
+		
+		
+	});
 	
 </script>

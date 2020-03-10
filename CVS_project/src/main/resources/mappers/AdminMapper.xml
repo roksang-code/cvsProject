@@ -79,11 +79,16 @@
 	
 	
 	<select id="approval_list" resultType="com.cvs.model.Md_infoVO">
-		select order_board.member_no, total_order_ea.total_order_ea, sum(cost) total_cost, sum(price) total_price from 
-			order_board left join (select member_no, sum(order_ea) total_order_ea from order_board group by member_no) total_order_ea on total_order_ea.member_no = order_board.member_no
+		select order_board.member_no, total_order_ea, total_cost, total_price from 
+			order_board left join (SELECT member_no, sum(order_board.order_ea*cost) total_cost, sum(order_board.order_ea*price) total_price
+		 			FROM order_board
+		  			JOIN md_price ON order_board.barcode_no = md_price.barcode_no
+		  			group by member_no) total on total.member_no = order_board.member_no
+						left join (select member_no, sum(order_ea) total_order_ea from order_board group by member_no) 
+						total_order_ea on total_order_ea.member_no = order_board.member_no
 						left join md_info on order_board.barcode_no= md_info.barcode_no
 					    left join md_price on order_board.barcode_no = md_price.barcode_no
-            where total_order_ea.total_order_ea > 0
+            where order_board.order_ea > 0
             group by order_board.member_no;
 	</select>
 	

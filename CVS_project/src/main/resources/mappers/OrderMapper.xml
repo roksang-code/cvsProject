@@ -65,7 +65,7 @@
 			<choose>
 			  <when test="order_ea != 0">	
 				<choose>
-				<when test="count != 0">
+				<when test="count != 0 || approval_ea != 0">
 					UPDATE order_board
 					SET order_ea =  #{order_ea} where member_no=#{member_no} and barcode_no=#{barcode_no};					
 				</when>
@@ -82,7 +82,7 @@
 		    </choose>	
 	</insert>
 	
-	<update id="cheack_md">
+	<update id="check_md">
 		update order_board
 			set approval_ea = 0
 			where member_no = #{member_no} and barcode_no = #{barcode_no};

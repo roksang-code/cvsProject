@@ -20,7 +20,7 @@
 <script type="text/javascript">
 
 $(document).on("click", "#select_type_page", function(){
-
+			
 			var type = '상온식품';
 			var detail_type ="";
 			var md_name = "";	
@@ -105,7 +105,7 @@ $(document).on("click", "#main_page", function(){
 
 });
 
-function cheack_list(member_no) {
+function check_list(member_no) {
 	
 	$.getJSON("../admin/approval_detail_list?member_no="+member_no,
 			
@@ -114,7 +114,7 @@ function cheack_list(member_no) {
 				
 				str="";
 							
-				str += "<table class='table table-bordered' id='cheack_list_table'>";						
+				str += "<table class='table table-bordered' id='check_list_table'>";						
 				str += "<thead class='thead-light'>";
 				str += "<tr>";
 				str += "<th>바코드번호</th>";
@@ -128,7 +128,7 @@ function cheack_list(member_no) {
 				
 				$(data).each(function(index) {
 					if(this.approval_ea > 0){
-						str += "<tr class='cheack_list_tr' id='cheack_list_tr"+(index+1)+"'>";
+						str += "<tr class='check_list_tr' id='check_list_tr"+(index+1)+"'>";
 						str += "<td class='bar'>" + this.barcode_no + "</td>";
 						str += "<td>" + this.md_name + "</td>";
 						str += "<td>" + this.total_cost + "</td>";
@@ -140,13 +140,14 @@ function cheack_list(member_no) {
 				});
 				str += "</table>";
 
-				$("#cheack_list_table").html(str);
+				$("#check_list_table").html(str);
+				str="";
 
 			});
 }
-$(document).on("click", "#cheak_md_page", function(){
+$(document).on("click", "#check_md_page", function(){
 	
-	cheack_list(member_no);
+	check_list(member_no);
 
 
 });
@@ -160,7 +161,7 @@ $(document).on("click", "#cheak_md_page", function(){
 	    <div class="list-group" id="list-tab" role="tablist">
 	      <a class="list-group-item list-group-item-action active" id="notice_page" data-toggle="list" href="#notice" role="tab" aria-controls="notice">공지사항</a>
 	      <a class="list-group-item list-group-item-action" id="select_type_page" data-toggle="list" href="#select_type" role="tab" aria-controls="select_type">상품발주</a>
-	      <a class="list-group-item list-group-item-action" id="cheak_md_page" data-toggle="list" href="#cheak_md" role="tab" aria-controls="cheak_md">검품</a>	   
+	      <a class="list-group-item list-group-item-action" id="check_md_page" data-toggle="list" href="#check_md" role="tab" aria-controls="check_md">검품</a>	   
 	      <a class="list-group-item list-group-item-action" id="main_page" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">메인페이지</a>
 	    </div>
 	  </div>
@@ -183,8 +184,8 @@ $(document).on("click", "#cheak_md_page", function(){
 	      <div class="tab-pane fade" id="select_type" role="tabpanel" aria-labelledby="select_type_page">	    
 	   	  		<jsp:include page="select_MD_Type.jsp"/>
 		  </div>
-	   	  <div class="tab-pane fade" id="cheak_md" role="tabpanel" aria-labelledby="cheak_md_page">	    
-	   	  		<jsp:include page="cheak_md.jsp"/>
+	   	  <div class="tab-pane fade" id="check_md" role="tabpanel" aria-labelledby="check_md_page">	    
+	   	  		<jsp:include page="check_md.jsp"/>
 		  </div>
 	    </div>
 	  </div>

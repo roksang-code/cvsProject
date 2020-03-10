@@ -13,7 +13,7 @@ public interface OrderMapper {
 
 	public void MDorder(Order_boardVO obvo)throws Exception;
 
-	public void cheack_md(String barcode_no, int member_no) throws Exception;
+	public void check_md(String barcode_no, int member_no) throws Exception;
 
 	
 	
