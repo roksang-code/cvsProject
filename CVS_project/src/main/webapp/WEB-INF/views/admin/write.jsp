@@ -9,12 +9,12 @@
 			<table class="table table-hover" style="width: 100%;">
 					
 					<tr>
-					 	<td>제목 </td><td><input class="form-control" type="text" name="subject" size="137px;"></td>
+					 	<td style="width: 10%;">제목 </td><td><input class="form-control" type="text" name="subject" size="137px;"></td>
 					</tr>
 					<tr>
 					 	<td>내용</td>
 					 		<td>
-								<div class="form-control" id="writeTextarea" style="width: 1020px; height: 300px"></div>
+								<div class="form-control" id="writeTextarea" style="width: 100%; height: 300px"></div>
 								<input type='hidden' name='content' id='content' />
 							</td>
 					</tr>

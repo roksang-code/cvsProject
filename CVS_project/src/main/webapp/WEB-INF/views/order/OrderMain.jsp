@@ -131,8 +131,8 @@ function check_list(member_no) {
 						str += "<tr class='check_list_tr' id='check_list_tr"+(index+1)+"'>";
 						str += "<td class='bar'>" + this.barcode_no + "</td>";
 						str += "<td>" + this.md_name + "</td>";
-						str += "<td>" + this.total_cost + "</td>";
-						str += "<td>" + this.total_price + "</td>";
+						str += "<td>" + this.cost + "</td>";
+						str += "<td>" + this.price + "</td>";
 						str += "<td id=approval_ea"+this.barcode_no+">" + this.approval_ea + "</td>";
 						str += "<td><button id='"+this.barcode_no+"' class='btn btn-light'>승인</button></td>";
 						str += "</tr>";

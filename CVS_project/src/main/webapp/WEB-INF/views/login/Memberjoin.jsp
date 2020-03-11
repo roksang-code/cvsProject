@@ -70,7 +70,7 @@
 							</tr>
 							
 							<tr>
-								<td class="b">생년월일(필수)</td>
+								<td class="b">주민등록번호(필수)</td>
 								<td class="input-group input-group-sm">
 								  <input class="form-control" type="text" id="age1" required/>-<input class="form-control" type="password" id="age2" required/>
 								  <input type="hidden" id="age" name="age"/>

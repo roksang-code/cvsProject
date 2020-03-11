@@ -22,7 +22,7 @@
 				<tr>
 				 	<td>내용</td>	
 				 	<td>
-				 		<div class="form-control" id="writeTextarea" style="width: 1020px; height: 300px"></div>
+				 		<div class="form-control" id="writeTextarea" style="width: 100%; height: 300px"></div>
 							<input type='hidden' name='content' id='content' />
 					</td>
 				</tr>

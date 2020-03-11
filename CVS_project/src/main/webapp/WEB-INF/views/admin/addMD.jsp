@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <script type="text/javascript" src="../resources/plugins/jQuery/jquery.form.min.js"></script> 
-
+	
 
 
 	<script type="text/javascript">
@@ -56,7 +56,7 @@
         				var str ="";
         				if(checkImageType(data)){
         					img = "<div>" + 
-        					"<img src='../displayFile?fileName="+getImageLink(data)+"'/>" +
+        					"<img style='width: 600px; height: 700px;' src='../displayFile?fileName="+getImageLink(data)+"'/>" +
         					"</div>";
 							
         					str= "../displayFile?fileName="+getImageLink(data);
@@ -77,9 +77,15 @@
         		
         	});
          
-            $(document).on("click", "#addMDbtn", function(){
-            	$("[name=b]").attr("required",true);
-            	
+        $(document).on("click", "#addMDbtn", function(){
+          console.log($("input").val());	
+          console.log($("#barcode_no").val());	
+
+		  if($("#barcode_no").val() == "" || $("#barcode_no").val() == "" || $("#type").val() == "" ||
+				  $("#detail_type").val() == "" || $("#company").val() == "" || $("#md_name").val() == "" ||
+				  $("#cost").val() == "" || $("#price").val() == "" || $("#shelf_life").val() == "" || $("#input_imgs").val() == ""){
+				alert("모든 입력란을 작성하세요.");	
+		  } else{            	
             	$("#MDform").ajaxForm({
                      type: 'POST',
                      url: 'addMD',
@@ -100,10 +106,11 @@
                  }).submit();
             
     
-             });
+             
             
-            
-        }); 
+          }
+        });
+  	  }); 
 
  
         
