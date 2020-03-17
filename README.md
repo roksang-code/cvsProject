@@ -1,6 +1,6 @@
 <h1>Web_POS Project</h1>
 
-<h3> : <a href="68483940.ngrok.io/cvs/login/mainPage"> Web_POS</a></h3>
+<h3> 링크 : <a href="68483940.ngrok.io/cvs/login/mainPage"> Web_POS</a></h3>
 
 <h3>관리자 계정</h3>
   <h4>id : admin</h4>
