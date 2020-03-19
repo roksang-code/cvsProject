@@ -58,5 +58,19 @@ public class LoginMapperImpl implements LoginMapper{
 		return searchPW;
 	}
 
+	@Override
+	public List<Member_infoVO> checkEmail(String email) throws Exception {
+		List<Member_infoVO> checkEmail = session.selectList(namespace + ".checkEmail", email);
+		
+		return checkEmail;
+	}
+
+	@Override
+	public List<Member_infoVO> checkID(String id) throws Exception {
+		List<Member_infoVO> checkID = session.selectList(namespace + ".checkID", id);
+		
+		return checkID;
+	}
+
 
 }

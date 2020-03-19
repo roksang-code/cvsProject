@@ -225,7 +225,7 @@ $(document).ready(function() {
 		var tr_no =parseInt($("#"+trid).find(".cnt").text());//리스트번호
         var tr_bar = $("#"+trid).find("#bar"+tr_no).text(); //바코드 번호
 		var tr_ea =parseInt($("#"+trid).find(".md_ea").text());//리스트번호
-		var tr_pr =parseInt($("#"+trid).find(".price").text());//상품 정가
+		var tr_pr =parseInt($("#"+trid).find("#"+tr_bar+"hprice").val());//상품 정가
 
 
 		
@@ -275,18 +275,39 @@ $(document).ready(function() {
 
 
 							$(".changeEA").off("click").on("click",function(){
+								 var list_no = pm_info_list.findIndex(pm_info_list => pm_info_list.barcode_no == tr_bar);
 
+
+								
+								 var add_list =pm_info_list[list_no];
+				                 var re_pm_info_list = new Array();
+				                    
+
+								$("#"+eaid).text(inputKey);
+								$("#"+trid).find(".price").find("."+tr_bar+"pr").text(pm_info_list[list_no].price*inputKey);
+								$("#"+trid).find(".a_trtotal_price").text(pm_info_list[list_no].price*inputKey);
+								
+								
 								pm_info_list = pm_info_list.filter(pm_info_list => pm_info_list.barcode_no != tr_bar);
-								console.log("pm_info_list");			
-								console.log(pm_info_list);			
+			                 
+								for(var i =0;i<inputKey;i++){
+									console.log("add_list =");
+									console.log(add_list);
 
-								for(var i =1;i<inputKey;i++){
-									
-									appendMD(tr_bar);
-									
-						        }
-			    
+									pm_info_list.splice(list_no, 0, add_list);
+			                    }
 
+			                    console.log("list_no = ");	
+								console.log(pm_info_list);	
+									
+								appendMD_sale(pm_info_list, 1);//상품할인 적용
+							
+								appendMD_total_pay();
+								console.log("trid ="+trid);
+								console.log("list =");
+								console.log(pm_info_list);
+
+								
 							});
 					}
 				

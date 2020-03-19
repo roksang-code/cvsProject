@@ -16,11 +16,29 @@
 		 
 	</insert>
 	
+	
+	<!--  ID중복확인 -->
+	<select id="checkID" resultType="com.cvs.model.Member_infoVO">
+
+        select * from member_info where id=#{id};
+		
+	</select>
+	
+	<!--  email중복확인 -->
+	<select id="checkEmail" resultType="com.cvs.model.Member_infoVO">
+
+        select * from member_info where email=#{email};
+		
+	</select>
+	
+	<!--  ID찾기 -->
 	<select id="searchID" resultType="com.cvs.model.Member_infoVO">
 
         select * from member_info where email=#{email};
 		
 	</select>
+	
+	<!--  PW찾기 -->
 	<select id="searchPW" resultType="com.cvs.model.Member_infoVO">
 	
 	        select * from member_info where ID=#{id} and email = #{email};

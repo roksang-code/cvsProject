@@ -15,5 +15,9 @@ public interface LoginService {
 
 	public List<Member_infoVO> searchPW(String id, String email)throws Exception ;
 
+	public List<Member_infoVO> checkEmail(String email)throws Exception ;
+
+	public List<Member_infoVO> checkID(String id)throws Exception ;
+
 	
 }

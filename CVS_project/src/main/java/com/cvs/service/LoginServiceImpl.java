@@ -43,5 +43,19 @@ public class LoginServiceImpl implements LoginService {
 		return lm.searchPW(id, email);
 
 	}
+
+	@Override
+	public List<Member_infoVO> checkEmail(String email) throws Exception {
+
+		return lm.checkEmail(email);
+
+	}
+
+	@Override
+	public List<Member_infoVO> checkID(String id) throws Exception {
+
+		return lm.checkID(id);
+
+	}
 	
 }

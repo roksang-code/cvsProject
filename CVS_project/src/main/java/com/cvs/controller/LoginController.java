@@ -91,7 +91,40 @@ public class LoginController {
 		
 		return "login/LoginpageGet";
 	}
-	
+	@ResponseBody
+	@RequestMapping(value = "/checkID", method = RequestMethod.GET)//ID 중복확인
+	public ResponseEntity<List<Member_infoVO>> checkID(@RequestParam String id, Member_infoVO mivo) throws Exception{
+		
+
+		ResponseEntity<List<Member_infoVO>> entity = null;
+		logger.info("checkID GET...");
+		List<Member_infoVO> checkID = lservice.checkID(id);
+
+		
+		
+		entity = new ResponseEntity<List<Member_infoVO>>(checkID, HttpStatus.OK);
+
+		logger.info("id = "+id);
+		
+		return entity;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/checkEmail", method = RequestMethod.GET)//email 중복확인
+	public ResponseEntity<List<Member_infoVO>> checkEmail(@RequestParam String email, Member_infoVO mivo) throws Exception{
+		
+
+		ResponseEntity<List<Member_infoVO>> entity = null;
+		logger.info("checkID GET...");
+		List<Member_infoVO> checkEmail = lservice.checkEmail(email);
+
+		
+		
+		entity = new ResponseEntity<List<Member_infoVO>>(checkEmail, HttpStatus.OK);
+
+		logger.info("email = "+email);
+		
+		return entity;
+	}
 	@ResponseBody
 	@RequestMapping(value = "/searchID", method = RequestMethod.GET)//ID 검색
 	public ResponseEntity<List<Member_infoVO>> searchID(@RequestParam String email, Member_infoVO mivo) throws Exception{

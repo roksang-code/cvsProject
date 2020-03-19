@@ -33,7 +33,7 @@
 		<button class="mainpage">메인페이지</button>
 	</header>
 	<div>
-		<div class="middle">
+		<div class="middle"  style="height: 480px; overflow-x:hidden; overflow-y:scroll;">
 			<div class="mdlist">
 				<table class="listtable" border="1" width=750px>
 					<!-- 상품리스트 -->
@@ -66,6 +66,7 @@
 					<button class="deletemd">삭제</button>
 					</br>
 				</div>
+				
 			</div>
 
 
@@ -82,7 +83,7 @@
 					<input type="text" class="md_search_data"><input
 						type="submit" value="검색" class="md_search">
 				</div>
-				<div class="search_info"></div>
+				<div class="search_info" style="height: 120px; overflow-x:hidden; overflow-y:scroll;"></div>
 				
 				<div class="modalclose"><button type="button" class="close">X</button></div>
 			</div>
@@ -101,7 +102,7 @@
 					<input type="text" class="tel_membership_no_data"><input
 						type="submit" value="조회" class="tel_search">
 				</div>
-				<div class="tel_membership_info"></div>
+				<div class="tel_membership_info"  style="height: 120px; overflow-x:hidden; overflow-y:scroll;"></div>
 				
 				<div class="modalclose">
 					<button type="button" class="close">X</button>
@@ -279,7 +280,9 @@
 		                                 $("#"+ barcode_no + "total").text(parseInt($("#"+ barcode_no + "total").text())+this.price);//합계
 		                              
 		                               
-		                              
+		 								console.log("list =");
+										console.log(pm_info_list);
+
 		                        }else {   //바코드번호가 다를 때
 		
 		                           
@@ -292,6 +295,8 @@
 		                                 }
 		                                 str += "</td>";
 		                                 str += "<td class='price'> <a class="+this.barcode_no+"pr>"+ this.price+ "</a></td>";
+		                                 str += "<input id="+this.barcode_no+"pr_no type='hidden' value="+this.promotion_no+">";
+		                                 str += "<input id="+this.barcode_no+"hprice type='hidden' value="+this.price+">";
 		                                 str += "<td class='md_ea' id=tdea"+cnt+"> <a id=ea"+cnt+" class="+this.barcode_no+"ea>"+ ea+ "</a></td>";
 		                                 str += "<td class="+this.promotion_no+"sale> <a id="+this.barcode_no+"sale class='sale'>"+sale+"</a></td>";
 		                                 str += "<td id=ea"+cnt+"xPrice class='trtotal_price'> <a id='"+this.barcode_no+"total' class ='a_trtotal_price'>"+ (this.price*ea-sale) +"</a></td>";

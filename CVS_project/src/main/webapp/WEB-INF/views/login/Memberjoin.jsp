@@ -13,9 +13,50 @@
 
 </head>
 <body>
+<script type="text/javascript">
+function check() {
+
+	  if($("#hidc").val() == 0) {
+
+	    alert("ID 중복확인을 해주세요.");
+
+	    fr.idc.focus();
+
+	    return false;
+
+	  }
+	  else if($("#pwtext2").val() != "사용가능한 비밀번호 입니다.") {
+
+			alert("비밀번호는 8자 이상 12자 이하로 입력하셔야 합니다.");
+			$("#pwtext").val("");
+			$("#pwtext2").text("");
+			$("#pwtext3").val("");
+			$("#pwtext4").text("");
+		    fr.pw.focus();
+
+		    return false;
+
+	  }
+	  else if($("#hemailc").val() == 0) {
+
+		alert("Email 중복확인을 해주세요.");
+
+	    fr.emailc.focus();
+
+	    return false;
+
+	  }
+	 
+	  
+	  
+
+	  else return true;
+
+	}
+</script>
 	<div class="container-fluid  my-3">
 		<div class="col-md-6 offset-md-3">
-			<form action="Memberjoin" method="post">
+			<form name="fr" action="Memberjoin" method="post" onsubmit="return check()">
 			
 			<h1 align="center" style="padding-top: 10%; padding-bottom: 5%;">회원가입</h1>
 					<table class="table">
@@ -25,15 +66,18 @@
 						</tr>
 						<tr>
 							<td class="b">아이디(필수)</td>
-							<td><input class="form-control" type="text" id="idtext" name="id" size="15px" onkeyup="idch()" required/><a id="idtext2"></a></td>
+							<td class="input-group input-group"><input class="form-control" type="text" id="idtext" name="id"  size="15px" required/>
+							<input id="hidc" value="0" type="hidden"/><button class="btn btn-secondary" id="idc" name="idc" type="button">중복확인</button>
+							</td>
+						
 						</tr>
 						<tr>
 							<td class="b">비밀번호(필수)</td>
-							<td><input class="form-control" type="password" id="pwtext" name="pw" size="15px" onkeyup="pwch()" required/><a id="pwtext2"></a></td>
+							<td><input class="form-control" type="password" id="pwtext" name="pw" size="15px" required/><a id="pwtext2"></a></td>
 						</tr>
 						<tr>
 							<td class="b">비밀번호확인(필수)</td>
-							<td><input class="form-control" type="password" id="pwtext3" size="15px" onkeyup="pwch2()" required/><a id="pwtext4"></a></td>
+							<td><input class="form-control" type="password" id="pwtext3" size="15px"required/><a id="pwtext4"></a></td>
 						</tr>
 						
 							<tr>
@@ -49,9 +93,8 @@
 										<option value="gmail.com">gmail.com</option>
 										<option value="daum.net">daum.net</option>
 									</select>
-									
-								</td>
-								
+								<input id="hemailc" value="0" type="hidden"/>	
+								<button class="btn btn-secondary btn-sm" id="emailc" name="emailc" type="button">중복확인</button></td>
 							</tr>
 							
 							<tr>
