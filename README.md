@@ -1,6 +1,6 @@
 <h1>Web_POS Project</h1>
 
-<h3> 주소 : <a href="68483940.ngrok.io/cvs/login/mainPage"> 68483940.ngrok.io/cvs/login/mainPage</a></h3>
+<h3> 주소 : <a href="http://175.127.130.163:8081/cvs/login/mainPage"> http://175.127.130.163:8081/cvs/login/mainPage</a></h3>
 
 <h3>관리자 계정</h3>
   <h4>id : admin</h4>
@@ -9,6 +9,12 @@
 <h3>게스트 계정</h3>
   <h4>id : guest</h4>
   <h4>pw : 123</h4>
+
+<h3>통신사 할인 계정</h3>
+<h4>SKT	홍길동	01011112222	gold</h4>
+<h4>SKT	홍길자	01033334444	silver</h4>
+<h4>KT	김이박	01055556666	silver</h4>
+<h4>LGT	금은동	01077778888	gold</h4>
 
 <h3>바코드목록</h3>
 <h4>11111	고향만두</h4>
