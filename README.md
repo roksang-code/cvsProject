@@ -1,7 +1,7 @@
 <h1>Web_POS Project</h1>
 
 <h3> 주소 : <a href="http://175.127.130.163:8081/cvs/login/mainPage"> http://175.127.130.163:8081/cvs/login/mainPage</a></h3>
-
+<h4>OPEN : 월-금(평일)</h4>
 <h3>관리자 계정</h3>
   <h4>id : admin</h4>
   <h4>pw : 123</h4>
