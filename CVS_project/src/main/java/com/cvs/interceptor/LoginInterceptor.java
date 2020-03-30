@@ -39,7 +39,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 				response.sendRedirect("../login/mainPage");	//로그인 성공한 후 메인페이지로 이동
 			}
 		}else {
-			response.sendRedirect("../login/LoginpageGet");	//로그인 실패 로그인 페이지로 이동
+			response.sendRedirect("../login/LoginpageGet?fail=0");	//로그인 실패 로그인 페이지로 이동
 
 		}
 	}//로그인 하기 전

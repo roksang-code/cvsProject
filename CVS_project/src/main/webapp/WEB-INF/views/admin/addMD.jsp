@@ -81,11 +81,60 @@
           console.log($("input").val());	
           console.log($("#barcode_no").val());	
 
-		  if($("#barcode_no").val() == "" || $("#barcode_no").val() == "" || $("#type").val() == "" ||
-				  $("#detail_type").val() == "" || $("#company").val() == "" || $("#md_name").val() == "" ||
-				  $("#cost").val() == "" || $("#price").val() == "" || $("#shelf_life").val() == "" || $("#input_imgs").val() == ""){
-				alert("모든 입력란을 작성하세요.");	
-		  } else{            	
+          if($("#barcode_no").val()=="") {
+
+      	    alert("바코드를 입력해주세요.");
+
+      	  $("#barcode_no").focus();
+
+      	  }else if($("#type").val() == "") {
+
+      		  alert("상품타입을 입력해주세요.");
+
+      		$("#type").val().focus();
+
+      	  }else if($("#detail_type").val() == "") {
+
+      		  alert("세부타입을 입력해주세요.");
+
+      		$("#detail_type").focus();
+
+      	  } else if($("#company").val() == "") {
+
+      		  alert("제조사를 입력해주세요.");
+
+      		$("#company").val().focus();
+
+      	  } else if($("#md_name").val() == "") {
+
+      		  alert("상품이름을 입력해주세요.");
+
+      		$("#md_name").val().focus();
+
+      	  }else if($("#cost").val() == "") {
+
+      		  alert("원가를 입력해주세요.");
+
+      		$("#cost").val().focus();
+
+      	  }else if($("#price").val() == "") {
+
+      		  alert("정가를 입력해주세요.");
+
+      		$("#price").val().focus();
+
+      	  }else if($("#shelf_life").val() == "") {
+
+      		  alert("유통기한을 입력해주세요.");
+
+      		$("#shelf_life").val().focus();
+
+      	  }else if($("#input_imgs").val() == "") {
+
+      		  alert("사진을 첨부해주세요.");
+
+
+      	  }else{            	
             	$("#MDform").ajaxForm({
                      type: 'POST',
                      url: 'addMD',
@@ -112,7 +161,8 @@
         });
   	  }); 
 
- 
+
+                
         
     </script>
     
@@ -130,7 +180,7 @@
 								<td><input class="form-control" type="text" id="barcode_no" name="barcode_no" size="15px" required/></td>
 							</tr>
 							<tr>
-								<td class="b">타입</td>
+								<td class="b">상품타입</td>
 								<td><input class="form-control" type="text" id="type" name="type" size="15px" required/></td>
 							</tr>
 							<tr>

@@ -25,7 +25,7 @@ function check() {
 	    return false;
 
 	  }
-	  else if($("#pwtext2").val() != "사용가능한 비밀번호 입니다.") {
+	  else if($("#pwtext2").text() != "사용가능한 비밀번호 입니다.") {
 
 			alert("비밀번호는 8자 이상 12자 이하로 입력하셔야 합니다.");
 			$("#pwtext").val("");

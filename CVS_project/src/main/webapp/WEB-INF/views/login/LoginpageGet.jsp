@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +32,14 @@
 			
 	</style>
 <body>
+	<script type="text/javascript">
+
+	if(${param.fail==0}){
+		alert("아이디와 비밀번호를 다시 입력해주세요");
+		$(location).attr('href', "../login/LoginpageGet");
+	}
+	</script>	
+
 <div class="container-fluid  my-3">
 		<div class="col-md-4 offset-md-4">
 		<form action="LoginpagePost" method="post">

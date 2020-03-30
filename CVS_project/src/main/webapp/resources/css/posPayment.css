@@ -6,8 +6,11 @@
 	height: 30%;
 	position:relative;
 }
-.bottom{
+#bottom{
+	width:100%;
 	height: 50%;
+	border: solid 1px black; 
+	
 }
 .mdlist{	
 	height : 50%;
@@ -60,9 +63,23 @@
 	border-bottom: 1px solid #ccc;
 }
 .input{
-	padding-top: 24%;
-}
+	position:absolute; bottom:0px;
 
+
+}
+table.txc-table {
+
+width: 100%;
+
+table-layout: fixed;
+
+} 
+
+table thead tr {
+
+width: 100%;
+
+}
 
 
 
@@ -75,19 +92,12 @@
 	
 }
 
-.bottom{
-		border: solid 1px black; 
-}
 
-.functionkey{
+#functionkey{
 	text-align : center;
 	
-	float: left;
-	padding-right: 30px;
 	font-size : 20px;
-	margin-left: 100px;
-	margin-right: 220px;
-		
+	padding-left: 5%;	
 }
 
 .functiontable{
@@ -100,22 +110,21 @@
 
 }
 
-.printprice{
+#printprice{
 	text-align : center;
-		float: left;
-	padding-right: 30px;
 	font-size : 20px;
+	padding-left: 5.5%;	
 	
 }
 .prnum{
 		text-align : right;
 		padding-right: 20px;
 }
-.printprice table{
+#printprice table{
 	width: 400px;
 }
 
-.printprice tr td{
+#printprice tr td{
 	
 	height: 80px;
 	
@@ -125,16 +134,15 @@
 
 
 
-.numbotton{
-	margin-right : 100px;
-	float: right;
+#numbotton{
+		padding-left: 5%;	
+	
 }
 .numkey{
 	text-align : center;
 	font-size : 15px;
 	width: 400px;
 	height: 200px;
-	padding-right: 20px;
 }
 .numkey tr td{
 	width: 25%;
@@ -165,10 +173,6 @@ top:50%; z-index:11; background:#fff;}
 #tel_dis_modal .tel_modalContent{width:440px; height:200px; padding:20px; border:1px solid #ccc; position:fixed; left:50%; 
 top:50%; z-index:11; background:#fff;}
 #tel_dis_modal .modalclose button{position:absolute; right:0; top:0; cursor:pointer;}
-
-
-
-
 
 
 
