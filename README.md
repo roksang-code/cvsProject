@@ -1,7 +1,7 @@
 <h1>Web_POS Project</h1>
 
 <h3>운영중지</h3>
-<h3> 주소 : <strike><a href="http://112.185.215.56:8081/cvs/login/mainPage" > http://112.185.215.56:8081/cvs/login/mainPage</a><.strike></h3>
+<h3> 주소 : <strike><a href="http://112.185.215.56:8081/cvs/login/mainPage" > http://112.185.215.56:8081/cvs/login/mainPage</a></strike></h3>
 <h4><strike>OPEN : 월-금(평일)</strike></h4>
 <h3>관리자 계정</h3>
   <h4>id : admin</h4>
